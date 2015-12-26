@@ -1,3 +1,4 @@
 from django.contrib import admin
+from lager.models import Skoteldur
 
-# Register your models here.
+admin.site.register(Skoteldur)
