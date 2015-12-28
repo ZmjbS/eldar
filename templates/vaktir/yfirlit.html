@@ -1,0 +1,24 @@
+<html>
+
+{% for dagur, starfsstodvar in dagar.items %}
+<div style="width: 600px; border: 1px solid green; float: left;">
+dagur: {{ dagur | date:"M/d" }}
+	<table>
+		{% for starfsstod, timabil in starfsstodvar.items %}
+		<tr style="background-color: red; vertical-align: top;">
+			<th>{{ starfsstod }}</th>
+			{% for timabilid, skraningar in timabil.items %}
+			<td>{{ timabilid }}{{ skraningar.count }}
+				<ul>
+				{% for skraning in skraningar %}
+					<li>{{ skraning }}</li>
+				{% endfor %}
+				</ul>
+			</td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+{% endfor %}
+</html>
