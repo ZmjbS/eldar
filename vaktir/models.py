@@ -11,7 +11,10 @@ class Timabil(models.Model):
 	class Meta:
 		verbose_name_plural = 'timabil'
 
-class Stada(models.Model):
+	def __str__(self):
+		return '%s-%s' % (self.hefst.strftime('%H'), self.lykur.strftime('%H'))
+
+class Starfsstod(models.Model):
 	# Nafn sölustaðar eða verkefnis. Dæmi: M6, Grjótháls, bílstjórar,
 	# stjórnstöð...
 	#
@@ -19,6 +22,9 @@ class Stada(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'stodur'
+
+	def __str__(self):
+		return self.nafn
 
 class Tegund(models.Model):
 	# Tegund vaktar. Dæmi: sala, næturvakt, undirbúningur, stuðningur.
@@ -28,13 +34,16 @@ class Tegund(models.Model):
 	class Meta:
 		verbose_name_plural = 'tegundir'
 
+	def __str__(self):
+		return self.nafn
+
 class Vakt(models.Model):
 
 	# Vaktin hefur ákveðið tímabil, dagsetningu og er úthlutað ákveðinn
 	# sölustað erða verkefni (Staða).
 	timabil = models.ForeignKey(Timabil)
 	dags = models.DateField()
-	stada = models.ForeignKey(Stada)
+	starfsstod = models.ForeignKey(Starfsstod)
 
 	# Hver vakt hefur ákveðið lágmark sem við þurfum að manna og ákveðið hámark
 	# sem við þurfum alls ekki að fara yfir.
@@ -46,6 +55,9 @@ class Vakt(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'vaktir'
+
+	def __str__(self):
+		return '%s (%s %s) [%s-%s] %s' % (self.starfsstod, self.dags.strftime('%D'), self.timabil, str(self.lagmark), str(self.hamark), self.tegund)
 
 class Felagi(models.Model):
 	# Viö höldum utan um félagana sem skrá sig.
@@ -66,8 +78,8 @@ class Skraning(models.Model):
 	# Hér eru félagar skráðir á vaktir. Hver félagi getur verið með fleiri ein
 	# eina vakt og er þá með þann fjölda skráninga.
 	#
-	felagi = models.ForeignKey(Felagi)
-	vakt = models.ForeignKey(Vakt)
+	felagi = models.ForeignKey(Felagi, related_name='skraningar')
+	vakt = models.ForeignKey(Vakt, related_name='skraningar')
 
 	# Hver svörun getur verið eitt af:
 	SVORUN_VALMOGULEIKAR = (
