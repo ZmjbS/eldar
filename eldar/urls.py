@@ -6,5 +6,8 @@ urlpatterns = [
     # url(r'^$', 'eldar.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+     #url(r'^$', 'eldar.views.home', name='home'),
+     url(r'^vaktir$', 'vaktir.views.yfirlit', name='yfirlit'),
+
     url(r'^admin/', include(admin.site.urls)),
 ]
