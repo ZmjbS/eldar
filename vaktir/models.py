@@ -74,6 +74,9 @@ class Felagi(models.Model):
 	class Meta:
 		verbose_name_plural = 'felagar'
 
+	def __str__(self):
+		return self.nafn
+
 class Skraning(models.Model):
 	# Hér eru félagar skráðir á vaktir. Hver félagi getur verið með fleiri ein
 	# eina vakt og er þá með þann fjölda skráninga.
@@ -91,3 +94,6 @@ class Skraning(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'skraningar'
+
+	def __str__(self):
+		return '%s [%s]: %s' % (self.felagi, self.SVORUN_VALMOGULEIKAR[self.svorun][1], self.vakt.tegund)
