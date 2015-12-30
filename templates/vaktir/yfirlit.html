@@ -1,22 +1,40 @@
 <html>
+<body>
 
-{% for dagur, starfsstodvar in dagar.items %}
-<div style="widt: 600px; border: 1px solid green; float: left;">
-dagur: {{ dagur | date:"M/d" }}
-	<table>
-		{% for starfsstod, timabil in starfsstodvar.items %}
+<table>
+	<thead>
+	<tr style="border: 1px solid green;">
+		<th rowspan="2">Starfsstöð</th>
+		{% for dagur in dagalisti %}
+		<th colspan="{{ timabilalisti|length }}" style="text-align: left; border: thin solid green; border-left-width: 1em; ">{{ dagur | date:"M/d" }}</th>
+		{% endfor %}
+	</tr>
+	<tr style="border: 1px solid red;">
+		{% for dagur in dagalisti %}
+			{% for tb in timabilalisti %}
+			<th>{{ tb }}</th>
+			{% endfor %}
+		{% endfor %}
+	</tr>
+	</thead>
+	<tbody>
+		{% for starfsstod, dagar in starfsstodvar.items %}
 		<tr style="background-color: red; vertical-align: top;">
 			<th>{{ starfsstod }}</th>
-			{% for timabilid, skraningar in timabil.items %}
-			<td>{{ timabilid }}{{ skraningar.count }}<br />
-				{% for skraning in skraningar %}
-					<span title="{{ skraning }}">x</span>
+			{# for dagur, timabil in dagar.items #}
+			{% for timabil in dagar %}
+				{% for tb, vaktskraning in timabil.items %}
+				<td {% if forloop.first %}style="border: thin solid black; border-left-width: 1em;"{% endif %}><!--{{ tb }}<br />-->
+					{{ vaktskraning.skraningar.count }}<br />
+					{% for skraning in vaktskraning.skraningar %}
+						<span title="{{ skraning }}">x</span>
+					{% endfor %}
+				</td>
 				{% endfor %}
-			</td>
 			{% endfor %}
 		</tr>
 		{% endfor %}
-	</table>
-</div>
-{% endfor %}
+	</tbody>
+</table>
+</body>
 </html>
