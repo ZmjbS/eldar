@@ -1,37 +1,41 @@
 <html>
 <head>
 <style>
+	tbody tr { vertical-align: top; }
+	th.dagur {  text-align: left; border: thin solid green; border-left-width: 1em; }
+	th.timabil { background-color: darkblue; color: white; padding: .2em; font-size: small; }
 	.vakt { background-color: #eee; }
 	.ekkivakt { background-color: white; }
+	.fyrstathanndag { border: 0px solid black; border-left-width: 1em; }
 </style>
 </head>
 <body>
 
 <table>
 	<thead>
-	<tr style="border: 1px solid green;">
-		<th rowspan="2">Starfsstöð</th>
+	<tr>
+		<th class="starfsstod" rowspan="2">Starfsstöð</th>
 		{% for dagur in dagalisti %}
-		<th colspan="{{ timabilalisti|length }}" style="text-align: left; border: thin solid green; border-left-width: 1em; ">{{ dagur | date:"M/d" }}</th>
+		<th class="dagur" colspan="{{ timabilalisti|length }}">{{ dagur | date:"M/d" }}</th>
 		{% endfor %}
 	</tr>
-	<tr style="border: 1px solid red;">
+	<tr>
 		{% for dagur in dagalisti %}
 			{% for tb in timabilalisti %}
-			<th>{{ tb }}</th>
+			<th class="timabil">{{ tb }}</th>
 			{% endfor %}
 		{% endfor %}
 	</tr>
 	</thead>
 	<tbody>
 		{% for starfsstod, dagar in starfsstodvar.items %}
-		<tr style="vertical-align: top;">
-			<th>{{ starfsstod }}</th>
+		<tr>
+			<th class="starfsstod">{{ starfsstod }}</th>
 			{# for dagur, timabil in dagar.items #}
 			{% for timabil in dagar %}
 				{% for tb, vaktskraning in timabil.items %}
-				<td {% if forloop.first %}style="border: 0px solid black; border-left-width: 1em;"{% endif %}
-					class="{% if vaktskraning.vaktin %}vakt{% else %}ekkivakt{% endif %}"
+				<td class="{% if forloop.first %}fyrstathanndag{% endif %}
+					       {% if vaktskraning.vaktin %}vakt{% else %}ekkivakt{% endif %}"
 				><!--{{ tb }}<br />-->
 					{% if vaktskraning.vaktin %}
 						{{ vaktskraning.skraningar.count }} / {{ vaktskraning.vaktin.lagmark }}<br />
