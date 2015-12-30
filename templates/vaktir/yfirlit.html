@@ -7,6 +7,8 @@
 	.vakt { background-color: #eee; }
 	.ekkivakt { background-color: white; }
 	.fyrstathanndag { border: 0px solid black; border-left-width: 1em; }
+	.skraning-icon { cursor: grab; }
+	.felagi-1 { background-color: yellow; }
 </style>
 </head>
 <body>
@@ -40,7 +42,7 @@
 					{% if vaktskraning.vaktin %}
 						{{ vaktskraning.skraningar.count }} / {{ vaktskraning.vaktin.lagmark }}<br />
 						{% for skraning in vaktskraning.skraningar %}
-							<span title="{{ skraning }}">&ocir;</span>
+							<span class="skraning-icon felagi-{{ skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
 						{% endfor %}
 					{% endif %}
 				</td>
