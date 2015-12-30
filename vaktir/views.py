@@ -10,10 +10,7 @@ def yfirlit(request):
 	for vakt in Vakt.objects.all():
 		if vakt.dags not in dagalisti:
 			dagalisti.append(vakt.dags)
-	print(dagalisti)
 	dagalisti.sort()
-	print(list(reversed(dagalisti)))
-	print(type(dagalisti))
 
 	timabilalisti = Timabil.objects.all()
 
