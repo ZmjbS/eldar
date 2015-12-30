@@ -19,26 +19,49 @@ def yfirlit(request):
 
 	starfsstodvarlisti = Starfsstod.objects.all()
 
+	""" Útbúum djúpa blöndu orðabóka og lista. Við ætlum að búa til töflu á
+	þessu sniði:
+	             | Dagur 1         | Dagur 2         ...
+	starfsstaður | tb1 | tb2 | tb3 | tb1 | tb2 | tb3 ...
+
+	Því þurfum við að búa til þetta ferlíki:
+	  { starfsstod: { [ { tímabil: { 'vakt', 'skraning' } } ] } }
+	"""
+
 	starfsstodvar = {}
 	for starfsstod in Starfsstod.objects.all():
-		print(starfsstod)
-		#dagar = {}
+
+		# Setjum daga í lista svo hægt sé að lykkja í gegnum þá í réttri röð.
 		dagar = []
 		for dagur in dagalisti:
-			print(dagur)
+			
+			# Hvert stak í dagalistanum mun innihalda orðabók sem í er:
+			# . vaktin
+			# . listi af skráningunum
 			timabil = {}
 			for timabilid in timabilalisti:
 				try:
-					vaktin = Vakt.objects.get(dags=dagur,starfsstod=starfsstod,timabil=timabilid)
-					#print(vaktin)
+					# Það er bara ein vakt fyrir hvert tímabil á hverri
+					# starfsstöð.
+					vaktin = Vakt.objects.get(
+						dags=dagur,
+						starfsstod=starfsstod,
+						timabil=timabilid)
+					# Sækjum allar skráningarnar sem komnar eru.
 					skraningar = Skraning.objects.filter(vakt=vaktin)
-	#				print(skraningar)
 				except:
+					# Ef engin er vaktin setjum við bara inn tóm gildi.
 					vaktin =""
 					skraningar = []
-				timabil.update({ timabilid: { 'vaktin': vaktin, 'skraningar': skraningar, }} )
-			#dagar.update({ dagur: timabil, })
+
+				vaktskraning = { 'vaktin': vaktin, 'skraningar': skraningar, }
+				timabil.update({ timabilid: vaktskraning })
 			dagar.append(timabil)
 		starfsstodvar.update({ starfsstod: dagar, })
 
-	return render_to_response('vaktir/yfirlit.html', { 'dagalisti': dagalisti, 'timabilalisti': timabilalisti, 'starfsstodvar': starfsstodvar, })
+	gogn_til_snidmats = {
+		'dagalisti': dagalisti,
+		'timabilalisti': timabilalisti,
+		'starfsstodvar': starfsstodvar,
+		}
+	return render_to_response('vaktir/yfirlit.html', gogn_til_snidmats)
