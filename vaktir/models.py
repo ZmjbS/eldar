@@ -48,7 +48,7 @@ class Vakt(models.Model):
 	# Hver vakt hefur ákveðið lágmark sem við þurfum að manna og ákveðið hámark
 	# sem við þurfum alls ekki að fara yfir.
 	lagmark = models.SmallIntegerField()
-	hamark = models.SmallIntegerField()
+	hamark = models.SmallIntegerField(null=True,blank=True)
 
 	# Hver vakt hefur einnig ákveðna tegund.
 	tegund = models.ForeignKey(Tegund)
