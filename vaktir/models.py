@@ -83,6 +83,7 @@ class Skraning(models.Model):
 	#
 	felagi = models.ForeignKey(Felagi, related_name='skraningar')
 	vakt = models.ForeignKey(Vakt, related_name='skraningar')
+
 	timastimpill = models.DateTimeField(auto_now_add=True)
 	breytistimpill = models.DateTimeField(auto_now=True)
 
@@ -96,6 +97,7 @@ class Skraning(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'skraningar'
+		unique_together = ( 'felagi', 'vakt' )
 
 	def __str__(self):
 		return '%s [%s]: %s' % (self.felagi, self.SVORUN_VALMOGULEIKAR[self.svorun][1], self.vakt.tegund)
