@@ -1,4 +1,10 @@
 <html>
+<head>
+<style>
+	.vakt { background-color: #eee; }
+	.ekkivakt { background-color: white; }
+</style>
+</head>
 <body>
 
 <table>
@@ -19,16 +25,20 @@
 	</thead>
 	<tbody>
 		{% for starfsstod, dagar in starfsstodvar.items %}
-		<tr style="background-color: red; vertical-align: top;">
+		<tr style="vertical-align: top;">
 			<th>{{ starfsstod }}</th>
 			{# for dagur, timabil in dagar.items #}
 			{% for timabil in dagar %}
 				{% for tb, vaktskraning in timabil.items %}
-				<td {% if forloop.first %}style="border: thin solid black; border-left-width: 1em;"{% endif %}><!--{{ tb }}<br />-->
-					{{ vaktskraning.skraningar.count }}<br />
-					{% for skraning in vaktskraning.skraningar %}
-						<span title="{{ skraning }}">x</span>
-					{% endfor %}
+				<td {% if forloop.first %}style="border: 0px solid black; border-left-width: 1em;"{% endif %}
+					class="{% if vaktskraning.vaktin %}vakt{% else %}ekkivakt{% endif %}"
+				><!--{{ tb }}<br />-->
+					{% if vaktskraning.vaktin %}
+						{{ vaktskraning.skraningar.count }} / {{ vaktskraning.vaktin.lagmark }}<br />
+						{% for skraning in vaktskraning.skraningar %}
+							<span title="{{ skraning }}">&ocir;</span>
+						{% endfor %}
+					{% endif %}
 				</td>
 				{% endfor %}
 			{% endfor %}
