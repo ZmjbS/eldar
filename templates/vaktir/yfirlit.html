@@ -1,10 +1,13 @@
 <html>
 <head>
 <style>
-	tbody tr { vertical-align: top; }
+	tbody tr td { vertical-align: top; }
 	th.dagur {  text-align: left; border: thin solid green; border-left-width: 1em; }
 	th.timabil { background-color: darkblue; color: white; padding: .2em; font-size: small; }
-	.vakt { background-color: #eee; }
+	td { height: 3.6em; width: 3.6em; }
+	.vakt.vakttegund-1 { background-color: #eed; }
+	.vakt.vakttegund-2 { background-color: #eee; }
+	.vakt.vakttegund-3 { background-color: #eef; }
 	.ekkivakt { background-color: white; }
 	.fyrstathanndag { border: 0px solid black; border-left-width: 1em; }
 	.skraning-icon { cursor: grab; }
@@ -37,7 +40,8 @@
 			{% for timabil in dagar %}
 				{% for tb, vaktskraning in timabil.items %}
 				<td class="{% if forloop.first %}fyrstathanndag{% endif %}
-					       {% if vaktskraning.vaktin %}vakt{% else %}ekkivakt{% endif %}"
+					       {% if vaktskraning.vaktin %}vakt{% else %}ekkivakt{% endif %}
+						   vakttegund-{{ vaktskraning.vaktin.tegund.id }}"
 				><!--{{ tb }}<br />-->
 					{% if vaktskraning.vaktin %}
 						{{ vaktskraning.skraningar.count }} / {{ vaktskraning.vaktin.lagmark }}<br />
