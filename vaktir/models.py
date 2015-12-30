@@ -69,7 +69,7 @@ class Felagi(models.Model):
 
 	# Félagar geta skráð "Kannski" vaktir (sjá skráningu). Hér geta þeir
 	# tilgreint hámakrsfjölda vakta sem þeir eru tilbúnir til að sinna.
-	geta = models.PositiveSmallIntegerField(blank=True)
+	geta = models.PositiveSmallIntegerField(null=True,blank=True)
 
 	class Meta:
 		verbose_name_plural = 'felagar'
