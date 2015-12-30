@@ -83,6 +83,8 @@ class Skraning(models.Model):
 	#
 	felagi = models.ForeignKey(Felagi, related_name='skraningar')
 	vakt = models.ForeignKey(Vakt, related_name='skraningar')
+	timastimpill = models.DateTimeField(auto_now_add=True)
+	breytistimpill = models.DateTimeField(auto_now=True)
 
 	# Hver svörun getur verið eitt af:
 	SVORUN_VALMOGULEIKAR = (
