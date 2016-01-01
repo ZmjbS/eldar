@@ -23,8 +23,9 @@
 {% endblock %}
 
 {% block atburdarit %}
-<!--<script src="{% static "js/require.js" %}"></script>-->
-<script src="{% static "js/smoothie-master/standalone/require.js" %}"></script>
+<!-- Þetta var hugmynd til að nota svona identicon í stað hringjanna... -->
+<!-- <script src="{% static "js/require.js" %}"></script> -->
+<!--<script src="{% static "js/smoothie-master/standalone/require.js" %}"></script>-->
 <!--<script src="{% static "js/identicon-github/index.js" %}"></script>-->
 <script type="text/javascript">
 
@@ -66,11 +67,11 @@ $('.skraning-icon').hover(
     });
 
 // Notar Crypto JS
-//var hash = CryptoJS.MD5("Message");
-//console.log(hash.toString());
+var hash = CryptoJS.MD5("Message");
+console.log(hash.toString());
 
 var identicon = require('identicon-github');
-var identicon = require('{% static "js/identicon-github/index.js" %}');
+//var identicon = require('{% static "js/identicon-github/index.js" %}');
 //var identicon = require('../../static/js/identicon-github');
 //var fmt = require('util').format;
 
