@@ -1,0 +1,14 @@
+{% extends "vaktir/grunnur-vaktatafla.html" %}
+
+{% block aukaradir %}
+	{% for starfsstod in starfsstodvarlisti %}
+	<tr>
+		<th>{{ starfsstod }}</th>
+		{% for dagur in dagalisti %}
+			{% for timabil in timabilalisti %} 
+		<td><select><option default="true">engin vakt</option>{% for tegund in tegundalisti %}<option>{{ tegund }}</option>{% endfor %}</select> </td>
+			{% endfor %}
+		{% endfor %}
+	</tr>
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "grunnur.html" %}
+{% load staticfiles %}
+
+{% block stilar %}
+<style>
+	tbody tr td { vertical-align: top; }
+	th.dagur {  text-align: left; border: thin solid green; border-left-width: 1em; }
+	th.timabil { background-color: darkblue; color: white; padding: .2em; font-size: small; }
+	td { height: 3.6em; width: 3.6em; }
+	.vakt.vakttegund-1 { background-color: #eed; }
+	.vakt.vakttegund-1.active { background-color: #ddc; }
+	.vakt.vakttegund-1.hover{ background-color: #ccb; }
+	.vakt.vakttegund-2 { background-color: #eee; }
+	.vakt.vakttegund-2.active { background-color: #ddd; }
+	.vakt.vakttegund-2.hover { background-color: #ccc; }
+	.vakt.vakttegund-3 { background-color: #eef; }
+	.vakt.vakttegund-3.active { background-color: #dde; }
+	.vakt.vakttegund-3.hover { background-color: #ccd; }
+	.ekkivakt { background-color: white; }
+	.fyrstathanndag { border: 0px solid black; border-left-width: 1em; }
+	.skraning-icon { cursor: grab; }
+</style>
+{% endblock %}
+
+{% block atburdarit %}
+<!--<script src="{% static "js/require.js" %}"></script>-->
+<script src="{% static "js/smoothie-master/standalone/require.js" %}"></script>
+<!--<script src="{% static "js/identicon-github/index.js" %}"></script>-->
+<script type="text/javascript">
+
+$( init );
+
+function init() {
+// Þegar við setjum bendil yfir skráningu þá eiga allar eins skráningar að lýsa upp.
+$('.skraning-icon').hover(
+	function() {
+		var clsName = this.className.match(/felagi-\w*/)[0];
+		$('.'+clsName).css('background-color', 'yellow');
+		
+	}, function() {
+		var clsName = this.className.match(/felagi-\w*/)[0];
+		$('.'+clsName).css('background-color', 'inherit');
+	}
+)
+
+  $('.skraning-icon').draggable( { revert: true, revertDuration: 0 } );
+  $('.vakt').droppable({
+  	accept: '.skraning-icon',
+	activeClass: 'active',
+	hoverClass: 'hover',
+      //drop: function( event, ui ) {
+      drop: function( event, ui ) {
+	  	console.log(event);
+	  	console.log(ui);
+        $( this )
+          .addClass( "active" )
+          //.find( ".fjoldi" ).text(function(self){ return self+1 });
+		//$(this).find('.lagmark').text(event.type);
+		//$(event.target).find('.skraningar').html(ui.draggable.parent().html())
+		ui.draggable.appendTo($(event.target).find('.skraningar'));
+		console.log(ui.draggable)
+		console.log(ui.draggable.context.className)
+		var clsName = ui.draggable.context.className.match(/felagi-\w*/)[0];
+		$('.'+clsName).css('background-color', 'inherit');
+      }
+    });
+
+// Notar Crypto JS
+//var hash = CryptoJS.MD5("Message");
+//console.log(hash.toString());
+
+var identicon = require('identicon-github');
+var identicon = require('{% static "js/identicon-github/index.js" %}');
+//var identicon = require('../../static/js/identicon-github');
+//var fmt = require('util').format;
+
+//console.log(fmt("<img alt='kibo' src='%s' />", identicon('kibo', { pixelSize: 16 }).toDataURL()));
+
+
+}
+
+
+</script>
+{% endblock %}
+
+{% block body %}
+<table>
+	<thead>
+	<tr>
+		<th class="starfsstod" rowspan="2">Starfsstöð</th>
+		{% for dagur in dagalisti %}
+		<th class="dagur" colspan="{{ timabilalisti|length }}">{{ dagur | date:"M/d" }}</th>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for dagur in dagalisti %}
+			{% for tb in timabilalisti %}
+			<th class="timabil">{{ tb }}</th>
+			{% endfor %}
+		{% endfor %}
+	</tr>
+	</thead>
+	<tbody>
+		{% for starfsstod, dagar in starfsstodvar.items %}
+		<tr>
+			<th class="starfsstod">{{ starfsstod }}</th>
+			{# for dagur, timabil in dagar.items #}
+			{% for timabil in dagar %}
+				{% for tb, vaktskraning in timabil.items %}
+				<td class="{% if forloop.first %}fyrstathanndag{% endif %}
+					       {% if vaktskraning.vaktin %}vakt{% else %}ekkivakt{% endif %}
+						   vakttegund-{{ vaktskraning.vaktin.tegund.id }}"
+				><!--{{ tb }}<br />-->
+					{% if vaktskraning.vaktin %}
+						<span class="fjoldi">{{ vaktskraning.skraningar.count }}</span> / <span class="lagmark">{{ vaktskraning.vaktin.lagmark }}</span><br />
+						<div class="skraningar">{% for skraning in vaktskraning.skraningar %}
+							<span class="skraning-icon felagi-{{ skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
+						{% endfor %}</div>
+					{% endif %}
+				</td>
+				{% endfor %}
+			{% endfor %}
+		</tr>
+		{% endfor %}
+		{# Hér er bútur til að bæta við aukaröðum (t.d. í smíðasniðmátinu). #}
+		{% block aukaradir %}{% endblock %}
+	</tbody>
+</table>
+{% endblock %}

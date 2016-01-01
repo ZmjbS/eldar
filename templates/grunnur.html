@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+<script src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+<script src="{% static "js/jquery-ui.min.js" %}"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+{% block atburdarit %}{% endblock %}
+
+{% block stilar %}{% endblock %}
+</head>
+<body>
+
+<header>
+{% block haus %}
+<img src="{% static "img/hssr-logo-64px.png" %}" alt="HSSR"/>
+{% if user.is_authenticated %}
+	notandi er skráður inn
+{% else %}
+	<input>nafn</input>
+{% endif %}
+<canvas width="42" height="42" data-jdenticon-hash="ff8AA03938a9292959f443c9d956fc39"></canvas>
+{% endblock %}
+</header>
+
+<article>
+{% block vaktatafla %}{% endblock %}
+</article>
+
+<aside>
+{% block felagar %}{% endblock %}
+</aside>
+
+<footer>
+
+{% block body %}{% endblock %}
+</body>
+</html>
