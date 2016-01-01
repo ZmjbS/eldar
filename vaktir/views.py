@@ -1,8 +1,8 @@
 from django.shortcuts import render_to_response
-from vaktir.models import Vakt, Starfsstod, Timabil, Skraning
+from vaktir.models import Vakt, Starfsstod, Timabil, Skraning, Tegund
 
-def yfirlit(request):
-	
+def starfsstodvayfirlit():
+
 	""" Búum til yfirlit yfir vaktir og skráningar á þær """
 
 	# Búum til lista yfir dagana sem vaktirnar ná yfir.
@@ -61,4 +61,38 @@ def yfirlit(request):
 		'timabilalisti': timabilalisti,
 		'starfsstodvar': starfsstodvar,
 		}
-	return render_to_response('vaktir/yfirlit.html', gogn_til_snidmats)
+	return gogn_til_snidmats
+
+def yfirlit(request):
+	""" Skilar bara yfirliti yfir vaktastöðuna
+	"""
+	return render_to_response('vaktir/yfirlit.html', starfsstodvayfirlit() )
+
+def skraning(request):
+	""" Skilar viðmóti sem býður notanda upp á að skrá sig. Til dæmis svæði fyrir kennitölu og lág tafla yfir vaktir á tímanakkkk
+	"""
+	return render_to_response('vaktir/yfirlit.html', starfsstodvayfirlit() )
+
+def smidi(request):
+
+	starfsstodvarlisti = Starfsstod.objects.all()
+	dagalisti = []
+	for vakt in Vakt.objects.all():
+		if vakt.dags not in dagalisti:
+			dagalisti.append(vakt.dags)
+	dagalisti.sort()
+	timabilalisti = Timabil.objects.all()
+
+	tegundalisti = Tegund.objects.all()
+
+	# Hérna væri gott að taka út þær starfsstöðvar sem þegar er búið að skrá vaktir á, eða möndla það þannig að við fá... ah, hvað með að búa bara til form á vaktalausu dagana? ... ah, nei, við viljum náttúrulega líka geta breytt hinum.
+	# Já, kannski er bara best að vera með alla púllíuna/töfluna og bæta við edit-pakka á þessu view-i...
+
+	gogn_til_snidmats = {
+		'dagalisti': dagalisti,
+		'timabilalisti': timabilalisti,
+		#'starfsstodvar': starfsstodvar,
+		'starfsstodvarlisti': starfsstodvarlisti,
+		'tegundalisti': tegundalisti,
+		}
+	return render_to_response('vaktir/smidi.html', gogn_til_snidmats)
