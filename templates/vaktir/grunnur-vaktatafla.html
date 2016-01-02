@@ -6,6 +6,7 @@
 	tbody tr td { vertical-align: top; }
 	th.dagur {  text-align: left; border: thin solid green; border-left-width: 1em; }
 	th.timabil { background-color: darkblue; color: white; padding: .2em; font-size: small; }
+	th.heild_timabils { background-color: lightblue; color: white; padding: .2em; font-size: small; }
 	td { height: 3.6em; width: 3.6em; }
 	.vakt.vakttegund-1 { background-color: #eed; }
 	.vakt.vakttegund-1.active { background-color: #ddc; }
@@ -33,7 +34,7 @@ $( init );
 
 function init() {
 // Þegar við setjum bendil yfir skráningu þá eiga allar eins skráningar að lýsa upp.
-$('.skraning-icon').hover(
+$('.skraning-icon, #felagalisti .felagi').hover(
 	function() {
 		var clsName = this.className.match(/felagi-\w*/)[0];
 		$('.'+clsName).css('background-color', 'yellow');
@@ -88,7 +89,7 @@ var identicon = require('identicon-github');
 <table>
 	<thead>
 	<tr>
-		<th class="starfsstod" rowspan="2">Starfsstöð</th>
+		<th class="starfsstod" rowspan="3">Starfsstöð</th>
 		{% for dagur in dagalisti %}
 		<th class="dagur" colspan="{{ timabilalisti|length }}">{{ dagur | date:"M/d" }}</th>
 		{% endfor %}
@@ -97,6 +98,13 @@ var identicon = require('identicon-github');
 		{% for dagur in dagalisti %}
 			{% for tb in timabilalisti %}
 			<th class="timabil">{{ tb }}</th>
+			{% endfor %}
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for timabil in dagstimabil %}
+			{% for tb in timabil %}
+				<th class="heild_timabils">{{ tb.skraningar }} / {{ tb.lagmark }}</th>
 			{% endfor %}
 		{% endfor %}
 	</tr>
