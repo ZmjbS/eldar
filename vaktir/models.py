@@ -14,6 +14,19 @@ class Timabil(models.Model):
 	def __str__(self):
 		return '%s-%s' % (self.hefst.strftime('%H'), self.lykur.strftime('%H'))
 
+	def skraningar(self,dags):
+		skraningar = []
+		for vakt in Vakt.objects.filter(timabil=self, dags=dags):
+			for skraning in Skraning.objects.filter(vakt=vakt):
+				skraningar.append(skraning)
+		return len(skraningar)
+
+	def lagmark(self,dags):
+		lagmark = 0
+		for vakt in Vakt.objects.filter(timabil=self, dags=dags):
+			lagmark += vakt.lagmark
+		return lagmark
+
 class Starfsstod(models.Model):
 	# Nafn sölustaðar eða verkefnis. Dæmi: M6, Grjótháls, bílstjórar,
 	# stjórnstöð...
