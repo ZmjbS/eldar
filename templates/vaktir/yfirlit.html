@@ -1,1 +1,11 @@
 {% extends "vaktir/grunnur-vaktatafla.html" %}
+
+{% block felagar %}
+<div style="position: absolute; right:0; width: 12em;">
+<ul id="felagalisti">
+{% for felagi in felagalisti %}
+	<li class="felagi felagi-{{ felagi.id }}">{{ felagi }}</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
