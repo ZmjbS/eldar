@@ -1,11 +1,12 @@
 from django.shortcuts import render_to_response
-from vaktir.models import Vakt, Starfsstod, Timabil, Skraning, Tegund
+from vaktir.models import Vakt, Starfsstod, Timabil, Skraning, Tegund, Felagi
 
 def starfsstodvayfirlit():
 
 	""" Búum til yfirlit yfir vaktir og skráningar á þær """
 
 	# Búum til lista yfir dagana sem vaktirnar ná yfir.
+	#
 	dagalisti = []
 	for vakt in Vakt.objects.all():
 		if vakt.dags not in dagalisti:
@@ -14,7 +15,18 @@ def starfsstodvayfirlit():
 
 	timabilalisti = Timabil.objects.all()
 
-	starfsstodvarlisti = Starfsstod.objects.all()
+	# Þessi listi daga og tímabila er aðallega gagnlegur til að reikna upp
+	# heildarskránignar yfir það tímabil og heildarlágmark sem þarf fyrir allt
+	# tímabilið.
+	#
+	print(timabilalisti)
+	dagstimabil = []
+	for dagur in dagalisti:
+		tbl = []
+		for tb in timabilalisti:
+			tbl.append( { 'timabil': tb, 'skraningar': tb.skraningar(dagur), 'lagmark': tb.lagmark(dagur), } )
+		dagstimabil.append(tbl)
+	print(dagstimabil)
 
 	""" Útbúum djúpa blöndu orðabóka og lista. Við ætlum að búa til töflu á
 	þessu sniði:
@@ -24,6 +36,8 @@ def starfsstodvayfirlit():
 	Því þurfum við að búa til þetta ferlíki:
 	  { starfsstod: { [ { tímabil: { 'vakt', 'skraning' } } ] } }
 	"""
+
+	starfsstodvarlisti = Starfsstod.objects.all()
 
 	starfsstodvar = {}
 	for starfsstod in Starfsstod.objects.all():
@@ -56,10 +70,14 @@ def starfsstodvayfirlit():
 			dagar.append(timabil)
 		starfsstodvar.update({ starfsstod: dagar, })
 
+	felagalisti = Felagi.objects.all()
+	
 	gogn_til_snidmats = {
 		'dagalisti': dagalisti,
 		'timabilalisti': timabilalisti,
 		'starfsstodvar': starfsstodvar,
+		'dagstimabil': dagstimabil,
+		'felagalisti': felagalisti,
 		}
 	return gogn_til_snidmats
 
