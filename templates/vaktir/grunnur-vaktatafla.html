@@ -110,19 +110,18 @@ var identicon = require('identicon-github');
 	</tr>
 	</thead>
 	<tbody>
-		{% for starfsstod, dagar in starfsstodvar.items %}
+		{% for sd in starfsstodvar %}
 		<tr>
-			<th class="starfsstod">{{ starfsstod }}</th>
-			{# for dagur, timabil in dagar.items #}
-			{% for timabil in dagar %}
-				{% for tb, vaktskraning in timabil.items %}
+			<th class="starfsstod">{{ sd.starfsstod }}</th>
+			{% for dagur in sd.dagar %}
+				{% for timabil in dagur.timabil %}
 				<td class="{% if forloop.first %}fyrstathanndag{% endif %}
-					       {% if vaktskraning.vaktin %}vakt{% else %}ekkivakt{% endif %}
-						   vakttegund-{{ vaktskraning.vaktin.tegund.id }}"
-				><!--{{ tb }}<br />-->
-					{% if vaktskraning.vaktin %}
-						<span class="fjoldi">{{ vaktskraning.skraningar.count }}</span> / <span class="lagmark">{{ vaktskraning.vaktin.lagmark }}</span><br />
-						<div class="skraningar">{% for skraning in vaktskraning.skraningar %}
+					       {% if timabil.vaktin %}vakt{% else %}ekkivakt{% endif %}
+						   vakttegund-{{ timabil.vaktin.tegund.id }}"
+				>
+					{% if timabil.vaktin %}
+						<span class="fjoldi">{{ timabil.skraningar.count }}</span> / <span class="lagmark">{{ timabil.vaktin.lagmark }}</span><br />
+						<div class="skraningar">{% for skraning in timabil.skraningar %}
 							<span class="skraning-icon felagi-{{ skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
 						{% endfor %}</div>
 					{% endif %}

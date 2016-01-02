@@ -28,28 +28,26 @@ def starfsstodvayfirlit():
 		dagstimabil.append(tbl)
 	print(dagstimabil)
 
-	""" Útbúum djúpa blöndu orðabóka og lista. Við ætlum að búa til töflu á
-	þessu sniði:
+	""" Útbúum nokkurra laga lista af orðabókum til að birta töflu á þessu
+	sniði:
 	             | Dagur 1         | Dagur 2         ...
 	starfsstaður | tb1 | tb2 | tb3 | tb1 | tb2 | tb3 ...
 
 	Því þurfum við að búa til þetta ferlíki:
-	  { starfsstod: { [ { tímabil: { 'vakt', 'skraning' } } ] } }
+	  [ starfsstod, dagar:[ timabilin:[ timabilid, vaktin, skraningar:[] ] ] ]
 	"""
 
 	starfsstodvarlisti = Starfsstod.objects.all()
 
-	starfsstodvar = {}
+	starfsstodvar = []
 	for starfsstod in Starfsstod.objects.all():
 
 		# Setjum daga í lista svo hægt sé að lykkja í gegnum þá í réttri röð.
 		dagar = []
 		for dagur in dagalisti:
 			
-			# Hvert stak í dagalistanum mun innihalda orðabók sem í er:
-			# . vaktin
-			# . listi af skráningunum
-			timabil = {}
+			# Fyrir hvern dag eru nokkur tímabil...
+			timabil = []
 			for timabilid in timabilalisti:
 				try:
 					# Það er bara ein vakt fyrir hvert tímabil á hverri
@@ -64,11 +62,10 @@ def starfsstodvayfirlit():
 					# Ef engin er vaktin setjum við bara inn tóm gildi.
 					vaktin =""
 					skraningar = []
-
-				vaktskraning = { 'vaktin': vaktin, 'skraningar': skraningar, }
-				timabil.update({ timabilid: vaktskraning })
-			dagar.append(timabil)
-		starfsstodvar.update({ starfsstod: dagar, })
+				# Stingum nú vaktinni og skráningunum inn í 
+				timabil.append({ 'vaktin': vaktin, 'skraningar': skraningar, })
+			dagar.append( { 'timabil': timabil, } )
+		starfsstodvar.append( { 'starfsstod': starfsstod, 'dagar': dagar, })
 
 	felagalisti = Felagi.objects.all()
 	
