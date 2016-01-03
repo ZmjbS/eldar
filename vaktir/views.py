@@ -2,32 +2,41 @@ from django.shortcuts import render_to_response
 from django.shortcuts import render
 from vaktir.models import Vakt, Starfsstod, Timabil, Skraning, Tegund, Felagi
 
-def starfsstodvayfirlit():
-
-	""" Búum til yfirlit yfir vaktir og skráningar á þær """
-
-	# Búum til lista yfir dagana sem vaktirnar ná yfir.
-	#
+def vaktadagar():
+	""" Búum til lista yfir dagana sem vaktirnar ná yfir og skilum í röðuðum lista.
+	"""
 	dagalisti = []
 	for vakt in Vakt.objects.all():
 		if vakt.dags not in dagalisti:
 			dagalisti.append(vakt.dags)
 	dagalisti.sort()
 
-	timabilalisti = Timabil.objects.all()
+	return dagalisti
 
-	# Þessi listi daga og tímabila er aðallega gagnlegur til að reikna upp
-	# heildarskránignar yfir það tímabil og heildarlágmark sem þarf fyrir allt
-	# tímabilið.
-	#
-	print(timabilalisti)
+def timabilaskraningar():
+	""" Búum til lista yfir daga og tímabil, m.a. til að reikna upp
+	heildarskránignar yfir það tímabil og heildarlágmark sem þarf fyrir allt
+	tímabilið.
+	"""
+	dagalisti = vaktadagar()
+	timabilalisti = Timabil.objects.all()
 	dagstimabil = []
 	for dagur in dagalisti:
 		tbl = []
 		for tb in timabilalisti:
 			tbl.append( { 'timabil': tb, 'skraningar': tb.skraningar(dagur), 'lagmark': tb.lagmark(dagur), 'litur': tb.litur(dagur) } )
 		dagstimabil.append(tbl)
-	print(dagstimabil)
+	return dagstimabil
+
+def starfsstodvayfirlit():
+
+	""" Búum til yfirlit yfir vaktir og skráningar á þær """
+
+	dagalisti = vaktadagar()
+
+	timabilalisti = Timabil.objects.all()
+
+	dagstimabil = timabilaskraningar()
 
 	""" Útbúum nokkurra laga lista af orðabókum til að birta töflu á þessu
 	sniði:
@@ -87,7 +96,24 @@ def yfirlit(request):
 def skraning(request):
 	""" Skilar viðmóti sem býður notanda upp á að skrá sig. Til dæmis svæði fyrir kennitölu og lág tafla yfir vaktir á tímanakkkk
 	"""
-	return render(request, 'vaktir/skraning.html', starfsstodvayfirlit() )
+	vaktayfirlit = []
+
+	dagalisti = vaktadagar()
+	timabilalisti = Timabil.objects.all()
+
+	dagar = []
+	for dagur in dagalisti:
+		# Fyrir hvern dag eru nokkur tímabil...
+		timabil = []
+		for timabilid in timabilalisti:
+			# Finnum vaktirnar og listum upp starfsstöðvarnar
+			vaktir = []
+			for vakt in Vakt.objects.filter(dags=dagur,timabil=timabilid):
+				vaktir.append( vakt )
+			timabil.append({ 'timabil': timabilid, 'vaktir': vaktir, 'skraningar': timabilid.skraningar(dagur), 'lagmark': timabilid.lagmark(dagur), 'litur': timabilid.litur(dagur) })
+		dagar.append({ 'dagur': dagur, 'timabil': timabil})
+
+	return render(request, 'vaktir/skraning.html', { 'dagar': dagar, } )#starfsstodvayfirlit() )
 
 def skra(request):
 	""" Tekur við POST beiðni, vistar skráninguna og skilar upplýsingum til notanda um hana.
