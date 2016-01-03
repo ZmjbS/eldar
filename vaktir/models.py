@@ -27,6 +27,19 @@ class Timabil(models.Model):
 			lagmark += vakt.lagmark
 		return lagmark
 
+	def litur(self,dags):
+		lagmark = self.lagmark(dags)
+		if lagmark != 0:
+			hlutfall = 255 * self.skraningar(dags) / lagmark * 10
+			if hlutfall != 255:
+				litur = 'rgb(255,'+str(round(hlutfall))+','+str(round(hlutfall))+')'
+			else:
+				litur = 'green'
+		else:
+			litur = 'white'
+
+		return litur
+
 class Starfsstod(models.Model):
 	# Nafn sölustaðar eða verkefnis. Dæmi: M6, Grjótháls, bílstjórar,
 	# stjórnstöð...
