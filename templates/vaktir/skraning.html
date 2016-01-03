@@ -57,29 +57,40 @@ $('.vakt').click(function() {
 <table>
 	<thead>
 	<tr>
-		{% for dagur in dagalisti %}
-		<th class="dagur" colspan="{{ timabilalisti|length }}">{{ dagur | date:"M/d" }}</th>
+		{% for dagur in dagar %}
+		<th class="dagur" colspan="{{ dagur.timabil|length }}">{{ dagur.dagur | date:"M/d" }}</th>
 		{% endfor %}
 	</tr>
 	<tr>
-		{% for dagur in dagalisti %}
-			{% for tb in timabilalisti %}
-			<th class="timabil">{{ tb }}</th>
+		{% for dagur in dagar %}
+			{% for timabil in dagur.timabil %}
+			<th class="timabil">{{ timabil.timabil }}</th>
 			{% endfor %}
 		{% endfor %}
 	</tr>
 	<tr>
-		{% for timabil in dagstimabil %}
-			{% for tb in timabil %}
-				<th class="heild_timabils">{{ tb.skraningar }} / {{ tb.lagmark }}</th>
+		{% for dagur in dagar %}
+			{% for timabil in dagur.timabil %}
+				<th class="heild_timabils">{{ timabil.skraningar }} / {{ timabil.lagmark }}</th>
 			{% endfor %}
 		{% endfor %}
 	</tr>
 	</thead>
 	<tbody>
+		{% for dagur in dagar %}
+			{% for timabil in dagur.timabil %}
+				<td class="vakt ovalin" style="background-color: {{ timabil.litur }};">
+					<select style="width: 2em;">
+						{% for vakt in timabil.vaktir %}
+						<option>{{ vakt.starfsstod }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			{% endfor %}
+		{% endfor %}
 		{% for timabil in dagstimabil %}
 			{% for tb in timabil %}
-				<td class="vakt ovalin" style="background-color: {{ tb.litur }};"><input type="hidden" name="vakt-{{ TODO: þurfum að fá lista yfir vaktirnar og gefa vakta-id-ið hér: vakt.id }}" value="valin" /></th>
+				<td class="vakt ovalin" style="background-color: {{ tb.litur }};"><input type="hidden" name="vakt-{# TODO: þurfum að fá lista yfir vaktirnar og gefa vakta-id-ið hér: #}{{ vakt.id }}" value="valin" /></th>
 			{% endfor %}
 		{% endfor %}
 		
