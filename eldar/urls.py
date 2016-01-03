@@ -9,7 +9,9 @@ urlpatterns = [
      #url(r'^$', 'eldar.views.home', name='home'),
      url(r'^vaktir$', 'vaktir.views.yfirlit', name='yfirlit'),
      url(r'^vaktir/smidi$', 'vaktir.views.smidi', name='smidi'),
-     #url(r'^vaktir/umsjon$', 'vaktir.views.umsjon', name='yfirlit'),
+     url(r'^vaktir/skraning$', 'vaktir.views.skraning', name='skraning'),
+     url(r'^vaktir/skra$', 'vaktir.views.skra', name='skra'),
+     url(r'^vaktir/umsjon$', 'vaktir.views.umsjon', name='yfirlit'),
 
     url(r'^admin/', include(admin.site.urls)),
 ]
