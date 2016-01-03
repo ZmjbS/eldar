@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django.shortcuts import render
 from vaktir.models import Vakt, Starfsstod, Timabil, Skraning, Tegund, Felagi
 
 def starfsstodvayfirlit():
@@ -24,7 +25,7 @@ def starfsstodvayfirlit():
 	for dagur in dagalisti:
 		tbl = []
 		for tb in timabilalisti:
-			tbl.append( { 'timabil': tb, 'skraningar': tb.skraningar(dagur), 'lagmark': tb.lagmark(dagur), } )
+			tbl.append( { 'timabil': tb, 'skraningar': tb.skraningar(dagur), 'lagmark': tb.lagmark(dagur), 'litur': tb.litur(dagur) } )
 		dagstimabil.append(tbl)
 	print(dagstimabil)
 
@@ -86,7 +87,13 @@ def yfirlit(request):
 def skraning(request):
 	""" Skilar viðmóti sem býður notanda upp á að skrá sig. Til dæmis svæði fyrir kennitölu og lág tafla yfir vaktir á tímanakkkk
 	"""
-	return render_to_response('vaktir/yfirlit.html', starfsstodvayfirlit() )
+	return render(request, 'vaktir/skraning.html', starfsstodvayfirlit() )
+
+def skra(request):
+	""" Tekur við POST beiðni, vistar skráninguna og skilar upplýsingum til notanda um hana.
+	"""
+	print(request.POST)
+	return render_to_response('vaktir/yfirlit.html', )
 
 def smidi(request):
 
