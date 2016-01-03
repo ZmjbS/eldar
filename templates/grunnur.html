@@ -12,15 +12,19 @@
 </head>
 <body>
 
-<header>
+<header style="vertical-align: middle;">
 {% block haus %}
-<img src="{% static "img/hssr-logo-64px.png" %}" alt="HSSR"/>
+<h1>
+<img src="{% static "img/hssr-logo-32px.png" %}" alt="HSSR"/>
+Vaktaskráningarkerfi HSSR</h1>
+<!--
 {% if user.is_authenticated %}
 	notandi er skráður inn
 {% else %}
 	<input>nafn</input>
 {% endif %}
-<canvas width="42" height="42" data-jdenticon-hash="ff8AA03938a9292959f443c9d956fc39"></canvas>
+-->
+
 {% endblock %}
 </header>
 
