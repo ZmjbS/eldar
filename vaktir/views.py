@@ -118,7 +118,23 @@ def skraning(request):
 def skra(request):
 	""" Tekur við POST beiðni, vistar skráninguna og skilar upplýsingum til notanda um hana.
 	"""
-	print(request.POST)
+	nafn = request.POST.get('nafn')
+	simi = request.POST.get('simi')
+	netfang = request.POST.get('netfang')
+
+	felagi, felagi_smidadur = Felagi.objects.get_or_create(netfang=netfang, defaults={ 'kennitala': 90, 'nafn': nafn, 'simi': simi, })
+	if felagi_smidadur:
+		print('félagi smíðaður')
+	else:
+		print('félagi sóttur')
+	print(felagi)
+
+	for vakt_id in request.POST.getlist('vaktir',''):
+		print(vakt_id)
+		vakt = Vakt.objects.get(pk=vakt_id)
+		print(vakt)
+		#skraning, buin_til = Skraning.object.get_or_create(felagi=felagi,vakt=vakt,svorun=1)
+		Skraning.objects.get_or_create(felagi=felagi,vakt=vakt, defaults={ 'svorun': 1 })
 	return render_to_response('vaktir/yfirlit.html', )
 
 def smidi(request):
