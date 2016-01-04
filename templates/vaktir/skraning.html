@@ -22,7 +22,7 @@ virkjast eða óvirkjast.
 $('.vakt').click(function() {
 	$(this).toggleClass('valin ovalin');
 	$(this).find('.starfsstodvar').toggle();
-	if ($(this).find('.starfsstodvar').prop('disabled')) {
+	if ($(this).hasClass('valin')) {
         $(this).find('.starfsstodvar').prop('disabled', false);
     }
     else {
@@ -76,7 +76,9 @@ $('.starfsstodvar').click(function(event) {
 				<td class="vakt ovalin" style="background-color: {{ timabil.litur }}; overflow: hidden;">
 				<select name="vaktir" class="starfsstodvar" style="display:none; width: 3.4em;" disabled>
 						{% for vakt in timabil.vaktir %}
-						<option value="{{ vakt.id }}">{{ vakt.starfsstod }}</option>
+						<option value="{{ vakt.vakt.id }}"
+						{% if vakt.skraningar >= vakt.hamark and vakt.hamark != 0 %}disabled{% endif %}
+						>{{ vakt.vakt.starfsstod }}</option>
 						{% endfor %}
 					</select>
 				</td>
