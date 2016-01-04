@@ -30,7 +30,7 @@ class Timabil(models.Model):
 	def litur(self,dags):
 		lagmark = self.lagmark(dags)
 		if lagmark != 0:
-			hlutfall = 255 * self.skraningar(dags) / lagmark * 10
+			hlutfall = 255 * self.skraningar(dags) / lagmark
 			if hlutfall != 255:
 				litur = 'rgb(255,'+str(round(hlutfall))+','+str(round(hlutfall))+')'
 			else:
