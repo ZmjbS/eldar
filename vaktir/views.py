@@ -109,7 +109,7 @@ def skraning(request):
 			# Finnum vaktirnar og listum upp starfsstöðvarnar
 			vaktir = []
 			for vakt in Vakt.objects.filter(dags=dagur,timabil=timabilid):
-				vaktir.append( vakt )
+				vaktir.append({ 'vakt':vakt, 'skraningar': len(Skraning.objects.filter(vakt=vakt)), 'lagmark': vakt.lagmark, 'hamark': vakt.hamark, })
 			timabil.append({ 'timabil': timabilid, 'vaktir': vaktir, 'skraningar': timabilid.skraningar(dagur), 'lagmark': timabilid.lagmark(dagur), 'litur': timabilid.litur(dagur) })
 		dagar.append({ 'dagur': dagur, 'timabil': timabil})
 
