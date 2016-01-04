@@ -14,14 +14,30 @@
 $( init );
 
 function init() {
-// Þegar við smellum á td.vakt breytist á milli "ovalin" og "valin".
+
+/* Þegar við smellum á td.vakt breytist á milli "ovalin" og "valin",
+starfsstöðvalistinn breytist á milli þess að sjást og ekki, og valmöguleikarnir
+virkjast eða óvirkjast.
+*/
 $('.vakt').click(function() {
 	$(this).toggleClass('valin ovalin');
+	$(this).find('.starfsstodvar').toggle();
+	if ($(this).find('.starfsstodvar').prop('disabled')) {
+        $(this).find('.starfsstodvar').prop('disabled', false);
+    }
+    else {
+        $(this).find('.starfsstodvar').prop('disabled', true);
+    }
+});
+
+/* Gætum þess að smellur á starfsstöðvarlistann sé ekki túlkaður sem smellur á
+vaktina (sem mundi þá af-velja hana).
+*/
+$('.starfsstodvar').click(function(event) {
+	event.stopPropagation();
 });
 
 }
-
-
 </script>
 {% endblock %}
 
@@ -57,27 +73,21 @@ $('.vakt').click(function() {
 	<tbody>
 		{% for dagur in dagar %}
 			{% for timabil in dagur.timabil %}
-				<td class="vakt ovalin" style="background-color: {{ timabil.litur }};">
-					<select style="width: 2em;">
+				<td class="vakt ovalin" style="background-color: {{ timabil.litur }}; overflow: hidden;">
+				<select name="vaktir" class="starfsstodvar" style="display:none; width: 3.4em;" disabled>
 						{% for vakt in timabil.vaktir %}
-						<option>{{ vakt.starfsstod }}</option>
+						<option value="{{ vakt.id }}">{{ vakt.starfsstod }}</option>
 						{% endfor %}
 					</select>
 				</td>
 			{% endfor %}
 		{% endfor %}
-		{% for timabil in dagstimabil %}
-			{% for tb in timabil %}
-				<td class="vakt ovalin" style="background-color: {{ tb.litur }};"><input type="hidden" name="vakt-{# TODO: þurfum að fá lista yfir vaktirnar og gefa vakta-id-ið hér: #}{{ vakt.id }}" value="valin" /></th>
-			{% endfor %}
-		{% endfor %}
-		
 	</tbody>
 </table>
 
 	<input type="text" name="nafn" placeholder="Nafn" />
 	<input type="text" name="simi" placeholder="Símanúmer" />
-	<input type="text" name="postfang" placeholder="Tölvupóstfang" />
+	<input type="text" name="netfang" placeholder="Tölvupóstfang" />
 	<br />
 	<textarea name="aths" placeholder="Athugasemdir" cols="80"></textarea>
 	<br />
