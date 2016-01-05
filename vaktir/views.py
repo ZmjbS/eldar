@@ -13,59 +13,49 @@ def vaktadagar():
 
 	return dagalisti
 
-def timabilaskraningar():
-	""" Búum til lista yfir daga og tímabil, m.a. til að reikna upp
-	heildarskránignar yfir það tímabil og heildarlágmark sem þarf fyrir allt
-	tímabilið.
+def vaktayfirlit(starfsstod=None):
+	""" Býr til lista yfir daga, tímabil og vaktir.
+		Form tímabilalistans er ólíkt eftir því hvort starfsstöðin er tilgreind.
+
+		  dagar['dagur', 'timabil', timabil_fjoldi']
+		    timabil['timabil', vaktir', 'skraningar', 'lagmark', 'litur',]
+			  vaktir['vakt', 'skraningar', 'lagmark', 'hamark',]
+		    timabil['timabil', vaktin', 'skraningar',]
 	"""
 	dagalisti = vaktadagar()
 	timabilalisti = Timabil.objects.all()
-	dagstimabil = []
+
+	dagar = []
 	for dagur in dagalisti:
-		tbl = []
-		for tb in timabilalisti:
-			tbl.append( { 'timabil': tb, 'skraningar': tb.skraningar(dagur), 'lagmark': tb.lagmark(dagur), 'litur': tb.litur(dagur) } )
-		dagstimabil.append(tbl)
-	return dagstimabil
-
-def starfsstodvayfirlit():
-
-	""" Búum til yfirlit yfir vaktir og skráningar á þær """
-
-	dagalisti = vaktadagar()
-
-	timabilalisti = Timabil.objects.all()
-
-	dagstimabil = timabilaskraningar()
-
-	""" Útbúum nokkurra laga lista af orðabókum til að birta töflu á þessu
-	sniði:
-	             | Dagur 1         | Dagur 2         ...
-	starfsstaður | tb1 | tb2 | tb3 | tb1 | tb2 | tb3 ...
-
-	Því þurfum við að búa til þetta ferlíki:
-	  [ starfsstod, dagar:[ timabilin:[ timabilid, vaktin, skraningar:[] ] ] ]
-	"""
-
-	starfsstodvarlisti = Starfsstod.objects.all()
-
-	starfsstodvar = []
-	for starfsstod in Starfsstod.objects.all():
-
-		# Setjum daga í lista svo hægt sé að lykkja í gegnum þá í réttri röð.
-		dagar = []
-		for dagur in dagalisti:
-			
-			# Fyrir hvern dag eru nokkur tímabil...
-			timabil = []
-			for timabilid in timabilalisti:
+		# Fyrir hvern dag eru nokkur tímabil...
+		timabil = []
+		for timabilid in timabilalisti:
+			# Finnum vaktirnar og listum upp starfsstöðvarnar
+			vaktir = []
+			if starfsstod is None:
+				for vakt in Vakt.objects.filter(dags=dagur,timabil=timabilid):
+					vaktir.append({
+						'vakt':vakt,
+						'skraningar': len(Skraning.objects.filter(vakt=vakt)),
+						'lagmark': vakt.lagmark,
+						'hamark': vakt.hamark,
+					})
+				# Stingum nú vöktunum og öðrum upplýsingum um tímabilið inn í:
+				timabil.append({
+					'timabil': timabilid,
+					'vaktir': vaktir,
+					'skraningar': timabilid.skraningar(dagur),
+					'lagmark': timabilid.lagmark(dagur),
+					'litur': timabilid.litur(dagur),
+				})
+			else:
+				# Það er bara ein vakt fyrir hvert tímabil á hverri starfsstöð.
 				try:
-					# Það er bara ein vakt fyrir hvert tímabil á hverri
-					# starfsstöð.
 					vaktin = Vakt.objects.get(
 						dags=dagur,
 						starfsstod=starfsstod,
-						timabil=timabilid)
+						timabil=timabilid,
+					)
 					# Sækjum allar skráningarnar sem komnar eru.
 					skraningar = Skraning.objects.filter(vakt=vaktin)
 				except:
@@ -73,17 +63,31 @@ def starfsstodvayfirlit():
 					vaktin =""
 					skraningar = []
 				# Stingum nú vaktinni og skráningunum inn í 
-				timabil.append({ 'vaktin': vaktin, 'skraningar': skraningar, })
-			dagar.append( { 'timabil': timabil, } )
-		starfsstodvar.append( { 'starfsstod': starfsstod, 'dagar': dagar, })
+				timabil.append({
+					'timabil': timabilid,
+					'vaktin': vaktin,
+					'skraningar': skraningar,
+				})
+		dagar.append({ 'dagur': dagur, 'timabil': timabil, 'timabil_fjoldi': len(timabil), })
+
+	return dagar
+
+def starfsstodvayfirlit():
+	""" Búum til yfirlit yfir vaktir og skráningar á þær
+	"""
+	dagalisti = vaktadagar()
+
+	dagar = vaktayfirlit()
+
+	starfsstodvar = []
+	for starfsstod in Starfsstod.objects.all():
+		starfsstodvar.append( { 'starfsstod': starfsstod, 'dagar': vaktayfirlit(starfsstod), })
 
 	felagalisti = Felagi.objects.all()
 	
 	gogn_til_snidmats = {
-		'dagalisti': dagalisti,
-		'timabilalisti': timabilalisti,
 		'starfsstodvar': starfsstodvar,
-		'dagstimabil': dagstimabil,
+		'dagar': dagar,
 		'felagalisti': felagalisti,
 		}
 	return gogn_til_snidmats
@@ -96,22 +100,7 @@ def yfirlit(request):
 def skraning(request):
 	""" Skilar viðmóti sem býður notanda upp á að skrá sig. Til dæmis svæði fyrir kennitölu og lág tafla yfir vaktir á tímanakkkk
 	"""
-	vaktayfirlit = []
-
-	dagalisti = vaktadagar()
-	timabilalisti = Timabil.objects.all()
-
-	dagar = []
-	for dagur in dagalisti:
-		# Fyrir hvern dag eru nokkur tímabil...
-		timabil = []
-		for timabilid in timabilalisti:
-			# Finnum vaktirnar og listum upp starfsstöðvarnar
-			vaktir = []
-			for vakt in Vakt.objects.filter(dags=dagur,timabil=timabilid):
-				vaktir.append({ 'vakt':vakt, 'skraningar': len(Skraning.objects.filter(vakt=vakt)), 'lagmark': vakt.lagmark, 'hamark': vakt.hamark, })
-			timabil.append({ 'timabil': timabilid, 'vaktir': vaktir, 'skraningar': timabilid.skraningar(dagur), 'lagmark': timabilid.lagmark(dagur), 'litur': timabilid.litur(dagur) })
-		dagar.append({ 'dagur': dagur, 'timabil': timabil})
+	dagar = vaktayfirlit()
 
 	return render(request, 'vaktir/skraning.html', { 'dagar': dagar, } )#starfsstodvayfirlit() )
 
