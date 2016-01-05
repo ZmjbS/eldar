@@ -73,7 +73,7 @@ def vaktayfirlit(starfsstod=None):
 	return dagar
 
 def starfsstodvayfirlit():
-	""" Búum til yfirlit yfir vaktir og skráningar á þær
+	""" Búum til yfirlit yfir vaktir og skráningar á þær.
 	"""
 	dagalisti = vaktadagar()
 
@@ -81,7 +81,18 @@ def starfsstodvayfirlit():
 
 	starfsstodvar = []
 	for starfsstod in Starfsstod.objects.all():
-		starfsstodvar.append( { 'starfsstod': starfsstod, 'dagar': vaktayfirlit(starfsstod), })
+		starfsstodvardagar = vaktayfirlit(starfsstod)
+
+		# Finnum nú fjölda skráninga og heildarlágmark fyrir hvern starfsstað
+		lagmark = 0
+		skraningar_fjoldi = 0
+		for dagur in starfsstodvardagar:
+			for timabil in dagur['timabil']:
+				if timabil['vaktin'] != '':
+					lagmark = lagmark + timabil['vaktin'].lagmark
+					skraningar_fjoldi = skraningar_fjoldi + len(timabil['skraningar'])
+
+		starfsstodvar.append( { 'starfsstod': starfsstod, 'dagar': starfsstodvardagar, 'skraningar_fjoldi': skraningar_fjoldi, 'lagmark': lagmark, })
 
 	felagalisti = Felagi.objects.all()
 	
@@ -93,7 +104,7 @@ def starfsstodvayfirlit():
 	return gogn_til_snidmats
 
 def yfirlit(request):
-	""" Skilar bara yfirliti yfir vaktastöðuna
+	""" Skilar bara yfirliti yfir vaktastöðuna.
 	"""
 	return render_to_response('vaktir/yfirlit.html', starfsstodvayfirlit() )
 
@@ -102,7 +113,7 @@ def skraning(request):
 	"""
 	dagar = vaktayfirlit()
 
-	return render(request, 'vaktir/skraning.html', { 'dagar': dagar, } )#starfsstodvayfirlit() )
+	return render(request, 'vaktir/skraning.html', { 'dagar': dagar, } )
 
 def skra(request):
 	""" Tekur við POST beiðni, vistar skráninguna og skilar upplýsingum til notanda um hana.
