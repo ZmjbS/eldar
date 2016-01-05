@@ -93,7 +93,7 @@ var identicon = require('identicon-github');
 	<tbody>
 		{% for sd in starfsstodvar %}
 		<tr>
-			<th class="starfsstod">{{ sd.starfsstod }}</th>
+			<th class="starfsstod">{{ sd.starfsstod }} <br /> {{ sd.skraningar_fjoldi }} / {{ sd.lagmark }}</th>
 			{% for dagur in sd.dagar %}
 				{% for timabil in dagur.timabil %}
 				<td class="{% if forloop.first %}fyrstathanndag{% endif %}
