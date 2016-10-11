@@ -1,5 +1,8 @@
 from django.db import models
 
+# TODO: er þetta réttur syntax?
+from eldar.vaktir import Starfsstod
+
 import math
 
 class Vara(models.Model):
@@ -19,7 +22,10 @@ class Vara(models.Model):
 	#verd = models.SmallIntegerField()
 
 	# Staða vörunnar eins og er.
+
+	# TODO: Kannski bara sleppa þessu í stað Eining-class-ans og fallsins að neðan.
 	stada = models.SmallIntegerField()
+
 	# Ný vara sem bætist við lagerinn. Þetta þarf að bæta við stöðuna og endurstilla við upphaf sölu.
 	nytt = models.SmallIntegerField(default=0)
 
@@ -40,8 +46,21 @@ class Vara(models.Model):
 			   nullfyllt(self.radnumer,2) +' '+ \
 			   self.stuttnafn + ' (' + str(self.stada) + ')'
 
+	# TODO: Óprófað!!!
+	def stada(self):
+		einingar = Eining.objects.filter(vara=self)
+		return einingar.count()
+
 	class Meta:
 		verbose_name_plural = 'vörur'
+
+# Þetta er bara pæling: Að hafa hverja einingu sér svo hægt sé að gefa henni staðsetningu. Ef við ætlum að vera með bretti eyrnamerkt búðum á milli ára væri ágætt að hafa yfirlit yfir hvar hver vara sé.
+# Þetta gæti líka auðveldað uppgjör búða eftir hvern dag.
+# Við gætum líka breytt þessu í kerfi þar sem gæti tekið við af Trello og þar sem við höfum yfirlit yfir hvar hver vara er á leið sinni frá lager til búðar.
+class Eining(models.Model):
+	vara = models.ForeignKey(Vara)
+	seljast_fyrir = models.SmallIntegerField()
+	stadsetning = models.ForeignKey(Starfsstod)
 
 class Verd(models.Model):
 	innkaupsverd = models.SmallIntegerField()
