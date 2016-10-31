@@ -5,32 +5,39 @@ class Timabil(models.Model):
 	# skilgreind nokkur tímabil og svo vöktunum úthlutað þeim. Þannig er líka
 	# auðveldara að hnika til vöktum; skeyta tveimur saman eða stytta vaktir.
 	#
-	hefst = models.TimeField()
-	lykur = models.TimeField()
+	hefst = models.DateTimeField()
+	lykur = models.DateTimeField()
 
 	class Meta:
 		verbose_name_plural = 'timabil'
 
 	def __str__(self):
-		return '%s-%s' % (self.hefst.strftime('%H'), self.lykur.strftime('%H'))
+		return '%s-%s %s' % (self.hefst.strftime('%H'), self.lykur.strftime('%H'), self.hefst.strftime("%Y.%m.%d"))
 
-	def skraningar(self,dags):
+	#def skraningar(self,dags):
+	def skraningar(self):
 		skraningar = []
-		for vakt in Vakt.objects.filter(timabil=self, dags=dags):
+		#for vakt in Vakt.objects.filter(timabil=self, dags=dags):
+		for vakt in Vakt.objects.filter(timabil=self):
 			for skraning in Skraning.objects.filter(vakt=vakt):
 				skraningar.append(skraning)
 		return len(skraningar)
 
-	def lagmark(self,dags):
+	#def lagmark(self,dags):
+	def lagmark(self):
 		lagmark = 0
-		for vakt in Vakt.objects.filter(timabil=self, dags=dags):
+		#for vakt in Vakt.objects.filter(timabil=self, dags=dags):
+		for vakt in Vakt.objects.filter(timabil=self):
 			lagmark += vakt.lagmark
 		return lagmark
 
-	def litur(self,dags):
-		lagmark = self.lagmark(dags)
+	#def litur(self,dags):
+	def litur(self):
+		#lagmark = self.lagmark(dags)
+		lagmark = self.lagmark()
 		if lagmark != 0:
-			hlutfall = 255 * self.skraningar(dags) / lagmark
+			#hlutfall = 255 * self.skraningar(dags) / lagmark
+			hlutfall = 255 * self.skraningar() / lagmark
 			if hlutfall != 255:
 				litur = 'rgb(255,'+str(round(hlutfall))+','+str(round(hlutfall))+')'
 			else:
@@ -47,7 +54,7 @@ class Starfsstod(models.Model):
 	nafn = models.CharField(max_length=32)
 
 	class Meta:
-		verbose_name_plural = 'stodur'
+		verbose_name_plural = 'starfsstöðvar'
 
 	def __str__(self):
 		return self.nafn
@@ -68,7 +75,7 @@ class Vakt(models.Model):
 	# Vaktin hefur ákveðið tímabil, dagsetningu og er úthlutað ákveðinn
 	# sölustað erða verkefni (Staða).
 	timabil = models.ForeignKey(Timabil)
-	dags = models.DateField()
+	#dags = models.DateField()
 	starfsstod = models.ForeignKey(Starfsstod)
 
 	# Hver vakt hefur ákveðið lágmark sem við þurfum að manna og ákveðið hámark
@@ -82,9 +89,10 @@ class Vakt(models.Model):
 	class Meta:
 		verbose_name_plural = 'vaktir'
 
-	def __str__(self):
-		return '%s (%s %s) [%s-%s] %s' % (self.starfsstod, self.dags.strftime('%D'), self.timabil, str(self.lagmark), str(self.hamark), self.tegund)
-
+#	def __str__(self):
+#		#return '%s (%s %s) [%s-%s] %s' % (self.starfsstod, self.dags.strftime('%D'), self.timabil, str(self.lagmark), str(self.hamark), self.tegund)
+#		return '%s (%s %s) [%s-%s] %s' % (self.starfsstod, self.timabil.hefst.strftime('%D'), self.timabil, str(self.lagmark), str(self.hamark), self.tegund)
+#
 class Felagi(models.Model):
 	# Viö höldum utan um félagana sem skrá sig.
 	#
