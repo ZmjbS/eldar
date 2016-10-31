@@ -3,7 +3,7 @@ from vaktir.models import Timabil,Starfsstod,Tegund,Vakt,Felagi,Skraning
 
 class VaktAdmin(admin.ModelAdmin):
 	list_display = ('starfsstod', 'timabil', 'tegund', 'lagmark', 'hamark', )
-	list_editable = ()
+	list_editable = ('lagmark', 'hamark')
 
 admin.site.register(Timabil)
 admin.site.register(Starfsstod)
