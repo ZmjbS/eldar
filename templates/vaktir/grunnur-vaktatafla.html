@@ -1,6 +1,8 @@
 {% extends "grunnur.html" %}
 {% load staticfiles %}
 
+{% block h1-texti %}Vaktaskráningarkerfi HSSR{% endblock %}
+
 {% block stilar %}
 {% endblock %}
 
@@ -76,38 +78,31 @@ var identicon = require('identicon-github');
 		{% endfor %}
 	</tr>
 	<tr>
-		{% for dagur in dagar %}
-			{% for timabil in dagur.timabil %}
-			<th class="timabil">{{ timabil.timabil }}</th>
-			{% endfor %}
+		{% for timabilid in timabilin %}
+			<th class="timabil">{{ timabilid }}</th>
 		{% endfor %}
 	</tr>
 	<tr>
-		{% for dagur in dagar %}
-			{% for timabil in dagur.timabil %}
-				<th class="heild_timabils">{{ timabil.skraningar }} / {{ timabil.lagmark }}</th>
-			{% endfor %}
+		{% for timabilid in timabilin %}
+			<th class="heild_timabils">{{ timabilid.skraningar }} / {{ timabilid.lagmark }}</th>
 		{% endfor %}
 	</tr>
 	</thead>
 	<tbody>
-		{% for sd in starfsstodvar %}
+		{% for sd in starfsstodvalisti %}
 		<tr>
-			<th class="starfsstod">{{ sd.starfsstod }} <br /> {{ sd.skraningar_fjoldi }} / {{ sd.lagmark }}</th>
-			{% for dagur in sd.dagar %}
-				{% for timabil in dagur.timabil %}
-				<td class="{% if forloop.first %}fyrstathanndag{% endif %}
-					       {% if timabil.vaktin %}vakt{% else %}ekkivakt{% endif %}
-						   vakttegund-{{ timabil.vaktin.tegund.id }}"
+			<th class="starfsstod">{{ sd.starfsstod }} <br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
+			{% for vakt in sd.vaktir %}
+				<td class="{% if vakt %}vakt{% else %}ekkivakt{% endif %}
+						   vakttegund-{{ vakt.tegund.id }}"
 				>
-					{% if timabil.vaktin %}
-						<span class="fjoldi">{{ timabil.skraningar.count }}</span> / <span class="lagmark">{{ timabil.vaktin.lagmark }}</span><br />
-						<div class="skraningar">{% for skraning in timabil.skraningar %}
-							<span class="skraning-icon felagi-{{ skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
+					{% if vakt %}
+						<span class="fjoldi">{{ vakt.skraningar.count }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
+						<div class="skraningar">{% for skraning in vakt.skraningar.all %}
+							<span class="skraning-icon felagi-{{ vakt.skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
 						{% endfor %}</div>
 					{% endif %}
 				</td>
-				{% endfor %}
 			{% endfor %}
 		</tr>
 		{% endfor %}
