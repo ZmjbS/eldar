@@ -1,17 +1,10 @@
-{% extends "lager/grunnur-vaktatafla.html" %}
+{% extends "lager/grunnur-lager.html" %}
 
 {% block felagar %}
-<div style="position: absolute; right:0; width: 12em;">
 <ul id="vorulisti">
-{% for vara in vorulisti %}
+{% for vara in vorur %}
 	<li class="vara vara-{{ vara.id }}">{{ vara }}
-		<ul>
-			{% for starfsstod in vara.starfsstodvar %}
-			<li>{{ starfsstod }}: {{ starfsstod.stada }}</li>
-			{% endfor %}
-		</ul>
 	</li>
 {% endfor %}
 </ul>
-</div>
 {% endblock %}
