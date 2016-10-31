@@ -11,7 +11,10 @@ urlpatterns = [
      url(r'^vaktir/smidi$', 'vaktir.views.smidi', name='smidi'),
      url(r'^vaktir/skraning$', 'vaktir.views.skraning', name='skraning'),
      url(r'^vaktir/skra$', 'vaktir.views.skra', name='skra'),
-     url(r'^vaktir/umsjon$', 'vaktir.views.umsjon', name='yfirlit'),
+     #url(r'^vaktir/umsjon$', 'vaktir.views.umsjon', name='yfirlit'),
+
+     url(r'^lager$', 'lager.views.yfirlit', name='yfirlit'),
+     url(r'^lager/verdmidar$', 'lager.views.verdmidar', name='verdmidar'),
 
     url(r'^admin/', include(admin.site.urls)),
 ]
