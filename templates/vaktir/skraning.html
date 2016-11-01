@@ -51,36 +51,37 @@ $('.starfsstodvar').click(function(event) {
 <table>
 	<thead>
 	<tr>
-		{% for dagur in dagar %}
-		<th class="dagur" colspan="{{ dagur.timabil|length }}">{{ dagur.dagur | date:"M/d" }}</th>
+		<th class="starfsstod" rowspan="3">Starfsstöð</th>
+		{% for dt in dagatimabil %}
+		<th class="dagur" colspan="{{ dt.fjoldi_timabila }}">{{ dt.dagur | date:"M/d" }}</th>
 		{% endfor %}
 	</tr>
 	<tr>
-		{% for dagur in dagar %}
-			{% for timabil in dagur.timabil %}
-			<th class="timabil">{{ timabil.timabil }}</th>
-			{% endfor %}
+		{% for timabilid in timabilin %}
+			<th class="timabil">{{ timabilid.hefst | date:"H" }}-{{ timabilid.lykur| date:"H" }}</th>
 		{% endfor %}
 	</tr>
 	<tr>
-		{% for dagur in dagar %}
-			{% for timabil in dagur.timabil %}
-				<th class="heild_timabils">{{ timabil.skraningar }} / {{ timabil.lagmark }}</th>
-			{% endfor %}
+		{% for timabilid in timabilin %}
+			<th class="heild_timabils">{{ timabilid.skraningar }} / {{ timabilid.lagmark }}</th>
 		{% endfor %}
 	</tr>
 	</thead>
 	<tbody>
-		{% for dagur in dagar %}
-			{% for timabil in dagur.timabil %}
-				<td class="vakt ovalin" style="background-color: {{ timabil.litur }}; overflow: hidden;">
-				<select name="vaktir" class="starfsstodvar" style="display:none; width: 3.4em;" disabled>
-						{% for vakt in timabil.vaktir %}
-						<option value="{{ vakt.vakt.id }}"
+		{% for sd in starfsstodvalisti %}
+		<tr>
+			<th class="starfsstod">{{ sd.starfsstod }}</th>
+			{% for vakt in sd.vaktir %}
+				<td class="{% if vakt %}vakt vakttegund-{{ vakt.tegund.id }}{% else %}ekkivakt{% endif %}">
+<!--
+					<select name="vaktir" class="starfsstodvar" style="display:none; width: 3.4em;" disabled>
+						{% for starfsstod in starfsstodvalisti %}
+						<option value="{{ vakt.id }}"
 						{% if vakt.skraningar >= vakt.hamark and vakt.hamark != 0 %}disabled{% endif %}
-						>{{ vakt.vakt.starfsstod }}</option>
+						>{{ starfsstod.starfsstod }}</option>
 						{% endfor %}
 					</select>
+-->
 				</td>
 			{% endfor %}
 		{% endfor %}
