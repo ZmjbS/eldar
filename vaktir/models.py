@@ -14,6 +14,9 @@ class Timabil(models.Model):
 	def __str__(self):
 		return '%s-%s %s' % (self.hefst.strftime('%H'), self.lykur.strftime('%H'), self.hefst.strftime("%Y.%m.%d"))
 
+	def dags(self):
+		return self.hefst.date()
+
 	def skraningar(self):
 		skraningar = []
 		for vakt in Vakt.objects.filter(timabil=self):
