@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+<object model="vaktir.timabil" pk="1">
+	<field name="hefst" type="DateTimeField">2016-12-16T11:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-16T14:00:00</field></object>
+<object model="vaktir.timabil" pk="2">
+	<field name="hefst" type="DateTimeField">2016-12-16T14:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-16T17:00:00</field></object>
+<object model="vaktir.timabil" pk="3">
+	<field name="hefst" type="DateTimeField">2016-12-16T17:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-16T20:00:00</field></object>
+<object model="vaktir.timabil" pk="4">
+	<field name="hefst" type="DateTimeField">2016-12-17T11:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-17T14:00:00</field></object>
+<object model="vaktir.timabil" pk="5">
+	<field name="hefst" type="DateTimeField">2016-12-17T14:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-17T17:00:00</field></object>
+<object model="vaktir.timabil" pk="6">
+	<field name="hefst" type="DateTimeField">2016-12-17T17:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-17T20:00:00</field></object>
+
+<object model="vaktir.timabil" pk="7">
+	<field name="hefst" type="DateTimeField">2016-12-27T08:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-27T11:00:00</field></object>
+<object model="vaktir.timabil" pk="8">
+	<field name="hefst" type="DateTimeField">2016-12-27T11:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-27T14:00:00</field></object>
+<object model="vaktir.timabil" pk="9">
+	<field name="hefst" type="DateTimeField">2016-12-27T14:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-27T17:00:00</field></object>
+<object model="vaktir.timabil" pk="10">
+	<field name="hefst" type="DateTimeField">2016-12-27T17:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-27T20:00:00</field></object>
+<object model="vaktir.timabil" pk="11">
+	<field name="hefst" type="DateTimeField">2016-12-27T20:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-28T01:00:00</field></object>
+
+<object model="vaktir.timabil" pk="12">
+	<field name="hefst" type="DateTimeField">2016-12-28T01:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-28T08:00:00</field></object>
+<object model="vaktir.timabil" pk="13">
+	<field name="hefst" type="DateTimeField">2016-12-28T08:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-28T11:00:00</field></object>
+<object model="vaktir.timabil" pk="14">
+	<field name="hefst" type="DateTimeField">2016-12-28T11:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-28T14:00:00</field></object>
+<object model="vaktir.timabil" pk="15">
+	<field name="hefst" type="DateTimeField">2016-12-28T14:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-28T17:00:00</field></object>
+<object model="vaktir.timabil" pk="16">
+	<field name="hefst" type="DateTimeField">2016-12-28T17:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-28T20:00:00</field></object>
+<object model="vaktir.timabil" pk="17">
+	<field name="hefst" type="DateTimeField">2016-12-28T20:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-29T01:00:00</field></object>
+
+<object model="vaktir.timabil" pk="18">
+	<field name="hefst" type="DateTimeField">2016-12-29T01:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-29T08:00:00</field></object>
+<object model="vaktir.timabil" pk="19">
+	<field name="hefst" type="DateTimeField">2016-12-29T08:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-29T11:00:00</field></object>
+<object model="vaktir.timabil" pk="20">
+	<field name="hefst" type="DateTimeField">2016-12-29T11:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-29T14:00:00</field></object>
+<object model="vaktir.timabil" pk="21">
+	<field name="hefst" type="DateTimeField">2016-12-29T14:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-29T17:00:00</field></object>
+<object model="vaktir.timabil" pk="22">
+	<field name="hefst" type="DateTimeField">2016-12-29T17:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-29T20:00:00</field></object>
+<object model="vaktir.timabil" pk="23">
+	<field name="hefst" type="DateTimeField">2016-12-29T20:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-30T01:00:00</field></object>
+
+<object model="vaktir.timabil" pk="24">
+	<field name="hefst" type="DateTimeField">2016-12-30T01:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-30T08:00:00</field></object>
+<object model="vaktir.timabil" pk="25">
+	<field name="hefst" type="DateTimeField">2016-12-30T08:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-30T11:00:00</field></object>
+<object model="vaktir.timabil" pk="26">
+	<field name="hefst" type="DateTimeField">2016-12-30T11:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-30T14:00:00</field></object>
+<object model="vaktir.timabil" pk="27">
+	<field name="hefst" type="DateTimeField">2016-12-30T14:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-30T17:00:00</field></object>
+<object model="vaktir.timabil" pk="28">
+	<field name="hefst" type="DateTimeField">2016-12-30T17:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-30T20:00:00</field></object>
+<object model="vaktir.timabil" pk="29">
+	<field name="hefst" type="DateTimeField">2016-12-30T20:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-31T01:00:00</field></object>
+
+<object model="vaktir.timabil" pk="30">
+	<field name="hefst" type="DateTimeField">2016-12-31T01:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-31T08:00:00</field></object>
+<object model="vaktir.timabil" pk="31">
+	<field name="hefst" type="DateTimeField">2016-12-31T08:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-31T11:00:00</field></object>
+<object model="vaktir.timabil" pk="32">
+	<field name="hefst" type="DateTimeField">2016-12-31T11:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-31T14:00:00</field></object>
+<object model="vaktir.timabil" pk="33">
+	<field name="hefst" type="DateTimeField">2016-12-31T14:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-31T17:00:00</field></object>
+<object model="vaktir.timabil" pk="34">
+	<field name="hefst" type="DateTimeField">2016-12-31T17:00:00</field>
+	<field name="lykur" type="DateTimeField">2016-12-31T20:00:00</field></object>
+
+<object model="vaktir.starfsstod" pk="1"><field name="nafn" type="CharField">Malarhöfði 6</field></object>
+<object model="vaktir.starfsstod" pk="2"><field name="nafn" type="CharField">Spöng</field></object>
+<object model="vaktir.starfsstod" pk="3"><field name="nafn" type="CharField">Grafarholt</field></object>
+<object model="vaktir.starfsstod" pk="4"><field name="nafn" type="CharField">Hraunbær</field></object>
+<object model="vaktir.starfsstod" pk="5"><field name="nafn" type="CharField">Grjótháls</field></object>
+<object model="vaktir.starfsstod" pk="6"><field name="nafn" type="CharField">Bílabúð Benna</field></object>
+<object model="vaktir.starfsstod" pk="7"><field name="nafn" type="CharField">Skjöldungar</field></object>
+<object model="vaktir.starfsstod" pk="8"><field name="nafn" type="CharField">Stjórnstöð</field></object>
+<object model="vaktir.starfsstod" pk="9"><field name="nafn" type="CharField">akstur</field></object>
+
+<object model="vaktir.tegund" pk="1"><field name="nafn" type="CharField">undirbúningur</field></object>
+<object model="vaktir.tegund" pk="2"><field name="nafn" type="CharField">söluvakt</field></object>
+<object model="vaktir.tegund" pk="3"><field name="nafn" type="CharField">næturvakt</field></object>
+<object model="vaktir.tegund" pk="4"><field name="nafn" type="CharField">stuðningur</field></object>
+
+</django-objects>
