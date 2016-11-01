@@ -1,5 +1,61 @@
 {% extends "vaktir/grunnur-vaktatafla.html" %}
 
+<script>
+$('.vakt, .ekkivakt').click(function() {
+	$(this).toggleClass('vakt ekkivakt');
+	//$(this).find('.starfsstodvar').toggle();
+	//if ($(this).hasClass('valin')) {
+        //$(this).find('.starfsstodvar').prop('disabled', false);
+    }
+    else {
+        $(this).find('.starfsstodvar').prop('disabled', true);
+    }
+});
+</script>
+
+{% block body %}
+<table>
+	<thead>
+	<tr>
+		<th class="starfsstod" rowspan="3">Starfsstöð</th>
+		{% for dt in dagatimabil %}
+		<th class="dagur" colspan="{{ dt.fjoldi_timabila }}">{{ dt.dagur | date:"M/d" }}</th>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for timabilid in timabilin %}
+			<th class="timabil">{{ timabilid.hefst | date:"H" }}-{{ timabilid.lykur| date:"H" }}</th>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for timabilid in timabilin %}
+			<th class="heild_timabils">{{ timabilid.skraningar }} / {{ timabilid.lagmark }}</th>
+		{% endfor %}
+	</tr>
+	</thead>
+	<tbody>
+		{% for sd in starfsstodvalisti %}
+		<tr>
+			<th class="starfsstod">{{ sd.starfsstod }} <br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
+			{% for vakt in sd.vaktir %}
+				<td class="{% if vakt %}vakt{% else %}ekkivakt{% endif %}
+						   vakttegund-{{ vakt.tegund.id }}"
+				>
+					{% if vakt %}
+						<span class="fjoldi">{{ vakt.skraningar.count }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
+						<div class="skraningar">{% for skraning in vakt.skraningar.all %}
+							<span class="skraning-icon felagi-{{ vakt.skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
+						{% endfor %}</div>
+					{% endif %}
+				</td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+		{# Hér er bútur til að bæta við aukaröðum (t.d. í smíðasniðmátinu). #}
+		{% block aukaradir %}{% endblock %}
+	</tbody>
+</table>
+{% endblock %}
 {% block aukaradir %}
 	{% for starfsstod in starfsstodvarlisti %}
 	<tr>
