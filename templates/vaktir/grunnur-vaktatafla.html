@@ -73,13 +73,13 @@ var identicon = require('identicon-github');
 	<thead>
 	<tr>
 		<th class="starfsstod" rowspan="3">Starfsstöð</th>
-		{% for dagur in dagar %}
-		<th class="dagur" colspan="{{ dagur.timabil|length }}">{{ dagur.dagur | date:"M/d" }}</th>
+		{% for dt in dagatimabil %}
+		<th class="dagur" colspan="{{ dt.fjoldi_timabila }}">{{ dt.dagur | date:"M/d" }}</th>
 		{% endfor %}
 	</tr>
 	<tr>
 		{% for timabilid in timabilin %}
-			<th class="timabil">{{ timabilid }}</th>
+			<th class="timabil">{{ timabilid.hefst | date:"H" }}-{{ timabilid.lykur| date:"H" }}</th>
 		{% endfor %}
 	</tr>
 	<tr>
