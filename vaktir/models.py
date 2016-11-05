@@ -100,7 +100,7 @@ class Vakt(models.Model):
 class Felagi(models.Model):
 	# Viö höldum utan um félagana sem skrá sig.
 	#
-	kennitala = models.IntegerField()
+	#kennitala = models.IntegerField()
 	nafn = models.CharField(max_length=32)
 	simi = models.IntegerField()
 	netfang = models.CharField(max_length=32)
@@ -122,6 +122,9 @@ class Loggur(models.Model):
 	timastimpill = models.DateTimeField(auto_now_add=True)
 	# Ef skráningin er gerð úr umsjónarkerfinu, loggum við hver gerir hana:
 	notandi = models.ForeignKey(User, related_name='loggar', null=True,blank=True)
+
+	# Við hvern logg má bæta athugasemd:
+	athugasemd = models.TextField(blank=True)
 
 	class Meta:
 		verbose_name_plural = 'loggar'
