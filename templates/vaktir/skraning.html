@@ -93,11 +93,11 @@ vaktina (sem mundi þá af-velja hana).
 	</tbody>
 </table>
 
-	<input type="text" name="nafn" placeholder="Nafn" />
-	<input type="text" name="simi" placeholder="Símanúmer" />
-	<input type="text" name="netfang" placeholder="Tölvupóstfang" />
+	<input type="text" name="nafn" value="{{ felagi.nafn }}" placeholder="Nafn" />
+	<input type="text" name="simi" value="{{ felagi.simi }}" placeholder="Símanúmer" />
+	<input type="text" name="netfang" value="{{ felagi.netfang }}" placeholder="Tölvupóstfang" />
 	<br />
-	<textarea name="aths" placeholder="Athugasemdir" cols="80"></textarea>
+	<textarea name="athugasemd" value="{{ loggur.athugasemd }}" placeholder="Athugasemdir" cols="80"></textarea>
 	<br />
 	<input type="submit" name="flettaupp" value="Fletta upp skráningu" />
 	<input type="submit" name="submit" value="Vista skráningu" />
