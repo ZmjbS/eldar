@@ -18,24 +18,29 @@ virkjast eða óvirkjast.
 $('tr').on('click','.vakt.ovalin',function() {
 	//console.log('ovalin vakt valin')
 	$('.timabil-'+$(this).data('timabil')).removeClass('ovalin').addClass('timabil-valid');
+	$('.timabil-'+$(this).data('timabil')).children('input').attr('name', '');
 	$(this).addClass('valin');
+	$(this).children('input').attr('name','vaktir');
 });
 $('tr').on('click','.vakt.timabil-valid',function() {
 	//console.log('vakt á völdu tímabili valin')
 	$('.timabil-'+$(this).data('timabil')).removeClass('valin').addClass('timabil-valid');
+	$('.timabil-'+$(this).data('timabil')).children('input').attr('name', '');
 	$(this).addClass('valin');
+	$(this).children('input').attr('name','vaktir');
 });
 $('tr').on('click','.vakt.valin',function() {
 	//console.log('valin vakt valin')
 	$('.timabil-'+$(this).data('timabil')).removeClass('valin timabil-valid').addClass('ovalin');
+	$('.timabil-'+$(this).data('timabil')).children('input').attr('name', '');
 });
 
 /* Gætum þess að smellur á starfsstöðvarlistann sé ekki túlkaður sem smellur á
 vaktina (sem mundi þá af-velja hana).
 */
-$('.starfsstodvar').click(function(event) {
-	event.stopPropagation();
-});
+//$('.starfsstodvar').click(function(event) {
+//	event.stopPropagation();
+//});
 
 }
 </script>
@@ -72,6 +77,7 @@ $('.starfsstodvar').click(function(event) {
 			<th class="starfsstod">{{ sd.starfsstod }}</th>
 			{% for vakt in sd.vaktir %}
 				<td class="{% if vakt %}vakt ovalin vakttegund-{{ vakt.tegund.id }}{% else %}ekkivakt{% endif %} timabil-{{ vakt.timabil.id }}" data-timabil="{{ vakt.timabil.id }}">
+					<input type="hidden" name="" value="{{ vakt.id }}">
 <!--
 					<select name="vaktir" class="starfsstodvar" style="display:none; width: 3.4em;" disabled>
 						{% for starfsstod in starfsstodvalisti %}

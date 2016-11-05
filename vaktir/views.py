@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import render
-from vaktir.models import Vakt, Starfsstod, Timabil, Skraning, Tegund, Felagi
+from vaktir.models import Vakt, Starfsstod, Timabil, Skraning, Tegund, Felagi, Loggur
 
 def dagalisti():
 	''' Búum til lista yfir dagana sem vaktirnar ná yfir og skilum í röðuðum lista.
@@ -75,20 +75,29 @@ def skra(request):
 	simi = request.POST.get('simi')
 	netfang = request.POST.get('netfang')
 
+	print(request.POST)
+
 	felagi, felagi_smidadur = Felagi.objects.get_or_create(netfang=netfang, defaults={ 'kennitala': 90, 'nafn': nafn, 'simi': simi, })
+	# Debug:
 	if felagi_smidadur:
 		print('félagi smíðaður')
 	else:
 		print('félagi sóttur')
 	print(felagi)
+	# End debug
+
+	loggur = Loggur.objects.create()
 
 	for vakt_id in request.POST.getlist('vaktir',''):
 		print(vakt_id)
 		vakt = Vakt.objects.get(pk=vakt_id)
 		print(vakt)
 		#skraning, buin_til = Skraning.object.get_or_create(felagi=felagi,vakt=vakt,svorun=1)
-		Skraning.objects.get_or_create(felagi=felagi,vakt=vakt, defaults={ 'svorun': 1 })
-	return render(request, 'vaktir/yfirlit.html', )
+		Skraning.objects.get_or_create(felagi=felagi,vakt=vakt,loggur=loggur)
+	return render(request, 'vaktir/skraning.html',)
+
+def fletta_upp(request):
+	return render(request, 'vaktir/skraning.html',)
 
 def umsjon(request):
 	""" Skilar bara yfirliti yfir vaktastöðuna.
