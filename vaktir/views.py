@@ -66,7 +66,12 @@ def skraning(request):
 
 	gogn_til_snidmats = starfsstodvayfirlit()
 
-	return render(request, 'vaktir/skraning.html', starfsstodvayfirlit() )
+	netfang = request.GET.get('netfang')
+	if netfang:
+		felagi = Felagi.objects.get(netfang=netfang)
+		gogn_til_snidmats['felagi'] = felagi
+
+	return render(request, 'vaktir/skraning.html', gogn_til_snidmats )
 
 def skra(request):
 	""" Tekur við POST beiðni, vistar skráninguna og skilar upplýsingum til notanda um hana.
@@ -100,9 +105,6 @@ def skra(request):
 	gogn_til_snidmats['felagi'] = felagi
 	gogn_til_snidmats['loggur'] = loggur
 	return render(request, 'vaktir/skraning.html', gogn_til_snidmats)
-
-def fletta_upp(request):
-	return render(request, 'vaktir/skraning.html',)
 
 def umsjon(request):
 	""" Skilar bara yfirliti yfir vaktastöðuna.
