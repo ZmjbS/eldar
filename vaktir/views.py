@@ -58,11 +58,6 @@ def starfsstodvayfirlit():
 
 	return gogn_til_snidmats
 
-def yfirlit(request):
-	""" Skilar bara yfirliti yfir vaktastöðuna.
-	"""
-	return render_to_response('vaktir/yfirlit.html', starfsstodvayfirlit() )
-
 def skraning(request):
 	"""
 	Skilar viðmóti sem býður notanda upp á að skrá sig. Til dæmis svæði
@@ -93,11 +88,17 @@ def skra(request):
 		print(vakt)
 		#skraning, buin_til = Skraning.object.get_or_create(felagi=felagi,vakt=vakt,svorun=1)
 		Skraning.objects.get_or_create(felagi=felagi,vakt=vakt, defaults={ 'svorun': 1 })
-	return render_to_response('vaktir/yfirlit.html', )
+	return render(request, 'vaktir/yfirlit.html', )
 
-def smidi(request):
+def umsjon(request):
+	""" Skilar bara yfirliti yfir vaktastöðuna.
+	"""
+	return render_to_response('vaktir/yfirlit.html', starfsstodvayfirlit() )
 
-	gogn_til_snidmats = starfsstodvayfirlit()
-	gogn_til_snidmats['tegundalisti'] = Tegund.objects.all()
-
-	return render(request, 'vaktir/skraning.html', gogn_til_snidmats)
+# TODO: Seinni tíma verk...
+#def smidi(request):
+#
+#	gogn_til_snidmats = starfsstodvayfirlit()
+#	gogn_til_snidmats['tegundalisti'] = Tegund.objects.all()
+#
+#	return render(request, 'vaktir/skraning.html', gogn_til_snidmats)
