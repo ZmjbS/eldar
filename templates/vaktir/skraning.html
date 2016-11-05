@@ -5,10 +5,6 @@
 {% endblock %}
 
 {% block atburdarit %}
-<!-- Þetta var hugmynd til að nota svona identicon í stað hringjanna... -->
-<!-- <script src="{% static "js/require.js" %}"></script> -->
-<!--<script src="{% static "js/smoothie-master/standalone/require.js" %}"></script>-->
-<!--<script src="{% static "js/identicon-github/index.js" %}"></script>-->
 <script type="text/javascript">
 
 $( init );
@@ -19,15 +15,19 @@ function init() {
 starfsstöðvalistinn breytist á milli þess að sjást og ekki, og valmöguleikarnir
 virkjast eða óvirkjast.
 */
-$('.vakt').click(function() {
-	$(this).toggleClass('valin ovalin');
-	$(this).find('.starfsstodvar').toggle();
-	if ($(this).hasClass('valin')) {
-        $(this).find('.starfsstodvar').prop('disabled', false);
-    }
-    else {
-        $(this).find('.starfsstodvar').prop('disabled', true);
-    }
+$('tr').on('click','.vakt.ovalin',function() {
+	//console.log('ovalin vakt valin')
+	$('.timabil-'+$(this).data('timabil')).removeClass('ovalin').addClass('timabil-valid');
+	$(this).addClass('valin');
+});
+$('tr').on('click','.vakt.timabil-valid',function() {
+	//console.log('vakt á völdu tímabili valin')
+	$('.timabil-'+$(this).data('timabil')).removeClass('valin').addClass('timabil-valid');
+	$(this).addClass('valin');
+});
+$('tr').on('click','.vakt.valin',function() {
+	//console.log('valin vakt valin')
+	$('.timabil-'+$(this).data('timabil')).removeClass('valin timabil-valid').addClass('ovalin');
 });
 
 /* Gætum þess að smellur á starfsstöðvarlistann sé ekki túlkaður sem smellur á
@@ -43,8 +43,7 @@ $('.starfsstodvar').click(function(event) {
 
 {% block body %}
 <div id="leidbeiningar">
-<p>Veldu þér vinnudaga með því að semella á vaktirnar. Þú getur valið þér starfsstöð með því að tilgreina hana í fellilistanum sem birtist. Athugaðu að það er ekki öruggt að enda á þeim starfsstað; mögulega gæti þurft að færa fólk til, t.a.m. ef valda starfsstöðin hefur náð lágmarki sínu og starfskrafta vantar annað.</p>
-<p>Þegar ákveðnu hámarki er náð, lokast fyrir skráningu.</p>
+<p>Veldu þér vinnudaga með því að semella á vaktirnar. Ef þú ert óviss með starfsstöð skaltu bara skrá þig á Malarhöfðann og við finnum góðan stað fyrir þig. Við reynum að koma til móts við séróskir (t.d. ef fólk vill vera í sinni heimabyggð eða á vakt með félögum) en við gætum þurft að færa einhverja til til að ná að fullmanna alla sölustaði.</p>
 <p>Fylltu svo inn persónuupplýsingarnar þínar og smelltu á vista; þá á skráningin að vera komin.</p>
 </div>
 <form method="post" style="margin-top: 1em;" action="/vaktir/skra">{% csrf_token %}
@@ -72,7 +71,7 @@ $('.starfsstodvar').click(function(event) {
 		<tr>
 			<th class="starfsstod">{{ sd.starfsstod }}</th>
 			{% for vakt in sd.vaktir %}
-				<td class="{% if vakt %}vakt vakttegund-{{ vakt.tegund.id }}{% else %}ekkivakt{% endif %}">
+				<td class="{% if vakt %}vakt ovalin vakttegund-{{ vakt.tegund.id }}{% else %}ekkivakt{% endif %} timabil-{{ vakt.timabil.id }}" data-timabil="{{ vakt.timabil.id }}">
 <!--
 					<select name="vaktir" class="starfsstodvar" style="display:none; width: 3.4em;" disabled>
 						{% for starfsstod in starfsstodvalisti %}
