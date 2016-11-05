@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Timabil(models.Model):
 	# Hver vakt hefur sitt tímabil. Til að einfalda uppsetningu vakta eru
@@ -114,15 +115,30 @@ class Felagi(models.Model):
 	def __str__(self):
 		return self.nafn
 
+class Loggur(models.Model):
+	# Hér loggum við skráningu félaga eða breytingar á skráningu þeirra í
+	# gegnum viðmótið.
+
+	timastimpill = models.DateTimeField(auto_now_add=True)
+	# Ef skráningin er gerð úr umsjónarkerfinu, loggum við hver gerir hana:
+	notandi = models.ForeignKey(User, related_name='loggar', null=True,blank=True)
+
+	class Meta:
+		verbose_name_plural = 'loggar'
+
+	def __str__(self):
+		return self.timastimpill.strftime('%D')
+
 class Skraning(models.Model):
-	# Hér eru félagar skráðir á vaktir. Hver félagi getur verið með fleiri ein
-	# eina vakt og er þá með þann fjölda skráninga.
+	# Hér eru félagar skráðir á vaktir. Hver félagi getur verið með fleiri
+	# en eina vakt og er þá með þann fjölda skráninga.
 	#
 	felagi = models.ForeignKey(Felagi, related_name='skraningar')
 	vakt = models.ForeignKey(Vakt, related_name='skraningar')
 
-	timastimpill = models.DateTimeField(auto_now_add=True)
-	breytistimpill = models.DateTimeField(auto_now=True)
+	#timastimpill = models.DateTimeField(auto_now_add=True)
+	#breytistimpill = models.DateTimeField(auto_now=True)
+	loggur = models.ForeignKey(Loggur, related_name='skraningar')
 
 	# Hver svörun getur verið eitt af:
 	SVORUN_VALMOGULEIKAR = (
@@ -130,7 +146,7 @@ class Skraning(models.Model):
 		(1, 'Já'),
 		(2, 'Kannski'),
 	)
-	svorun = models.PositiveSmallIntegerField(choices=SVORUN_VALMOGULEIKAR,default=0)
+	#svorun = models.PositiveSmallIntegerField(choices=SVORUN_VALMOGULEIKAR,default=0)
 
 	class Meta:
 		verbose_name_plural = 'skraningar'
