@@ -110,4 +110,9 @@ var identicon = require('identicon-github');
 		{% block aukaradir %}{% endblock %}
 	</tbody>
 </table>
+<ul>
+	{% for loggur in loggar %}
+		<li>{{ loggur.timastimpill}} - {{ loggur.athugasemd }}</li>
+	{% endfor %}
+</ul>
 {% endblock %}

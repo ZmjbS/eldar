@@ -50,7 +50,7 @@ vaktina (sem mundi þá af-velja hana).
 <div id="leidbeiningar">
 <p>Skráðu persónuupplýsingarnar og veldu þér vinnudaga. Eins getur þú flett upp fyrri skráningu eftir netfangi. Við reynum að koma til móts við séróskir (t.d. ef fólk vill vera í sinni heimabyggð eða á vakt með félögum) en við gætum þurft að færa einhverja til svo fullmanna megi alla sölustaði.</p>
 </div>
-<form method="post" style="margin-top: 1em;" action="/vaktir/skra">{% csrf_token %}
+<form method="post" style="margin-top: 1em;" action="/vaktir">{% csrf_token %}
 	<div style="margin-bottom: 1em;">
 		<input type="text" name="nafn" value="{{ felagi.nafn }}" placeholder="Nafn" />
 		<input type="text" name="simi" value="{{ felagi.simi }}" placeholder="Símanúmer" />

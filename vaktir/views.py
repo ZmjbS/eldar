@@ -66,18 +66,39 @@ def skraning(request):
 
 	gogn_til_snidmats = starfsstodvayfirlit()
 
-	netfang = request.GET.get('netfang')
-	if netfang:
-		felagi = Felagi.objects.get(netfang=netfang)
-		gogn_til_snidmats['felagi'] = felagi
+	if request.method == 'POST':
+		vidbotargogn = skra(request)
+	else:
+		vidbotargogn = fletta_upp(request)
+
+	if vidbotargogn:
+		for key, val in vidbotargogn.items():
+			gogn_til_snidmats[key] = val
 
 	return render(request, 'vaktir/skraning.html', gogn_til_snidmats )
+
+def fletta_upp(request):
+	'''
+	Skilar upplýsingum um skráningar félaga eftir netfanginu sem gefið er upp.
+	'''
+
+	netfang = request.GET.get('netfang')
+	if netfang:
+		try:
+			felagi = Felagi.objects.get(netfang=netfang)
+			gogn_til_snidmats['felagi'] = felagi
+			return gogn_til_snidmats
+		except:
+			return None
+	else:
+		return None
 
 def skra(request):
 	""" Tekur við POST beiðni, vistar skráninguna og skilar upplýsingum til notanda um hana.
 	"""
 	nafn = request.POST.get('nafn')
 	simi = request.POST.get('simi')
+	simi = ''.join(filter(lambda x: x.isdigit(), simi))
 	netfang = request.POST.get('netfang')
 	athugasemd = request.POST.get('athugasemd')
 
@@ -104,12 +125,16 @@ def skra(request):
 	gogn_til_snidmats = starfsstodvayfirlit()
 	gogn_til_snidmats['felagi'] = felagi
 	gogn_til_snidmats['loggur'] = loggur
-	return render(request, 'vaktir/skraning.html', gogn_til_snidmats)
+	return gogn_til_snidmats
 
 def umsjon(request):
 	""" Skilar bara yfirliti yfir vaktastöðuna.
 	"""
-	return render_to_response('vaktir/yfirlit.html', starfsstodvayfirlit() )
+
+	gogn_til_snidmats = starfsstodvayfirlit()
+	gogn_til_snidmats['loggar'] = Loggur.objects.all().order_by('-timastimpill')
+
+	return render_to_response('vaktir/yfirlit.html', gogn_til_snidmats )
 
 # TODO: Seinni tíma verk...
 #def smidi(request):
