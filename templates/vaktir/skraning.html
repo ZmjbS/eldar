@@ -48,10 +48,15 @@ vaktina (sem mundi þá af-velja hana).
 
 {% block body %}
 <div id="leidbeiningar">
-<p>Veldu þér vinnudaga með því að semella á vaktirnar. Ef þú ert óviss með starfsstöð skaltu bara skrá þig á Malarhöfðann og við finnum góðan stað fyrir þig. Við reynum að koma til móts við séróskir (t.d. ef fólk vill vera í sinni heimabyggð eða á vakt með félögum) en við gætum þurft að færa einhverja til til að ná að fullmanna alla sölustaði.</p>
-<p>Fylltu svo inn persónuupplýsingarnar þínar og smelltu á vista; þá á skráningin að vera komin.</p>
+<p>Skráðu persónuupplýsingarnar og veldu þér vinnudaga. Eins getur þú flett upp fyrri skráningu eftir netfangi. Við reynum að koma til móts við séróskir (t.d. ef fólk vill vera í sinni heimabyggð eða á vakt með félögum) en við gætum þurft að færa einhverja til svo fullmanna megi alla sölustaði.</p>
 </div>
 <form method="post" style="margin-top: 1em;" action="/vaktir/skra">{% csrf_token %}
+	<div style="margin-bottom: 1em;">
+		<input type="text" name="nafn" value="{{ felagi.nafn }}" placeholder="Nafn" />
+		<input type="text" name="simi" value="{{ felagi.simi }}" placeholder="Símanúmer" />
+		<input type="text" name="netfang" value="{{ felagi.netfang }}" placeholder="Tölvupóstfang" />
+		<input type="submit" name="flettaupp" value="Fletta upp skráningu" />
+	</div>
 <table>
 	<thead>
 	<tr>
@@ -93,14 +98,10 @@ vaktina (sem mundi þá af-velja hana).
 	</tbody>
 </table>
 
-	<input type="text" name="nafn" value="{{ felagi.nafn }}" placeholder="Nafn" />
-	<input type="text" name="simi" value="{{ felagi.simi }}" placeholder="Símanúmer" />
-	<input type="text" name="netfang" value="{{ felagi.netfang }}" placeholder="Tölvupóstfang" />
-	<br />
-	<textarea name="athugasemd" value="{{ loggur.athugasemd }}" placeholder="Athugasemdir" cols="80"></textarea>
-	<br />
-	<input type="submit" name="flettaupp" value="Fletta upp skráningu" />
-	<input type="submit" name="submit" value="Vista skráningu" />
+	<div style="margin-top: 1em;">
+		<textarea name="athugasemd" value="{{ loggur.athugasemd }}" placeholder="Athugasemdir" cols="80"></textarea>
+		<input type="submit" name="submit" value="Vista skráningu" style="vertical-align: text-top;"/>
+	</div>
 </form>
 
 {% endblock %}
