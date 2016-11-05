@@ -74,10 +74,11 @@ def skra(request):
 	nafn = request.POST.get('nafn')
 	simi = request.POST.get('simi')
 	netfang = request.POST.get('netfang')
+	athugasemd = request.POST.get('athugasemd')
 
 	print(request.POST)
 
-	felagi, felagi_smidadur = Felagi.objects.get_or_create(netfang=netfang, defaults={ 'kennitala': 90, 'nafn': nafn, 'simi': simi, })
+	felagi, felagi_smidadur = Felagi.objects.get_or_create(netfang=netfang, defaults={ 'nafn': nafn, 'simi': simi, })
 	# Debug:
 	if felagi_smidadur:
 		print('félagi smíðaður')
@@ -86,15 +87,19 @@ def skra(request):
 	print(felagi)
 	# End debug
 
-	loggur = Loggur.objects.create()
+	loggur = Loggur.objects.create(athugasemd=athugasemd)
 
 	for vakt_id in request.POST.getlist('vaktir',''):
-		print(vakt_id)
+		#print(vakt_id)
 		vakt = Vakt.objects.get(pk=vakt_id)
-		print(vakt)
+		#print(vakt)
 		#skraning, buin_til = Skraning.object.get_or_create(felagi=felagi,vakt=vakt,svorun=1)
 		Skraning.objects.get_or_create(felagi=felagi,vakt=vakt,loggur=loggur)
-	return render(request, 'vaktir/skraning.html',)
+
+	gogn_til_snidmats = starfsstodvayfirlit()
+	gogn_til_snidmats['felagi'] = felagi
+	gogn_til_snidmats['loggur'] = loggur
+	return render(request, 'vaktir/skraning.html', gogn_til_snidmats)
 
 def fletta_upp(request):
 	return render(request, 'vaktir/skraning.html',)
