@@ -124,7 +124,7 @@ class Loggur(models.Model):
 	notandi = models.ForeignKey(User, related_name='loggar', null=True,blank=True)
 
 	# Við hvern logg má bæta athugasemd:
-	athugasemd = models.TextField(blank=True)
+	athugasemd = models.TextField(null=True,blank=True)
 
 	class Meta:
 		verbose_name_plural = 'loggar'
