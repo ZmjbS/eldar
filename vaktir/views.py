@@ -127,7 +127,6 @@ def skra(request):
 		#print(vakt_id)
 		vakt = Vakt.objects.get(pk=vakt_id)
 		#print(vakt)
-		#skraning, buin_til = Vaktaskraning.object.get_or_create(felagi=felagi,vakt=vakt,svorun=1)
 		Vaktaskraning.objects.get_or_create(felagi=felagi,vakt=vakt,skraning=skraning)
 
 	gogn_til_snidmats = starfsstodvayfirlit()
