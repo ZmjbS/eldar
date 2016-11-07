@@ -91,6 +91,19 @@ class Vakt(models.Model):
 	# Hver vakt hefur einnig ákveðna tegund.
 	tegund = models.ForeignKey(Tegund)
 
+	def vaktaskraningar(self):
+		'''
+		Þar sem vaktaskráningar fyrir ákveðna vakt eru ekki endilega í
+		nýjustu skráningunni þurfum við að búa til sér lista fyrir
+		þetta.
+		'''
+		vs_listi = []
+		for vs in Vaktaskraning.objects.filter(vakt=self):
+			# Bætum vaktaskráningunni við ef hún er í nýjustu skráningu félagans.
+			if vs.skraning == Skraning.objects.filter(felagi=vs.skraning.felagi).order_by('-timastimpill')[0]:
+				vs_listi.append(vs)
+		return vs_listi
+
 	class Meta:
 		verbose_name_plural = 'vaktir'
 
@@ -159,8 +172,9 @@ class Vaktaskraning(models.Model):
 	# en eina vakt og er þá með þann fjölda skráninga.
 	#
 	felagi = models.ForeignKey(Felagi, related_name='vaktaskraningar')
-
-	vakt = models.ForeignKey(Vakt, related_name='vaktaskraningar')
+	# Vaktaskráningar fá ekki related_name vegna þess að sumar vaktanna
+	# tilheyra eldri skráningum sem eru ekki lengur gildar.
+	vakt = models.ForeignKey(Vakt)
 	skraning = models.ForeignKey(Skraning, related_name='vaktaskraningar')
 
 	# TODO: Enn sem komið er er skráning ígildi staðfestingar á vakt. Það

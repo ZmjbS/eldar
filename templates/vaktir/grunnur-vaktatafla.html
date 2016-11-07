@@ -97,8 +97,8 @@ var identicon = require('identicon-github');
 						   vakttegund-{{ vakt.tegund.id }}"
 				>
 					{% if vakt %}
-						<span class="fjoldi">{{ vakt.skraningar.count }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
-						<div class="skraningar">{% for skraning in vakt.skraningar.all %}
+						<span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
+						<div class="skraningar">{% for skraning in vakt.vaktaskraningar %}
 							<span class="skraning-icon felagi-{{ vakt.skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
 						{% endfor %}</div>
 					{% endif %}
@@ -111,8 +111,8 @@ var identicon = require('identicon-github');
 	</tbody>
 </table>
 <ul>
-	{% for loggur in loggar %}
-		<li>{{ loggur.timastimpill}} - {{ loggur.athugasemd }}</li>
+	{% for skraning in skraningar %}
+		<li>{{ skraning.timastimpill}} - {{ skraning.athugasemd }}</li>
 	{% endfor %}
 </ul>
 {% endblock %}
