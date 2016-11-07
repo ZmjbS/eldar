@@ -18,12 +18,12 @@ class Timabil(models.Model):
 	def dags(self):
 		return self.hefst.date()
 
-	def skraningar(self):
-		skraningar = []
+	def vaktaskraningar(self):
+		vaktaskraningar = []
 		for vakt in Vakt.objects.filter(timabil=self):
-			for skraning in Skraning.objects.filter(vakt=vakt):
-				skraningar.append(skraning)
-		return len(skraningar)
+			for vs in Vaktaskraning.objects.filter(vakt=vakt):
+				vaktaskraningar.append(vs)
+		return len(vaktaskraningar)
 
 	def lagmark(self):
 		lagmark = 0
@@ -105,9 +105,13 @@ class Felagi(models.Model):
 	simi = models.IntegerField()
 	netfang = models.CharField(max_length=32)
 
-	# Félagar geta skráð "Kannski" vaktir (sjá skráningu). Hér geta þeir
-	# tilgreint hámakrsfjölda vakta sem þeir eru tilbúnir til að sinna.
-	geta = models.PositiveSmallIntegerField(null=True,blank=True)
+	def vaktaskraningar(self):
+		'''
+		Skilar vaktaskráningum nýjustu skráningarinnar
+		'''
+		skraning = self.skraningar.order_by('timastimpill')[0]
+		vaktaskraningar = Vaktaskraning.objects.filter(skraning=skraning)
+		return vaktaskraningar
 
 	class Meta:
 		verbose_name_plural = 'felagar'
@@ -115,45 +119,67 @@ class Felagi(models.Model):
 	def __str__(self):
 		return self.nafn
 
-class Loggur(models.Model):
-	# Hér loggum við skráningu félaga eða breytingar á skráningu þeirra í
-	# gegnum viðmótið.
+class Skraning(models.Model):
+	'''
+	Þegar félagi skráir sig býr hann til skráningu sem núll eða fleiri
+	vaktaksráningar hanga við. 
 
+	Notendur geta svo breytt skráningu í gegnum viðmótið og eru þá merktir
+	við skráninguna.
+	'''
+
+	felagi = models.ForeignKey(Felagi, related_name='skraningar')
 	timastimpill = models.DateTimeField(auto_now_add=True)
+
 	# Ef skráningin er gerð úr umsjónarkerfinu, loggum við hver gerir hana:
-	notandi = models.ForeignKey(User, related_name='loggar', null=True,blank=True)
+	notandi = models.ForeignKey(User, related_name='skraningar', null=True,blank=True)
 
 	# Við hvern logg má bæta athugasemd:
 	athugasemd = models.TextField(null=True,blank=True)
 
+	# TODO: Enn sem komið er er skráning ígildi staðfestingar á vakt. Það
+	# væri hins vegar kostur að gefa möguleika á að merkja vaktir "kannski"
+	# og þá einnig fjölda vakta sem viðkomandi er tilbúinn til að sinna.
+	# Félagi með sveigjanleika getur t.a.m. mætt á 8 vaktir en hefur ekki
+	# getu á að mæta í fleiri en 3. Þá væru þessar átta skráðar sem
+	# "kannski" og í skráningunni "geta" hans skráð sem þrjár vaktir.
+	#
+	# Félagar geta skráð "Kannski" vaktir (sjá skráningu). Hér geta þeir
+	# tilgreint hámakrsfjölda vakta sem þeir eru tilbúnir til að sinna.
+	# geta = models.PositiveSmallIntegerField(null=True,blank=True)
+
 	class Meta:
-		verbose_name_plural = 'loggar'
+		verbose_name_plural = 'skráningar'
 
 	def __str__(self):
 		return self.timastimpill.strftime('%D')
 
-class Skraning(models.Model):
+class Vaktaskraning(models.Model):
 	# Hér eru félagar skráðir á vaktir. Hver félagi getur verið með fleiri
 	# en eina vakt og er þá með þann fjölda skráninga.
 	#
-	felagi = models.ForeignKey(Felagi, related_name='skraningar')
-	vakt = models.ForeignKey(Vakt, related_name='skraningar')
+	felagi = models.ForeignKey(Felagi, related_name='vaktaskraningar')
 
-	#timastimpill = models.DateTimeField(auto_now_add=True)
-	#breytistimpill = models.DateTimeField(auto_now=True)
-	loggur = models.ForeignKey(Loggur, related_name='skraningar')
+	vakt = models.ForeignKey(Vakt, related_name='vaktaskraningar')
+	skraning = models.ForeignKey(Skraning, related_name='vaktaskraningar')
 
+	# TODO: Enn sem komið er er skráning ígildi staðfestingar á vakt. Það
+	# væri hins vegar kostur að gefa möguleika á að merkja vaktir "kannski"
+	# og þá einnig fjölda vakta sem viðkomandi er tilbúinn til að sinna.
+	# Félagi með sveigjanleika getur t.a.m. mætt á 8 vaktir en hefur ekki
+	# getu á að mæta í fleiri en 3. Þá væru þessar átta skráðar sem
+	# "kannski" og í skráningunni "geta" hans skráð sem þrjár vaktir.
+	#
 	# Hver svörun getur verið eitt af:
-	SVORUN_VALMOGULEIKAR = (
-		(0, 'Nei'),
-		(1, 'Já'),
-		(2, 'Kannski'),
-	)
-	#svorun = models.PositiveSmallIntegerField(choices=SVORUN_VALMOGULEIKAR,default=0)
+	#SVAR_VALMOGULEIKAR = (
+	#	(1, 'Já'),
+	#	(2, 'Kannski'),
+	#)
+	#svar = models.PositiveSmallIntegerField(choices=SVORUN_VALMOGULEIKAR,default=1)
 
 	class Meta:
-		verbose_name_plural = 'skraningar'
-		unique_together = ( 'felagi', 'vakt' )
+		verbose_name_plural = 'vaktaskráningar'
+		#unique_together = ( 'felagi', 'vakt' )
 
 	def __str__(self):
-		return '%s [%s]: %s' % (self.felagi, self.SVORUN_VALMOGULEIKAR[self.svorun][1], self.vakt.tegund)
+		return '%s: %s' % (self.felagi, self.vakt.tegund)
