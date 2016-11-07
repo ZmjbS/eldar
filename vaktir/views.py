@@ -91,10 +91,7 @@ def fletta_upp(request):
 	if netfang:
 		try:
 			felagi = Felagi.objects.get(netfang=netfang)
-			print(felagi)
 			gogn_til_snidmats = { 'felagi': felagi, }
-			print('gogn')
-			gogn_til_snidmats['vaktaskraningar'] = felagi.vaktaskraningar
 			return gogn_til_snidmats
 		except:
 			return None
@@ -139,7 +136,7 @@ def umsjon(request):
 	"""
 
 	gogn_til_snidmats = starfsstodvayfirlit()
-	gogn_til_snidmats['loggar'] = Skraning.objects.all().order_by('-timastimpill')
+	gogn_til_snidmats['skraningar'] = Skraning.objects.all().order_by('-timastimpill')
 
 	return render_to_response('vaktir/yfirlit.html', gogn_til_snidmats )
 

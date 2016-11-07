@@ -122,7 +122,7 @@ class Felagi(models.Model):
 		'''
 		Skilar vaktaskráningum nýjustu skráningarinnar
 		'''
-		skraning = self.skraningar.order_by('timastimpill')[0]
+		skraning = self.skraningar.order_by('-timastimpill')[0]
 		vaktaskraningar = Vaktaskraning.objects.filter(skraning=skraning)
 		return vaktaskraningar
 
