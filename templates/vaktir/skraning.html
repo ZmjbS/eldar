@@ -42,9 +42,11 @@ vaktina (sem mundi þá af-velja hana).
 //	event.stopPropagation();
 //});
 
-{% for vs in felagi.vaktaskraningar.all %}
+{% for vs in felagi.skraningar.last.vaktaskraningar.all %}
+	// Hreinsum tímabilið, skráum vaktina sem valda, og stillum input-ið svo það fari með forminu.
 	$('.timabil-{{ vs.vakt.timabil.id }}').removeClass('valin').addClass('timabil-valid');
-	$('#vakt-{{vs.vakt.id}}').removeClass('ovalin').addClass('valin')
+	$('#vakt-{{vs.vakt.id}}').removeClass('ovalin').addClass('valin');
+	$('#vakt-{{vs.vakt.id}}').children('input').attr('name','vaktir');
 {% endfor %}
 }
 
