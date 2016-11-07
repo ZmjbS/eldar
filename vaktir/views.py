@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import render
-from vaktir.models import Vakt, Starfsstod, Timabil, Skraning, Tegund, Felagi, Loggur
+from vaktir.models import Vakt, Starfsstod, Timabil, Vaktaskraning, Tegund, Felagi, Skraning
 
 def dagalisti():
 	''' Búum til lista yfir dagana sem vaktirnar ná yfir og skilum í röðuðum lista.
@@ -67,9 +67,12 @@ def skraning(request):
 	gogn_til_snidmats = starfsstodvayfirlit()
 
 	if request.method == 'POST':
+		print('POST')
 		vidbotargogn = skra(request)
 	else:
+		print('GET')
 		vidbotargogn = fletta_upp(request)
+		print(vidbotargogn)
 
 	if vidbotargogn:
 		for key, val in vidbotargogn.items():
@@ -82,11 +85,16 @@ def fletta_upp(request):
 	Skilar upplýsingum um skráningar félaga eftir netfanginu sem gefið er upp.
 	'''
 
+	print('hér')
 	netfang = request.GET.get('netfang')
+	print(netfang)
 	if netfang:
 		try:
 			felagi = Felagi.objects.get(netfang=netfang)
-			gogn_til_snidmats['felagi'] = felagi
+			print(felagi)
+			gogn_til_snidmats = { 'felagi': felagi, }
+			print('gogn')
+			gogn_til_snidmats['vaktaskraningar'] = felagi.vaktaskraningar
 			return gogn_til_snidmats
 		except:
 			return None
@@ -113,18 +121,18 @@ def skra(request):
 	print(felagi)
 	# End debug
 
-	loggur = Loggur.objects.create(athugasemd=athugasemd)
+	skraning = Skraning.objects.create(felagi=felagi,athugasemd=athugasemd)
 
 	for vakt_id in request.POST.getlist('vaktir',''):
 		#print(vakt_id)
 		vakt = Vakt.objects.get(pk=vakt_id)
 		#print(vakt)
-		#skraning, buin_til = Skraning.object.get_or_create(felagi=felagi,vakt=vakt,svorun=1)
-		Skraning.objects.get_or_create(felagi=felagi,vakt=vakt,loggur=loggur)
+		#skraning, buin_til = Vaktaskraning.object.get_or_create(felagi=felagi,vakt=vakt,svorun=1)
+		Vaktaskraning.objects.get_or_create(felagi=felagi,vakt=vakt,skraning=skraning)
 
 	gogn_til_snidmats = starfsstodvayfirlit()
 	gogn_til_snidmats['felagi'] = felagi
-	gogn_til_snidmats['loggur'] = loggur
+	gogn_til_snidmats['skraning'] = skraning
 	return gogn_til_snidmats
 
 def umsjon(request):
@@ -132,7 +140,7 @@ def umsjon(request):
 	"""
 
 	gogn_til_snidmats = starfsstodvayfirlit()
-	gogn_til_snidmats['loggar'] = Loggur.objects.all().order_by('-timastimpill')
+	gogn_til_snidmats['loggar'] = Skraning.objects.all().order_by('-timastimpill')
 
 	return render_to_response('vaktir/yfirlit.html', gogn_til_snidmats )
 
