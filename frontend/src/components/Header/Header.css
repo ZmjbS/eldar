@@ -1,0 +1,17 @@
+.main{
+	text-align: center;
+}
+
+.user{
+	margin-bottom: 20px;
+}
+
+.title{
+	margin-top: 0;
+}
+
+@media only screen and (max-width: 480px) {
+	.title {
+		font-size: 20px;
+	}
+}

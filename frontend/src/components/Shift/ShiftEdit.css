@@ -1,0 +1,84 @@
+
+.editWrapper {
+	position:       absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height:         155px;
+	min-width: 300px;
+	right:          0;
+	z-index:        9999;
+}
+
+
+.edit {
+	border-radius:    5px;
+	background-color: #a3cbfe;
+	padding:          10px;
+	width:            100%;
+	height:           100%;
+	z-index:          999999;
+	position:         absolute;
+}
+
+
+.overlay {
+	position:         fixed;
+	content:          '';
+	display:          block;
+	left:             0;
+	bottom:           0;
+	right:            0;
+	top:              0;
+	background-color: rgba(109, 114, 122, 0.6);
+	z-index:          8888;
+}
+
+
+.formWrapper {
+	margin-bottom: 20px;
+	opacity:       1;
+	color:         #4c5157;
+	font-size:     14px;
+}
+
+:global(.react-numeric-input){
+	width: 50%;
+	box-sizing: border-box;
+}
+
+.form {
+	padding:        5px;
+	width: 100%;
+}
+
+.label {
+	width:   50%;
+	display: inline-block;
+}
+
+.buttonWrapper {
+
+}
+
+.button {
+
+	padding:          10px;
+	background-color: #92a0b2;
+	color:            white;
+	border:           0;
+	width:            50%;
+	text-align:       center;
+	margin:           0;
+}
+
+.buttonDelete {
+
+	padding:          10px;
+	background-color: transparent;
+	color:            red;
+	border:           0;
+	width:            50%;
+	text-align:       center;
+	margin:           0;
+}

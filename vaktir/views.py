@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from vaktir.models import Vakt, Starfsstod, Timabil, Vaktaskraning, Tegund, Felagi, Skraning
@@ -36,7 +37,7 @@ def starfsstodvayfirlit():
 			# Annars fer bara autt stak í listann:
 			except:
 				vaktir.append('')
-		starfsstodvalisti.append({ 'starfsstod': starfsstod, 'vaktir': vaktir, }) 
+		starfsstodvalisti.append({ 'starfsstod': starfsstod, 'vaktir': vaktir }) 
 
 	# Finnum út hversu mörg tímabil eru á hverjum degi:
 	dagatimabil = []

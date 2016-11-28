@@ -1,10 +1,4 @@
-**/*.pyc
-**/*.sw?
-**/migrations
-db.sqlite3
-#.gitignore
-venv/
-.vscode
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
 node_modules

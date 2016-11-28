@@ -1,0 +1,70 @@
+.main {
+	position: relative;
+}
+
+.head {
+	font-size:  24px;
+	text-align: center;
+	padding:    10px;
+	display: flex;
+}
+
+.timeslotWrapper {
+	height: 30px;
+}
+
+.timeslot {
+	width:         100%;
+	height:        100%;
+	border-bottom: 1px solid rgba(200, 200, 200, 0.6);
+}
+
+.shiftsWrapper {
+	position:       absolute;
+	height:         390px;
+	bottom:         0;
+	right:          0;
+	left:           0;
+
+}
+
+.shifts {
+	position:       relative;
+	height:         100%;
+
+}
+
+.shift {
+	position:         absolute;
+	right:            10px;
+	left:             10px;
+	pointer-events:   auto;
+	z-index: 99999;
+}
+
+.icon{
+	width: 33px;
+	height: 33px;
+	display: inline-block;
+	flex: 0 0 30px;
+
+}
+
+.icon svg{
+	width: 20px;
+}
+
+.iconLeft{
+	composes: icon;
+	left: 0;
+}
+
+.iconRight{
+	composes: icon;
+	right: 0;
+}
+
+.day{
+	display: inline-block;
+	flex: 1 0 auto;
+}

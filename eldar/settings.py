@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 	'lager',
 	'vaktir',
 )
@@ -108,3 +109,7 @@ STATICFILES_DIRS = (
 	os.path.join(BASE_DIR,'vaktir/static'),
 	os.path.join(BASE_DIR,'lager/static'),
 )
+
+REST_FRAMEWORK = {
+  
+}
