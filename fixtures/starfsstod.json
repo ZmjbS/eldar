@@ -1,0 +1,83 @@
+[
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 1,
+		"fields": {
+			"nafn": "M6",
+			"hamark": 30,
+			"solustadur": "True"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 2,
+		"fields": {
+			"nafn": "Spöng",
+			"hamark": 12,
+			"solustadur": "True"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 3,
+		"fields": {
+			"nafn": "Grafarholt",
+			"hamark": 12,
+			"solustadur": "True"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 4,
+		"fields": {
+			"nafn": "Hraunbær",
+			"hamark": 8,
+			"solustadur": "True"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 5,
+		"fields": {
+			"nafn": "Grjótháls",
+			"hamark": 8,
+			"solustadur": "True"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 6,
+		"fields": {
+			"nafn": "Bílabúð Benna",
+			"hamark": 12,
+			"solustadur": "True"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 7,
+		"fields": {
+			"nafn": "Skjöldungar",
+			"hamark": 12,
+			"solustadur": "True"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 8,
+		"fields": {
+			"nafn": "Stjórnstöð",
+			"hamark": 5,
+			"solustadur": "False"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 9,
+		"fields": {
+			"nafn": "Lager",
+			"hamark": 5,
+			"solustadur": "False"
+		}
+	}
+]

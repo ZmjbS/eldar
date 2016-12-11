@@ -1,0 +1,30 @@
+[
+	{
+		"model": "vaktir.tegund",
+		"pk": 1,
+		"fields": {
+			"nafn": "undirbúningur"
+		}
+	},
+	{
+		"model": "vaktir.tegund",
+		"pk": 2,
+		"fields": {
+			"nafn": "söluvakt"
+		}
+	},
+	{
+		"model": "vaktir.tegund",
+		"pk": 3,
+		"fields": {
+			"nafn": "næturvakt"
+		}
+	},
+	{
+		"model": "vaktir.tegund",
+		"pk": 4,
+		"fields": {
+			"nafn": "stuðningur"
+		}
+	}
+]

@@ -15,7 +15,6 @@ import styles from './Calendar.css';
 
 const mapStateToProps = ( state, props ) => {
 	return {
-		timeslots: state.timeslots.list,
 		shifts: state.shifts.list
 	}
 }
@@ -68,6 +67,8 @@ class Calander extends React.Component {
 		return (
 			<ShiftEdit shift={ editShift }
 			           onClose={ this.closeEdit }
+			           timeslots={ this.props.timeslots }
+			           date={ editShift.date }
 			/>
 		)
 	}
@@ -104,6 +105,7 @@ class Calander extends React.Component {
 										onPrevDay={ this.props.onPrevDay }
 										onNextDay={ this.props.onNextDay }
 										onShiftClick={ this.editShift }
+									    timeslots={ this.props.timeslots }
 									/>)
 								})}
 							</div>

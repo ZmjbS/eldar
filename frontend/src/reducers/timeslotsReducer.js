@@ -1,5 +1,6 @@
 import map from 'lodash/map';
 import random from 'lodash/random';
+import typeToReducer from 'type-to-reducer';
 
 const getTimeslots = ( date, store ) => {
 		return [
@@ -37,13 +38,26 @@ const generateData = () => {
 
 
 const defaultState = {
-	list: generateData()
+	list: []
 }
 
-export default ( state = defaultState, action ) => {
-	switch ( action.type ) {
 
-		default:
-			return state
+export default typeToReducer({
+	['GET_TIMESLOTS_FOR_STORE']: {
+		PENDING: () => ({
+			// ...
+
+		}),
+		ERROR: ( state, action ) => ({
+			isRejected: true,
+			error: action.payload
+		}),
+		SUCCESS: ( state, action ) => {
+			return {
+				list: action.payload.data
+			}
+		}
 	}
-}
+}, defaultState);
+
+

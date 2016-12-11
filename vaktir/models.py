@@ -50,6 +50,8 @@ class Starfsstod(models.Model):
 	# stjórnstöð...
 	#
 	nafn = models.CharField(max_length=32)
+	hamark = models.IntegerField()
+	solustadur = models.BooleanField()
 
 	class Meta:
 		verbose_name_plural = 'starfsstöðvar'
@@ -98,12 +100,17 @@ class Vakt(models.Model):
 		nýjustu skráningunni þurfum við að búa til sér lista fyrir
 		þetta.
 		'''
+
+		self.vakt.latest('timastimpill')
 		vs_listi = []
 		for vs in Vaktaskraning.objects.filter(vakt=self):
 			# Bætum vaktaskráningunni við ef hún er í nýjustu skráningu félagans.
-			if vs.skraning == Skraning.objects.filter(felagi=vs.skraning.felagi).order_by('-timastimpill')[0]:
+			if vs.skraning == Skraning.objects.filter(felagi=vs.skraning.felagi).latest('timastimpill'):
 				vs_listi.append(vs)
 		return vs_listi
+
+	# def skradir(self):
+	# 	return len(self.vaktaskraningar())
 
 	class Meta:
 		verbose_name_plural = 'vaktir'
@@ -119,13 +126,13 @@ class Felagi(models.Model):
 	simi = models.IntegerField()
 	netfang = models.CharField(max_length=32)
 
-	def vaktaskraningar(self):
-		'''
-		Skilar vaktaskráningum nýjustu skráningarinnar
-		'''
-		skraning = self.skraningar.order_by('-timastimpill')[0]
-		vaktaskraningar = Vaktaskraning.objects.filter(skraning=skraning)
-		return vaktaskraningar
+	# def vaktaskraningar(self):
+	# 	'''
+	# 	Skilar vaktaskráningum nýjustu skráningarinnar
+	# 	'''
+	# 	skraning = self.skraningar.order_by('-timastimpill')[0]
+	# 	vaktaskraningar = Vaktaskraning.objects.filter(skraning=skraning)
+	# 	return vaktaskraningar
 
 	class Meta:
 		verbose_name_plural = 'felagar'
@@ -143,7 +150,7 @@ class Skraning(models.Model):
 	'''
 
 	felagi = models.ForeignKey(Felagi, related_name='skraningar')
-	timastimpill = models.DateTimeField(auto_now_add=True)
+	timastimpill = models.DateTimeField(auto_now_add=True, db_index=True)
 
 	# Ef skráningin er gerð úr umsjónarkerfinu, loggum við hver gerir hana:
 	notandi = models.ForeignKey(User, related_name='skraningar', null=True,blank=True)
@@ -151,6 +158,7 @@ class Skraning(models.Model):
 	# Við hvern logg má bæta athugasemd:
 	athugasemd = models.TextField(null=True,blank=True)
 
+	
 	# TODO: Enn sem komið er er skráning ígildi staðfestingar á vakt. Það
 	# væri hins vegar kostur að gefa möguleika á að merkja vaktir "kannski"
 	# og þá einnig fjölda vakta sem viðkomandi er tilbúinn til að sinna.
@@ -172,11 +180,11 @@ class Vaktaskraning(models.Model):
 	# Hér eru félagar skráðir á vaktir. Hver félagi getur verið með fleiri
 	# en eina vakt og er þá með þann fjölda skráninga.
 	#
-	felagi = models.ForeignKey(Felagi, related_name='vaktaskraningar')
+	felagi = models.ForeignKey(Felagi, related_name='felagi')
 	# Vaktaskráningar fá ekki related_name vegna þess að sumar vaktanna
 	# tilheyra eldri skráningum sem eru ekki lengur gildar.
 	vakt = models.ForeignKey(Vakt)
-	skraning = models.ForeignKey(Skraning, related_name='vaktaskraningar')
+	skraning = models.ForeignKey(Skraning, related_name='vaktaskraning')
 
 	# TODO: Enn sem komið er er skráning ígildi staðfestingar á vakt. Það
 	# væri hins vegar kostur að gefa möguleika á að merkja vaktir "kannski"

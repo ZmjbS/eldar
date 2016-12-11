@@ -4,12 +4,15 @@ import {connect} from 'react-redux'
 
 import {editShift, deleteShift} from '../../actions/shiftsActions';
 import {getShiftMinMax} from '../../utils/shifts';
+import {getTimeslotsForDate} from '../../utils/timeslots';
+import {getSelectedShifts} from '../../selectors/shiftsSelector';
 
 import styles from './ShiftEdit.css'
 
 const mapStateToProps = ( state, props ) => {
 	return {
-		...getShiftMinMax(state.timeslots.list, state.shifts.list, props.shift),
+		...getShiftMinMax(props.timeslots, getSelectedShifts(state, props), props.shift),
+		timeslots: getTimeslotsForDate(props.timeslots, props.date)
 	}
 }
 
@@ -56,19 +59,26 @@ class ShiftEdit extends React.Component {
 	}
 
 	onChange = () => {
+
+
+
 		if ( this.props.onEditShift )
 			this.props.onEditShift({
 				...this.props.shift,
-				to: this.state.to,
-				from: this.state.from,
+				changeTo: this.state.to,
+				changeFrom: this.state.from,
 			})
 
 		this.props.onClose();
 	}
 
+	onDeleteTimeslot = (from, to) => {
+		this.props.onDeleteShift();
+	}
+
 	handleDelete = () => {
 		if ( this.props.onEditShift )
-			this.props.onDeleteShift(this.props.shift.id);
+			this.props.onDeleteShift(this.props.shift);
 
 		this.props.onClose();
 	}
@@ -79,6 +89,8 @@ class ShiftEdit extends React.Component {
 	}
 
 	render () {
+
+		console.log('props', this.props);
 		return (
 			<div>
 				<div className={ styles.overlay } onClick={ this.handleClickOutside }></div>

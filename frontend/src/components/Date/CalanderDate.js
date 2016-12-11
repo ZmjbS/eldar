@@ -8,6 +8,8 @@ import {connect} from 'react-redux'
 import { getShiftsForDate, getNextFullShift, isTimeslotFull } from '../../utils/shifts';
 import { getTimeslotsForDate } from '../../utils/timeslots';
 
+import {getSelectedShifts} from '../../selectors/shiftsSelector';
+
 import Shift from '../Shift/Shift';
 
 import {addShift} from '../../actions/shiftsActions';
@@ -21,8 +23,8 @@ import styles from './CalanderDate.css';
 
 const mapStateToProps = ( state, props ) => {
 	return {
-		shifts: getShiftsForDate(state.shifts.list, props.date),
-		timeslots: getTimeslotsForDate(state.timeslots.list, props.date)
+		shifts: getSelectedShifts(state, props),
+		timeslots: getTimeslotsForDate(props.timeslots, props.date)
 	}
 }
 
@@ -53,7 +55,6 @@ class CalanderDate extends React.Component {
 
 
 	addShift = ( from ) => {
-
 		return () => {
 
 			if ( isTimeslotFull(this.props.timeslots, from) ) {
@@ -133,13 +134,14 @@ class CalanderDate extends React.Component {
 	render = () => {
 		const { timeslots, shifts } = this.props;
 
+
+
 		return (
 			<div className={ [styles.main, this.props.className].join(' ') }>
 				{ this.renderHead() }
-				<div className={ styles.shiftsWrapper }>
+				<div className={ styles.shiftsWrapper } style={ { height: timeslots.length * 30 }}>
 					<div className={ styles.shifts }>
 						{ map(shifts, ( shift ) => {
-
 							const style = {
 								top: this.timeToPixels(shift.from),
 								height: this.hoursToPixels(shift.to - shift.from)

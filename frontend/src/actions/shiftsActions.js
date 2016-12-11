@@ -1,3 +1,5 @@
+import {saveShifts, fetchShiftsForUser} from '../api/shiftApi';
+
 export const addShift = ( data ) => {
 	return {
 		type: 'ADD_SHIFT',
@@ -12,11 +14,22 @@ export const editShift = ( data ) => {
 	}
 }
 
-export const deleteShift = ( id ) => {
+export const deleteShift = ( shift ) => {
 	return {
 		type: 'DELETE_SHIFT',
-		id
+		shift
 	}
 }
+
+export const save = ( shiftIds, userId ) => ({
+	type: 'SAVE_SHIFTS',
+	payload: saveShifts(shiftIds, userId)
+});
+
+
+export const loadShifts = ( userId ) => ({
+	type: 'LOAD_SHIFTS',
+	payload: fetchShiftsForUser(userId)
+});
 
 
