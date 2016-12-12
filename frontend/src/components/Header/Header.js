@@ -1,10 +1,19 @@
 import React, { PropTypes } from 'react';
+import {connect} from 'react-redux'
 import styles from './Header.css';
 
-/**
- * @class Header
- * @module *
- */
+const mapStateToProps = ( state, props ) => {
+	return {
+		currentUser: state.users.currentUser
+	}
+}
+
+const mapDispatchToProps = ( dispatch ) => {
+	return {
+	}
+}
+
+
 class Header extends React.Component {
 
 	//static defaultProps = {};
@@ -17,17 +26,23 @@ class Header extends React.Component {
 	//shouldComponentMount () { return true; }
 
 	render () {
+		const { currentUser: { nafn, netfang, simi }} = this.props;
+
 		return (
 			<div className={ styles.main }>
 				<h1 className={ styles.title }>
 					Vaktaskráningarkerfi HSSR
 				</h1>
 				<div className={ styles.user}>
-					Baldur Árnason - baldurarna@gmail.com
+					{ nafn } - { netfang } - { simi }
 				</div>
 			</div>
 		);
 	}
 }
 
-export default Header;
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Header);
+

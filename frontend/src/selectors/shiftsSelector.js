@@ -1,9 +1,11 @@
 import {createSelector} from 'reselect'
 import moment from 'moment';
-import {orderBy, groupBy, map, some, filter, find} from 'lodash';
+import {orderBy, groupBy, map, some, filter, find, flatten} from 'lodash';
+import {isSameDay, isEqual, isSameSecond, startOfDay, getHours, isBefore, isAfter} from 'date-fns';
 
 const timeslots = ( state ) => state.timeslots.list;
 const shifts = ( state ) => state.shifts.list;
+const locations = ( state ) => state.locations.list;
 const userShifts = ( state ) => {
 	return state.shifts.vaktir ? state.shifts.vaktir : [];
 }
@@ -18,19 +20,58 @@ export const getShiftsAsDateTime = createSelector([shifts], ( shifts ) => {
 	})
 })
 
-export const getShiftsTimeslotIds = createSelector(
-	[timeslots, userShifts],
-	( timeslots, shifts ) => {
+const getSimpleTimeslots = createSelector([timeslots], ( timeslots ) => {
+	return map(timeslots, ( timeslot ) => {
+		return {
+			id: timeslot.id,
+			hefst: timeslot._timabil.hefst,
+			lykur: timeslot._timabil.lykur,
+			starfsstod: timeslot.starfsstod
+		}
+	})
+});
 
-		const filtered = filter(timeslots, ( timeslot ) => {
-			return some(shifts, ( shift ) => {
-				return moment(shift.hefst).isSameOrBefore(timeslot._timabil.hefst) && moment(shift.lykur).isSameOrAfter(timeslot._timabil.lykur)
-			})
-		});
+const getSimpleTimeslotsGroupedByStore = createSelector([getSimpleTimeslots], ( timeslots ) => {
+	return groupBy(timeslots, 'starfsstod');
+});
 
-		return map(filtered, ( timeslot ) => {
-			return timeslot.id;
+const getUserShiftsGroupedByStore = createSelector([userShifts], ( shifts ) => {
+	return groupBy(shifts, 'starfsstod.id')
+});
+
+const getShiftsTimeslotIdsForShifts = ( timeslots, shifts ) => {
+	const s = map(shifts, ( shift ) => {
+		return {
+			hefst: moment(shift.hefst),
+			lykur: moment(shift.lykur)
+		}
+	});
+
+	const filtered = filter(timeslots, ( timeslot ) => {
+		return some(s, ( shift ) => {
+			// return (isEqual(timeslot.hefst, shift.hefst) || isBefore(timeslot.hefst, shift.hefst))
+			// 	&& (isEqual(timeslot.lykur, shift.lykur) || isAfter(timeslot.lykur, shift.lykur));
+			return shift.hefst.isSameOrBefore(timeslot.hefst) && shift.lykur.isSameOrAfter(timeslot.lykur)
 		})
+	});
+
+	return map(filtered, ( timeslot ) => {
+		return timeslot.id;
+	})
+}
+
+export const getShiftsTimeslotIds = createSelector(
+	[getSimpleTimeslotsGroupedByStore, getUserShiftsGroupedByStore],
+	( timeslots, shiftsByDays ) => {
+
+		//return [];
+		console.time('foo2');
+
+		const ids = flatten(map(shiftsByDays, ( shifts, key ) => (getShiftsTimeslotIdsForShifts(timeslots[key], shifts))));
+
+		console.timeEnd('foo2');
+
+		return ids;
 	}
 )
 
@@ -48,64 +89,53 @@ const vaktirForDate = createSelector([userShifts, date], ( userShifts, date ) =>
 	return orderBy(filter(userShifts, ( shift ) => (moment(shift.hefst).isSame(date, 'day'))), 'hefst');
 });
 
-export const getSelectedShifts = createSelector([timeslotsForDate, vaktirForDate], ( timeslots, vaktirForDate ) => {
+const getSelectedShiftsForTimeslots = ( timeslots, shifts, locations ) => {
 
-	if ( vaktirForDate.length === 0 ) return [];
+	if ( shifts.length === 0 ) return [];
 
 	let shifts2 = [];
-	let start = moment(vaktirForDate[0].hefst).hour();
-	let end = moment(vaktirForDate[vaktirForDate.length - 1].lykur).hour();
 
-	console.log('v', vaktirForDate);
+	const vaktirHefst = map(shifts, ( shift ) => (shift.hefst))
 
-	map(timeslots, (timeslot) => {
-		const s = moment(timeslot._timabil.hefst);
-		const l = moment(timeslot._timabil.lykur);
+	for ( let t = 0; t < timeslots.length; t++ ) {
+		const startTimeslot = timeslots[t];
 
-		const f = find(vaktirForDate, { hefst: timeslot._timabil.hefst})
+		if ( !some(vaktirHefst, ( vakt ) => (isSameSecond(vakt, startTimeslot.hefst))) ) continue;
 
-		if(!!f)
-			console.log('f', f);
+		while ( !!timeslots[t + 1] && some(vaktirHefst, ( vakt ) => (isSameSecond(vakt, timeslots[t + 1].hefst))) ) {
+			t++;
+		}
 
-	})
+		const endTimeslot = timeslots[t];
 
+		const to = getHours(endTimeslot.lykur);
 
-	//
-	// map(vaktirForDate, ( vakt ) => {
-	// 	const timeslot = find(timeslots, ( timeslot ) => {
-	// 		return moment(timeslot._timabil.hefst).isSame(date)
-	// 	});
-	//
-	// 	console.log('t', timeslot, vakt);
-	//
-	// })
+		const location = find(locations, { id: startTimeslot.starfsstod });
 
-	// for(let i = 1; i < vaktirForDate.length; i++){
-	// 	const prev = vaktirForDate[i-1];
-	// 	const d = vaktirForDate[i];
-	// 	const next = vaktirForDate[i+1];
-	//
-	// 	if(!next){
-	// 		shifts2.push({
-	// 			from: moment(start).hour(),
-	// 			to: moment(d.lykur).hour(),
-	// 			date: moment(start).startOf('day').toDate()
-	// 		})
-	// 	} else if(d.hefst === prev.lykur){
-	//
-	// 	} else {
-	// 		shifts2.push({
-	// 			from: moment(start).hour(),
-	// 			to: moment(prev.lykur).hour(),
-	// 			date: moment(start).startOf('day').toDate()
-	// 		});
-	//
-	// 		if(next)
-	// 			start = next.hefst
-	// 	}
-	// }
+		shifts2.push({
+			from: getHours(startTimeslot.hefst),
+			to: to === 0 ? 24 : to,
+			date: startOfDay(startTimeslot.hefst),
+			location: location
+		});
 
-	console.log('ss', shifts2);
+	}
+
 	return shifts2;
+}
 
+export const getSelectedShifts = createSelector([getSimpleTimeslotsGroupedByStore, getUserShiftsGroupedByStore, locations], ( timeslots, shiftsByDays, locations ) => {
+	console.time('start');
+
+	const foo = flatten(map(shiftsByDays, (shifts, key) => (getSelectedShiftsForTimeslots(timeslots[key], shifts, locations))));
+
+	console.timeEnd('start');
+
+	return foo;
+})
+
+export const getSelectedShiftsForDate = createSelector([date, getSelectedShifts], ( date, shifts ) => {
+	return filter(shifts, ( shift ) => {
+		return moment(shift.date).isSame(date, 'day');
+	})
 })

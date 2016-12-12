@@ -2,9 +2,10 @@
 
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux'
-import merge from 'lodash/merge';
+import {merge, map} from 'lodash';
 import Box from '../Box/Box';
 import {saveUser} from '../../actions/userActions';
+import {fetchLocations} from '../../actions/locationsActions';
 import styles from '../Login/Login.css';
 
 /**
@@ -13,13 +14,15 @@ import styles from '../Login/Login.css';
  */
 const mapStateToProps = ( state, props ) => {
 	return {
-		currentUser: state.users.currentUser || {}
+		currentUser: state.users.currentUser || {},
+		locations: state.locations.list
 	}
 }
 
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		onSaveUser: ( user ) => dispatch(saveUser(user)),
+		loadLocations: ( ) => dispatch(fetchLocations()),
 	}
 }
 
@@ -29,12 +32,17 @@ class Registration extends React.Component {
 	//static propTypes = {};
 	state = {
 		name: this.props.currentUser.nafn,
-		phone: this.props.currentUser.simi
+		phone: this.props.currentUser.simi,
+		location: this.props.currentUser.adalStarfsstod
 	};
 
 	componentWillMount = () => {
-		if(!this.props.currentUser.netfang)
+		if ( !this.props.currentUser.netfang )
 			this.props.router.push('/');
+
+		if(this.props.locations.length === 0){
+			this.props.loadLocations();
+		}
 	}
 	//componentDidMount () {}
 	//componentWillUnmount () {}
@@ -51,11 +59,12 @@ class Registration extends React.Component {
 
 	onContinueClick = () => {
 		const { currentUser } = this.props;
-		const { name, phone } = this.refs;
+		const { name, phone, location } = this.refs;
 
 		this.props.onSaveUser(merge(currentUser, {
 			nafn: name.value,
-			simi: phone.value
+			simi: phone.value,
+			adalStarfsstod: location.value
 		})).then(() => {
 			this.props.router.push('/user/' + currentUser.netfang);
 		});
@@ -63,17 +72,16 @@ class Registration extends React.Component {
 	}
 
 	handleChange = () => {
-		const { name, phone } = this.refs;
+		const { name, phone, location } = this.refs;
 		this.setState({
 			name: name.value,
-			phone: phone.value
+			phone: phone.value,
+			location: location.value
 		});
 	}
 
 	render () {
-		console.log('state', this.state);
-		console.log('props', this.props);
-		const { name, phone } = this.state;
+		const { name, phone, location } = this.state;
 
 		return (
 			<Box>
@@ -83,6 +91,13 @@ class Registration extends React.Component {
 				<input className={ styles.form } value={name || ''} ref="name" onChange={ this.handleChange } />
 				<label className={ styles.label }>Símanúmer</label>
 				<input className={ styles.form } value={phone || ''} ref="phone" onChange={ this.handleChange } />
+				<label className={ styles.label }>Aðal sölustaður</label>
+				<select className={ styles.form } value={location} ref="location" onChange={ this.handleChange }  >
+					{ map(this.props.locations, (location) => {
+						return (<option key={ location.id } value={ location.id }>{location.nafn}</option>)
+					})}
+
+				</select>
 				<button className={ styles.button } onClick={ this.onContinueClick }>Áfram</button>
 
 			</Box>

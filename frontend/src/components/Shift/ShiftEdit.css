@@ -1,26 +1,23 @@
 
 .editWrapper {
-	position:       absolute;
-	top: 50%;
-	left: 50%;
+	position:  absolute;
+	top:       50%;
+	left:      50%;
 	transform: translate(-50%, -50%);
-	height:         155px;
+	height:    155px;
 	min-width: 300px;
-	right:          0;
-	z-index:        9999;
+	right:     0;
+	z-index:   9999;
 }
-
 
 .edit {
 	border-radius:    5px;
 	background-color: #a3cbfe;
-	padding:          10px;
 	width:            100%;
-	height:           100%;
 	z-index:          999999;
 	position:         absolute;
+	padding:          40px;
 }
-
 
 .overlay {
 	position:         fixed;
@@ -34,7 +31,6 @@
 	z-index:          8888;
 }
 
-
 .formWrapper {
 	margin-bottom: 20px;
 	opacity:       1;
@@ -42,14 +38,18 @@
 	font-size:     14px;
 }
 
-:global(.react-numeric-input){
-	width: 50%;
+:global(.react-numeric-input) {
+	width:      50%;
 	box-sizing: border-box;
 }
 
 .form {
-	padding:        5px;
-	width: 100%;
+	padding: 5px;
+	width:   100%;
+}
+
+select.form{
+	width: 50%;
 }
 
 .label {
@@ -58,11 +58,10 @@
 }
 
 .buttonWrapper {
-
+	margin-top: 40px;
 }
 
 .button {
-
 	padding:          10px;
 	background-color: #92a0b2;
 	color:            white;
@@ -73,7 +72,6 @@
 }
 
 .buttonDelete {
-
 	padding:          10px;
 	background-color: transparent;
 	color:            red;

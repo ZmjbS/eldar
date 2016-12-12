@@ -155,9 +155,11 @@ class SkraningSerializer(serializers.ModelSerializer):
 
 # ViewSets define the view behavior.
 class SkraningViewSet(viewsets.ModelViewSet):
-	queryset = Skraning.objects.all().prefetch_related(
-		Prefetch('vaktaskraning', queryset=Vaktaskraning.objects.select_related())
+	queryset = Skraning.objects.raw(
+		'SELECT distinct(id), vaktir_skraning.timastimpill, vaktir_skraning.felagi_id FROM vaktir_skraning  group by felagi_id order by timastimpill desc'
 	)
+	# 	Prefetch('vaktaskraning', queryset=Vaktaskraning.objects.all())
+	# )
 	serializer_class = SkraningSerializer
 	filter_backends =  (filters.DjangoFilterBackend, )
 	filter_fields = ('felagi')
@@ -175,6 +177,8 @@ class SkraningViewSet(viewsets.ModelViewSet):
 
 	def list(self, request):
 		try:
+			
+
 			skraningar = Skraning.objects.filter(felagi_id=request.query_params['felagi']).latest('timastimpill')
 		except Skraning.DoesNotExist:
 			skraningar = None

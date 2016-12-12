@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import { getShiftsForDate, getNextFullShift, isTimeslotFull } from '../../utils/shifts';
 import { getTimeslotsForDate } from '../../utils/timeslots';
 
-import {getSelectedShifts} from '../../selectors/shiftsSelector';
+import {getSelectedShiftsForDate} from '../../selectors/shiftsSelector';
 
 import Shift from '../Shift/Shift';
 
@@ -23,8 +23,9 @@ import styles from './CalanderDate.css';
 
 const mapStateToProps = ( state, props ) => {
 	return {
-		shifts: getSelectedShifts(state, props),
-		timeslots: getTimeslotsForDate(props.timeslots, props.date)
+		shifts: getSelectedShiftsForDate(state, props),
+		timeslots: getTimeslotsForDate(props.timeslots, props.date),
+		currentUser: state.users.currentUser
 	}
 }
 
@@ -66,7 +67,8 @@ class CalanderDate extends React.Component {
 			this.props.onAddShift({
 				from: from,
 				to: getNextFullShift(this.props.timeslots, this.props.shifts, from, from + this.props.defaultShiftLength),
-				date: this.props.date
+				date: this.props.date,
+				store: this.props.currentUser.adalStarfsstod
 			});
 		}
 	};

@@ -13,12 +13,13 @@ class Shift extends React.Component {
 	}
 
 	render = () => {
-		const { style, shift: { to, from}, className } = this.props;
+		const { style, shift: { to, from, location: { nafn }}, className } = this.props;
 
 		return (
 			<div className={ styles.wrapper } style={ style }>
 				<div className={ [styles.main, className].join(' ') } onClick={ this.handleClick }>
 					<div className={ styles.info }>Frá kl { from } til kl { to }</div>
+					<div className={ styles.info }>{ nafn }</div>
 				</div>
 			</div>
 		);

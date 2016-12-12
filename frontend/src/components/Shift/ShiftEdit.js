@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import NumericInput from 'react-numeric-input';
 import {connect} from 'react-redux'
+import { map } from 'lodash';
 
 import {editShift, deleteShift} from '../../actions/shiftsActions';
 import {getShiftMinMax} from '../../utils/shifts';
@@ -12,7 +13,8 @@ import styles from './ShiftEdit.css'
 const mapStateToProps = ( state, props ) => {
 	return {
 		...getShiftMinMax(props.timeslots, getSelectedShifts(state, props), props.shift),
-		timeslots: getTimeslotsForDate(props.timeslots, props.date)
+		timeslots: getTimeslotsForDate(props.timeslots, props.date),
+		locations: state.locations.list
 	}
 }
 
@@ -33,13 +35,24 @@ class ShiftEdit extends React.Component {
 	//static propTypes = {};
 	state = {
 		from: this.props.shift.from,
-		to: this.props.shift.to
+		to: this.props.shift.to,
+		location: this.props.shift.location.id
 	};
 
 	//componentWillMount () {}
-	//componentDidMount () {}
-	//componentWillUnmount () {}
+	componentDidMount = () => {
+		document.addEventListener('keydown', this.handleEscKey, false);
+	}
+
+	componentWillUnmount = () => {
+		document.removeEventListener('keydown', this.handleEscKey, false);
+	}
 	//shouldComponentMount () { return true; }
+	handleEscKey = ( event ) => {
+		if ( event.keyCode == 27 ) {
+			this.props.onClose();
+		}
+	}
 
 	handleClickOutside = () => {
 		if ( this.props.onClose )
@@ -58,21 +71,25 @@ class ShiftEdit extends React.Component {
 		this.setState({ to: value });
 	}
 
+	onChangeLocation = ( e ) => {
+		// TODO: VALIDATION
+		this.setState({ location: this.refs.location.value });
+	}
+
 	onChange = () => {
-
-
 
 		if ( this.props.onEditShift )
 			this.props.onEditShift({
 				...this.props.shift,
 				changeTo: this.state.to,
 				changeFrom: this.state.from,
+				starfsstod: this.state.location
 			})
 
 		this.props.onClose();
 	}
 
-	onDeleteTimeslot = (from, to) => {
+	onDeleteTimeslot = ( from, to ) => {
 		this.props.onDeleteShift();
 	}
 
@@ -105,6 +122,14 @@ class ShiftEdit extends React.Component {
 							<label className={ styles.label }>Til</label>
 							<NumericInput className={ styles.form } value={ this.state.to } max={ this.props.max }
 							              min={ this.state.from + 1 } onChange={ this.onChangeTo } />
+						</div>
+						<div className={ styles.formWrapper }>
+							<label className={ styles.label }>Sölustaður</label>
+							<select className={ styles.form } value={this.state.location} ref="location" onChange={ this.onChangeLocation }>
+								{ map(this.props.locations, ( location ) => {
+									return (<option key={ location.id } value={ location.id }>{location.nafn}</option>)
+								})}
+							</select>
 						</div>
 						<div className={ styles.buttonWrapper }>
 							<button className={ styles.buttonDelete } onClick={ this.handleDelete }>Eyða</button>

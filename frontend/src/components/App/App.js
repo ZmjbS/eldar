@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import { isEqual } from 'lodash';
+import {isEqual} from 'lodash';
 import Header from '../Header/Header';
 import Calendar from '../Calendar/Calander';
 import Box from '../Box/Box';
@@ -9,28 +9,30 @@ import styles from './App.css';
 import {getTimeSlotsForStore} from '../../actions/timeslotsActions';
 import {getUserByEmail} from '../../actions/userActions';
 import {save, loadShifts} from '../../actions/shiftsActions';
-import { getTimeslotsGroupedByDays} from '../../selectors/timeslotSelectors';
-import { getShiftsTimeslotIds} from '../../selectors/shiftsSelector';
+import {fetchLocations} from '../../actions/locationsActions';
+import {getTimeslotsForeStoreGroupedByDays} from '../../selectors/timeslotSelectors';
+import {getShiftsTimeslotIds} from '../../selectors/shiftsSelector';
 import '../../styles/main.css';
-
 
 const mapStateToProps = ( state, props ) => {
 	return {
 		currentUser: state.users.currentUser,
 		email: props.params.email,
-		timeslots: getTimeslotsGroupedByDays(state),
+		timeslots: getTimeslotsForeStoreGroupedByDays(state, props),
 		shifts: getShiftsTimeslotIds(state, props),
 		skraning: state.shifts.skraning,
-		loadingSkraning: state.shifts.loadingSkraning
+		loadingSkraning: state.shifts.loadingSkraning,
+		locations: state.locations.list
 	}
 }
 
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		loadTimeslots: ( storeId ) => dispatch(getTimeSlotsForStore(storeId)),
-		loadUser: (email) => dispatch(getUserByEmail(email)),
-		saveShifts: (shiftsIds, userId) => dispatch(save(shiftsIds, userId)),
-		loadShifts: (userId) => dispatch(loadShifts(userId))
+		loadUser: ( email ) => dispatch(getUserByEmail(email)),
+		saveShifts: ( shiftsIds, userId ) => dispatch(save(shiftsIds, userId)),
+		loadShifts: ( userId ) => dispatch(loadShifts(userId)),
+		loadLocations: () => dispatch(fetchLocations()),
 	}
 }
 
@@ -38,26 +40,33 @@ class App extends Component {
 
 	componentWillMount = () => {
 		console.log('props', this.props);
-		if(!this.props.currentUser){
-			this.props.loadUser(this.props.email);
+		if ( !this.props.currentUser ) {
+			this.props.loadUser(this.props.email)
+				.then(this.loadtimeslots);
 			//this.props.router.push('/');
+		} else if ( !this.props.timeslots || this.props.timeslots.length === 0 ) {
+			this.loadtimeslots();
 		}
 
-		if(!this.props.timeslots || this.props.timeslots.length === 0){
-			this.props.loadTimeslots(1)
+		if ( this.props.locations.length === 0 ) {
+			this.props.loadLocations();
 		}
 
-		if(!this.props.skraning && this.props.currentUser){
+		if ( !this.props.skraning && this.props.currentUser ) {
 			this.props.loadShifts(this.props.currentUser.id);
 		}
 	}
 
-	componentWillReceiveProps = (nextProps) => {
-		if(!isEqual(nextProps.shifts, this.props.shifts)){
+	loadtimeslots = () => {
+		this.props.loadTimeslots()
+	}
+
+	componentWillReceiveProps = ( nextProps ) => {
+		if ( !isEqual(nextProps.shifts, this.props.shifts) ) {
 			this.props.saveShifts(nextProps.shifts, nextProps.currentUser.id)
 		}
 
-		if(!nextProps.loadingSkraning && !nextProps.loaded && !nextProps.skraning && nextProps.currentUser){
+		if ( !nextProps.loadingSkraning && !nextProps.loaded && !nextProps.skraning && nextProps.currentUser ) {
 			this.props.loadShifts(nextProps.currentUser.id);
 		}
 	}
@@ -83,16 +92,13 @@ class App extends Component {
 
 	prevDay = () => {
 		if ( this.state.day > 0 )
-		this.setState({
-			day: this.state.day - 1
-		});
+			this.setState({
+				day: this.state.day - 1
+			});
 	}
 
 	render () {
-
-		console.log('shifts2', this.props.shifts);
-
-		if(!this.props.timeslots || this.props.timeslots.length === 0){
+		if ( !this.props.timeslots || this.props.timeslots.length === 0 ) {
 			return (<Box />);
 		}
 

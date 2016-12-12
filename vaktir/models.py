@@ -125,6 +125,7 @@ class Felagi(models.Model):
 	nafn = models.CharField(max_length=32)
 	simi = models.IntegerField()
 	netfang = models.CharField(max_length=32)
+	adalStarfsstod = models.ForeignKey(Starfsstod)
 
 	# def vaktaskraningar(self):
 	# 	'''

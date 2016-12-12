@@ -1,15 +1,21 @@
 import {createSelector} from 'reselect'
 import moment from 'moment';
-import {groupBy, map} from 'lodash';
+import {groupBy, map, filter} from 'lodash';
 
 const timeslots = ( state ) => state.timeslots.list;
-const selectedStore = ( state ) => 1;
+const selectedStore = ( state ) => state.users.currentUser ? state.users.currentUser.adalStarfsstod : null;
 
+const timeslotsForUsersStore = createSelector([timeslots, selectedStore], (timeslots, store) => {
+	if(!store) return [];
 
+	return filter(timeslots, { starfsstod: store})
 
-export const getTimeslotsGroupedByDays = createSelector(
-	[timeslots],
+});
+
+export const getTimeslotsForeStoreGroupedByDays = createSelector(
+	[timeslotsForUsersStore],
 	( timeslots ) => {
+
 		const foo = groupBy(timeslots, ( timeslot ) => {
 
 			return moment(timeslot._timabil.hefst).startOf('day').toISOString();
