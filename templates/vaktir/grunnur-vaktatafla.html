@@ -33,13 +33,13 @@ $('.skraning-icon, #felagalisti .felagi').hover(
   	accept: '.skraning-icon',
 	activeClass: 'active',
 	hoverClass: 'hover',
-      //drop: function( event, ui ) {
-      drop: function( event, ui ) {
+	  //drop: function( event, ui ) {
+	  drop: function( event, ui ) {
 	  	console.log(event);
 	  	console.log(ui);
-        $( this )
-          .addClass( "active" )
-          //.find( ".fjoldi" ).text(function(self){ return self+1 });
+		$( this )
+		  .addClass( "active" )
+		  //.find( ".fjoldi" ).text(function(self){ return self+1 });
 		//$(this).find('.lagmark').text(event.type);
 		//$(event.target).find('.skraningar').html(ui.draggable.parent().html())
 		ui.draggable.appendTo($(event.target).find('.skraningar'));
@@ -47,8 +47,8 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		console.log(ui.draggable.context.className)
 		var clsName = ui.draggable.context.className.match(/felagi-\w*/)[0];
 		$('.'+clsName).css('background-color', 'inherit');
-      }
-    });
+	  }
+	});
 
 // Notar Crypto JS
 // var hash = CryptoJS.MD5("Message");
@@ -97,7 +97,13 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 						   vakttegund-{{ vakt.tegund.id }}"
 				>
 					{% if vakt %}
-						{{ vakt.vaktaskraningar|length }}
+						<span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
+						<div class="skraningar">
+							{% for skraning in vakt.vaktaskraningar %}
+								<span class="skraning-icon felagi-{{ vakt.skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
+							{% endfor %}
+						</div>
+
 					{% endif %}
 				</td>
 			{% endfor %}
