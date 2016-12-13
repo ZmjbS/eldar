@@ -3,6 +3,7 @@ import guid from '../utils/guid';
 import moment from 'moment';
 import {assign, filter, cloneDeep} from 'lodash';
 import typeToReducer from 'type-to-reducer';
+import {isSameDay, isEqual, isSameSecond, startOfDay, getHours, isBefore, isAfter, isWithinRange, setHours, setSeconds} from 'date-fns';
 
 const defaultState = {
 	list: [],
@@ -15,7 +16,7 @@ export default typeToReducer({
 	'ADD_SHIFT': ( state, action ) => {
 		let s = fromJS(state || {});
 		let list = s.get('vaktir');
-		if(!list) list = new List();
+		if ( !list ) list = new List();
 
 		const { to, from, date, store } = action.shift;
 
@@ -34,16 +35,16 @@ export default typeToReducer({
 	},
 	'EDIT_SHIFT': ( state, action ) => {
 
-		const { to, from, changeTo, changeFrom, date } = action.shift;
+		const { to, from, changeTo, changeFrom, date, location } = action.shift;
 
 		let s = fromJS(state || {});
 		let list = s.get('vaktir');
 
 		list = list.filter(( vakt ) => {
-			const isNotSameDate = !(moment(vakt.get('hefst')).isSame(date, 'day'));
-			const start = moment(vakt.get('hefst')).hour();
-			let end = moment(vakt.get('lykur')).hour();
-			if(end === 0) end = 24;
+			const isNotSameDate = !(isSameDay(vakt.get('hefst'), date));
+			const start = getHours(vakt.get('hefst'));
+			let end = getHours(vakt.get('lykur'));
+			if ( end === 0 ) end = 24;
 			const isSelected = changeFrom <= start && end <= changeTo;
 			const hasNotBeenDeleted = !(from <= start && end <= to && !isSelected);
 
@@ -57,6 +58,7 @@ export default typeToReducer({
 				list = list.push({
 					hefst: start.toISOString(),
 					lykur: start.hours(i + 1).toISOString(),
+					starfsstod: { id: location }
 				});
 			}
 		}
@@ -66,12 +68,27 @@ export default typeToReducer({
 
 			for ( let i = to; i < changeTo; i++ ) {
 				list = list.push({
-					_id: guid(),
 					hefst: start.toISOString(),
 					lykur: start.hours(i + 1).toISOString(),
+					starfsstod: { id: location }
 				});
 			}
 		}
+
+		/* CHANGE STORE IF NEEDED */
+		const fromDate = setHours(date, changeFrom);
+		const toDate = setHours(date, changeTo);
+
+		list = list.map(( shift ) => {
+			if ( isWithinRange(setSeconds(shift.get('hefst'), 1), fromDate, toDate) ) {
+				console.log('shift', shift);
+				shift = shift.set('starfsstod',  { id: location });
+			}
+
+			return shift;
+		});
+
+		console.log('foo', list.toJS());
 
 		s = s.set('vaktir', list);
 		return cloneDeep(s.toJS());
@@ -89,7 +106,6 @@ export default typeToReducer({
 
 			return !(isSameDate && shouldBeDeleted);
 		});
-
 
 		s = s.set('vaktir', list);
 		return cloneDeep(s.toJS());

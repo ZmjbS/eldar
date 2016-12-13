@@ -2,6 +2,7 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/src/index.js" line="42" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/src/reducers/shiftsReducer.js" line="82" mnemonic="8" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c775ac6-8ac0-4a49-b1af-a885a885674c" name="Default" comment="" />
@@ -30,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/App/App.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="864">
-              <caret line="104" column="16" lean-forward="true" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="16" />
+              <caret line="104" column="16" lean-forward="false" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="16" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -48,6 +49,18 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ShiftEdit.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Shift/ShiftEdit.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="102" column="33" lean-forward="true" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="locationsApi.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/api/locationsApi.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -58,23 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="timeslotSelectors.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/selectors/timeslotSelectors.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="shiftsReducer.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="shiftsReducer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/reducers/shiftsReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="19" column="55" lean-forward="false" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+            <state relative-caret-position="624">
+              <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -114,11 +115,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shiftsSelector.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="shiftsSelector.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/selectors/shiftsSelector.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="131" column="29" lean-forward="true" selection-start-line="131" selection-start-column="29" selection-end-line="131" selection-end-column="29" />
+            <state relative-caret-position="-24">
+              <caret line="63" column="66" lean-forward="false" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="66" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -143,8 +144,10 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>eslint</find>
-      <find>console</find>
       <find>console.tr</find>
+      <find>location</find>
+      <find>store</find>
+      <find>console</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -153,14 +156,14 @@
         <option value="$PROJECT_DIR$/src/components/Registration/Registration.js" />
         <option value="$PROJECT_DIR$/src/components/Header/Header.js" />
         <option value="$PROJECT_DIR$/src/components/Shift/ShiftEdit.css" />
-        <option value="$PROJECT_DIR$/src/components/Shift/ShiftEdit.js" />
         <option value="$PROJECT_DIR$/src/components/Shift/Shift.js" />
         <option value="$PROJECT_DIR$/src/selectors/timeslotSelectors.js" />
         <option value="$PROJECT_DIR$/src/actions/locationsActions.js" />
         <option value="$PROJECT_DIR$/src/components/App/App.js" />
         <option value="$PROJECT_DIR$/src/components/Date/CalanderDate.js" />
-        <option value="$PROJECT_DIR$/src/reducers/shiftsReducer.js" />
         <option value="$PROJECT_DIR$/src/selectors/shiftsSelector.js" />
+        <option value="$PROJECT_DIR$/src/components/Shift/ShiftEdit.js" />
+        <option value="$PROJECT_DIR$/src/reducers/shiftsReducer.js" />
       </list>
     </option>
   </component>
@@ -523,12 +526,12 @@
       <workItem from="1480960609649" duration="3500000" />
       <workItem from="1481377435001" duration="10072000" />
       <workItem from="1481466240330" duration="24163000" />
-      <workItem from="1481496514046" duration="9407000" />
+      <workItem from="1481496514046" duration="14724000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156525000" />
+    <option name="totallyTimeSpent" value="161842000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -572,14 +575,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/api/timeslotsApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/selectors/timeslotSelectors.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="648">
@@ -617,7 +612,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/App/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="864">
-          <caret line="104" column="16" lean-forward="true" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="16" />
+          <caret line="104" column="16" lean-forward="false" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="16" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -652,10 +647,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/reducers/shiftsReducer.js">
+    <entry file="file://$PROJECT_DIR$/src/components/Shift/ShiftEdit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="19" column="55" lean-forward="false" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+        <state relative-caret-position="332">
+          <caret line="102" column="33" lean-forward="true" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -664,8 +659,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/selectors/shiftsSelector.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="131" column="29" lean-forward="true" selection-start-line="131" selection-start-column="29" selection-end-line="131" selection-end-column="29" />
+        <state relative-caret-position="-24">
+          <caret line="63" column="66" lean-forward="false" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/shiftsReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

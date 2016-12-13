@@ -83,7 +83,7 @@ class ShiftEdit extends React.Component {
 				...this.props.shift,
 				changeTo: this.state.to,
 				changeFrom: this.state.from,
-				starfsstod: this.state.location
+				location: this.state.location
 			})
 
 		this.props.onClose();
