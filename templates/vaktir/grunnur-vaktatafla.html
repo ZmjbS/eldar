@@ -51,10 +51,10 @@ $('.skraning-icon, #felagalisti .felagi').hover(
     });
 
 // Notar Crypto JS
-var hash = CryptoJS.MD5("Message");
-console.log(hash.toString());
+// var hash = CryptoJS.MD5("Message");
+// console.log(hash.toString());
 
-var identicon = require('identicon-github');
+// var identicon = require('identicon-github');
 //var identicon = require('{% static "js/identicon-github/index.js" %}');
 //var identicon = require('../../static/js/identicon-github');
 //var fmt = require('util').format;
@@ -97,10 +97,7 @@ var identicon = require('identicon-github');
 						   vakttegund-{{ vakt.tegund.id }}"
 				>
 					{% if vakt %}
-						<span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
-						<div class="skraningar">{% for skraning in vakt.vaktaskraningar %}
-							<span class="skraning-icon felagi-{{ vakt.skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
-						{% endfor %}</div>
+						{{ vakt.vaktaskraningar|length }}
 					{% endif %}
 				</td>
 			{% endfor %}

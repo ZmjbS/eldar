@@ -22,6 +22,7 @@ const mapStateToProps = ( state, props ) => {
 		shifts: getShiftsTimeslotIds(state, props),
 		skraning: state.shifts.skraning,
 		loadingSkraning: state.shifts.loadingSkraning,
+		doneLoading: state.shifts.loaded,
 		locations: state.locations.list
 	}
 }
@@ -62,7 +63,7 @@ class App extends Component {
 	}
 
 	componentWillReceiveProps = ( nextProps ) => {
-		if ( !isEqual(nextProps.shifts, this.props.shifts) ) {
+		if ( this.props.doneLoading && !isEqual(nextProps.shifts, this.props.shifts) ) {
 			this.props.saveShifts(nextProps.shifts, nextProps.currentUser.id)
 		}
 

@@ -161,9 +161,10 @@ class CalanderDate extends React.Component {
 				</div>
 				{ map(timeslots, ( slot ) => {
 					const style = this.getSlotColorStyle(slot);
+					const hideHover = slot.max === 0 || slot.assigned >= slot.max ? styles.hideHover : null;
 
 					return (<div key={ 'slot' + slot.from } className={ styles.timeslotWrapper } onClick={ this.addShift(slot.from) }>
-						<div className={ styles.timeslot } style={ style }></div>
+						<div className={ [styles.timeslot, hideHover].join(' ') } style={ style }></div>
 					</div>)
 				})}
 			</div>

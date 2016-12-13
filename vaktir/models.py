@@ -100,8 +100,6 @@ class Vakt(models.Model):
 		nýjustu skráningunni þurfum við að búa til sér lista fyrir
 		þetta.
 		'''
-
-		self.vakt.latest('timastimpill')
 		vs_listi = []
 		for vs in Vaktaskraning.objects.filter(vakt=self):
 			# Bætum vaktaskráningunni við ef hún er í nýjustu skráningu félagans.
@@ -127,13 +125,14 @@ class Felagi(models.Model):
 	netfang = models.CharField(max_length=32)
 	adalStarfsstod = models.ForeignKey(Starfsstod)
 
-	# def vaktaskraningar(self):
-	# 	'''
-	# 	Skilar vaktaskráningum nýjustu skráningarinnar
-	# 	'''
-	# 	skraning = self.skraningar.order_by('-timastimpill')[0]
-	# 	vaktaskraningar = Vaktaskraning.objects.filter(skraning=skraning)
-	# 	return vaktaskraningar
+	def vaktaskraningar(self):
+		'''
+		Skilar vaktaskráningum nýjustu skráningarinnar
+		'''
+		skraning = self.skraningar.order_by('-timastimpill')[0]
+		vaktaskraningar = Vaktaskraning.objects.filter(skraning=skraning)
+		return vaktaskraningar
+
 
 	class Meta:
 		verbose_name_plural = 'felagar'
