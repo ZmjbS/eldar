@@ -138,7 +138,7 @@ def umsjon(request):
 	gogn_til_snidmats = starfsstodvayfirlit()
 	gogn_til_snidmats['skraningar'] = Skraning.objects.all().order_by('-timastimpill')
 
-	return render_to_response('vaktir/yfirlit.html', gogn_til_snidmats )
+	return render_to_response('vaktir/umsjon.html', gogn_til_snidmats )
 
 # TODO: Seinni tíma verk...
 #def smidi(request):
