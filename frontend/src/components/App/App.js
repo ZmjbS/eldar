@@ -40,12 +40,13 @@ const mapDispatchToProps = ( dispatch ) => {
 class App extends Component {
 
 	componentWillMount = () => {
-		console.log('props', this.props);
+		console.log('foo', !this.props.timeslots || this.props.timeslots.length === 0);
 		if ( !this.props.currentUser ) {
 			this.props.loadUser(this.props.email)
 				.then(this.loadtimeslots);
 			//this.props.router.push('/');
 		} else if ( !this.props.timeslots || this.props.timeslots.length === 0 ) {
+			console.log('JO');
 			this.loadtimeslots();
 		}
 
@@ -67,7 +68,7 @@ class App extends Component {
 			this.props.saveShifts(nextProps.shifts, nextProps.currentUser.id)
 		}
 
-		if ( !nextProps.loadingSkraning && !nextProps.loaded && !nextProps.skraning && nextProps.currentUser ) {
+		if ( !nextProps.loadingSkraning && !nextProps.skraning && nextProps.currentUser ) {
 			this.props.loadShifts(nextProps.currentUser.id);
 		}
 	}
@@ -99,6 +100,7 @@ class App extends Component {
 	}
 
 	render () {
+		console.log('props', this.props);
 		if ( !this.props.timeslots || this.props.timeslots.length === 0 ) {
 			return (<Box />);
 		}
