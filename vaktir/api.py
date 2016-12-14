@@ -64,21 +64,19 @@ class VaktSerializer(serializers.ModelSerializer ):
 
 # ViewSets define the view behavior.
 class VaktViewSet(viewsets.ModelViewSet):
-	with connection.cursor() as cursor:
-		cursor.execute('SELECT distinct(id) FROM vaktir_skraning  group by felagi_id order by timastimpill desc')
-		skraningIds = cursor.fetchall()
+	# with connection.cursor() as cursor:
+	# 	cursor.execute('SELECT distinct(id) FROM vaktir_skraning  group by felagi_id order by timastimpill desc')
+	# 	skraningIds = cursor.fetchall()
 
 
-	queryset = Vakt.objects.all().select_related('timabil').annotate(skradir=Sum(
-		Case(
-			When(vaktaskraning__skraning__in=skraningIds, then=1),
-			default=0, 
-			output_field=IntegerField()
-		)
-	))
+	queryset = Vakt.objects.raw("""
+		SELECT v.*, count(s.id) as skradir  FROM vaktir_vakt as v
+		left outer join (
+			SELECT * FROM vaktir_vaktaskraning where vaktir_vaktaskraning.skraning_id in (SELECT distinct(id) FROM vaktir_skraning  group by felagi_id order by timastimpill desc)
+		) as s on s.vakt_id = v.id
+		GROUP BY v.id
+	""")
 	serializer_class = VaktSerializer
-	filter_backends =  (filters.DjangoFilterBackend,)
-	filter_fields = ('starfsstod',)
 
 
 # ------ Felagi ---------
