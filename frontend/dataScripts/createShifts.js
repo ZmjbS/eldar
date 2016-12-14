@@ -35,17 +35,17 @@ const getTimabil = async () => {
 	return data.data;
 }
 
-const calculateHamark = (solustadur, tegund, timabil) => {
+const calculateHamark = ( solustadur, tegund, timabil ) => {
 	const isNaeturvakt = tegund.name === 'næturvakt';
 	const isSolustadur = !!solustadur.solustadur;
 
-	if(moment(timabil.hefst).isBefore(new Date(2016, 11, 27, 12))){
+	if ( moment(timabil.hefst).isBefore(new Date(2016, 11, 27, 12)) ) {
 		return 0;
-	} else if(moment(timabil.hefst).isAfter(new Date(2016, 11, 31, 18)))	{
+	} else if ( moment(timabil.hefst).isAfter(new Date(2016, 11, 31, 18)) ) {
 		return 0
-	} else if(isNaeturvakt && isSolustadur){
+	} else if ( isNaeturvakt && isSolustadur ) {
 		return 2;
-	} else if(isNaeturvakt){
+	} else if ( isNaeturvakt ) {
 		return 0;
 	}
 
@@ -85,15 +85,17 @@ const insertTimabil = async () => {
 	try {
 		while ( startDateTime < endDateTime ) {
 
-			const data = await (axios.post('http://127.0.0.1:8000/api/timabil/', {
-				hefst: startDateTime,
-				lykur: clone(startDateTime).addHours(1)
-			}))
-
+			const hours = moment(startDateTime).hours();
+			if ( hours > 10 && hours < 23 ) {
+				const data = await (axios.post('http://127.0.0.1:8000/api/timabil/', {
+					hefst: startDateTime,
+					lykur: clone(startDateTime).addHours(1)
+				}))
+				console.log('Timabil', data.data);
+				console.log('----');
+			}
 			startDateTime.addHours(1);
 
-			console.log('Timabil', data.data);
-			console.log('----');
 		}
 
 	} catch ( e ) {
@@ -117,11 +119,10 @@ const insertVaktir = async () => {
 	console.log('FINISHED VAKTIR');
 }
 
-
 const start = async () => {
 	console.log('STARTING...');
 
-	//await insertTimabil();
+	await insertTimabil();
 	await insertVaktir();
 
 }
