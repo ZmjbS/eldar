@@ -4,7 +4,7 @@ from rest_framework import routers, serializers, viewsets,filters,status
 from vaktir.models import Timabil,Starfsstod,Tegund,Vakt,Felagi,Skraning,Vaktaskraning
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
-from django.db.models import Prefetch, Sum, Case, When, IntegerField
+from django.db.models import Prefetch, Sum, Case, When, IntegerField, prefetch_related_objects
 from django.db import connection
 
 logger = logging.getLogger(__name__)
@@ -57,10 +57,11 @@ class TegundViewSet(viewsets.ModelViewSet):
 # Serializers define the API representation.
 class VaktSerializer(serializers.ModelSerializer ):
 	skradir = serializers.IntegerField(read_only=True)
-	_timabil = TimabilSerializer(source='timabil', required=False, many=False)
+	hefst = serializers.DateTimeField(source='timabil_hefst', required=False, read_only=True)
+	lykur = serializers.DateTimeField(source='timabil_lykur', required=False, read_only=True)	
 	class Meta:
 		model = Vakt
-		fields = ('id', 'timabil', '_timabil', 'starfsstod', 'tegund', 'lagmark', 'hamark','skradir')
+		fields = ('id', 'timabil', 'hefst', 'lykur', 'hefst', 'starfsstod', 'tegund', 'lagmark', 'hamark','skradir')
 
 # ViewSets define the view behavior.
 class VaktViewSet(viewsets.ModelViewSet):
@@ -70,10 +71,11 @@ class VaktViewSet(viewsets.ModelViewSet):
 
 
 	queryset = Vakt.objects.raw("""
-		SELECT v.*, count(s.id) as skradir  FROM vaktir_vakt as v
+		SELECT v.*, count(s.id) as skradir , t.hefst as timabil_hefst, t.lykur as timabil_lykur, t.id as timabil_id FROM vaktir_vakt as v
 		left outer join (
 			SELECT * FROM vaktir_vaktaskraning where vaktir_vaktaskraning.skraning_id in (SELECT distinct(id) FROM vaktir_skraning  group by felagi_id order by timastimpill desc)
 		) as s on s.vakt_id = v.id
+		join vaktir_timabil as t on t.id = v.timabil_id
 		GROUP BY v.id
 	""")
 	serializer_class = VaktSerializer
@@ -139,6 +141,7 @@ class SkraningSerializer(serializers.ModelSerializer):
 		vaktir = validated_data.pop('vaktir')
 		skraning = Skraning.objects.create(**validated_data)
 		toInsert = []
+		
 		for vakt in vaktir:
 			toInsert.append(Vaktaskraning(
 				skraning=skraning, 
@@ -159,8 +162,6 @@ class SkraningViewSet(viewsets.ModelViewSet):
 	# 	Prefetch('vaktaskraning', queryset=Vaktaskraning.objects.all())
 	# )
 	serializer_class = SkraningSerializer
-	filter_backends =  (filters.DjangoFilterBackend, )
-	filter_fields = ('felagi')
 	
 	def create(self, request, pk=None):		
 
@@ -175,8 +176,6 @@ class SkraningViewSet(viewsets.ModelViewSet):
 
 	def list(self, request):
 		try:
-			
-
 			skraningar = Skraning.objects.filter(felagi_id=request.query_params['felagi']).latest('timastimpill')
 		except Skraning.DoesNotExist:
 			skraningar = None

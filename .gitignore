@@ -20,3 +20,4 @@ build
 .env
 npm-debug.log
 frontend/.idea/workspace.xml
+db_backup.sqlite3

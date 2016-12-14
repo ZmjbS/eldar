@@ -65,7 +65,8 @@ class App extends Component {
 
 	componentWillReceiveProps = ( nextProps ) => {
 		if ( this.props.doneLoading && !isEqual(nextProps.shifts, this.props.shifts) ) {
-			this.props.saveShifts(nextProps.shifts, nextProps.currentUser.id)
+			this.props.saveShifts(nextProps.shifts, nextProps.currentUser.id);
+			setTimeout(this.props.loadTimeslots, 2000);
 		}
 
 		if ( !nextProps.loadingSkraning && !nextProps.skraning && nextProps.currentUser ) {

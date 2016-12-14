@@ -18,15 +18,15 @@ export const getTimeslotsForeStoreGroupedByDays = createSelector(
 
 		const foo = groupBy(timeslots, ( timeslot ) => {
 
-			return moment(timeslot._timabil.hefst).startOf('day').toISOString();
+			return moment(timeslot.hefst).startOf('day').toISOString();
 		});
 
 		return map(foo, ( data, key ) => {
 			return {
 				date: moment(key).toDate(),
 				data: map(data, ( timeslot ) => {
-					const from = moment(timeslot._timabil.hefst).hour();
-					const to = moment(timeslot._timabil.lykur).hour();
+					const from = moment(timeslot.hefst).hour();
+					const to = moment(timeslot.lykur).hour();
 
 					return {
 						id: timeslot.id,

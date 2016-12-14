@@ -77,7 +77,6 @@ const insertVakt = async ( timabil, solustadir, tegundir ) => {
 	for ( let i = 0; i < solustadir.length; i++ ) {
 		await insertVaktForSolustadur((solustadir[i]), tegund, timabil)
 	}
-
 }
 
 const insertTimabil = async () => {
@@ -86,7 +85,7 @@ const insertTimabil = async () => {
 		while ( startDateTime < endDateTime ) {
 
 			const hours = moment(startDateTime).hours();
-			if ( hours > 10 && hours < 23 ) {
+			if ( hours >= 10 && hours < 23 ) {
 				const data = await (axios.post('http://127.0.0.1:8000/api/timabil/', {
 					hefst: startDateTime,
 					lykur: clone(startDateTime).addHours(1)

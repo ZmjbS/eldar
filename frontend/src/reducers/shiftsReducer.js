@@ -1,4 +1,4 @@
-import {fromJS, List} from 'immutable';
+import {fromJS, List, Map} from 'immutable';
 import guid from '../utils/guid';
 import moment from 'moment';
 import {assign, filter, cloneDeep} from 'lodash';
@@ -55,11 +55,11 @@ export default typeToReducer({
 			const start = moment(date).hours(changeFrom);
 
 			for ( let i = changeFrom; i < from; i++ ) {
-				list = list.push({
+				list = list.push(Map({
 					hefst: start.toISOString(),
 					lykur: start.hours(i + 1).toISOString(),
 					starfsstod: { id: location }
-				});
+				}));
 			}
 		}
 
@@ -67,11 +67,11 @@ export default typeToReducer({
 			const start = moment(date).hours(to);
 
 			for ( let i = to; i < changeTo; i++ ) {
-				list = list.push({
+				list = list.push(Map({
 					hefst: start.toISOString(),
 					lykur: start.hours(i + 1).toISOString(),
 					starfsstod: { id: location }
-				});
+				}));
 			}
 		}
 
@@ -80,8 +80,8 @@ export default typeToReducer({
 		const toDate = setHours(date, changeTo);
 
 		list = list.map(( shift ) => {
+			console.log('shift', shift);
 			if ( isWithinRange(setSeconds(shift.get('hefst'), 1), fromDate, toDate) ) {
-				console.log('shift', shift);
 				shift = shift.set('starfsstod',  { id: location });
 			}
 

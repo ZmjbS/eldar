@@ -100,7 +100,7 @@
     },
     {
         "fields": {
-            "hamark": 30,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 1,
             "tegund": 2,
@@ -111,7 +111,7 @@
     },
     {
         "fields": {
-            "hamark": 12,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 2,
             "tegund": 2,
@@ -122,7 +122,7 @@
     },
     {
         "fields": {
-            "hamark": 12,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 3,
             "tegund": 2,
@@ -133,7 +133,7 @@
     },
     {
         "fields": {
-            "hamark": 8,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 4,
             "tegund": 2,
@@ -144,7 +144,7 @@
     },
     {
         "fields": {
-            "hamark": 8,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 5,
             "tegund": 2,
@@ -155,7 +155,7 @@
     },
     {
         "fields": {
-            "hamark": 12,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 6,
             "tegund": 2,
@@ -166,7 +166,7 @@
     },
     {
         "fields": {
-            "hamark": 12,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 7,
             "tegund": 2,
@@ -177,7 +177,7 @@
     },
     {
         "fields": {
-            "hamark": 5,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 8,
             "tegund": 2,
@@ -188,7 +188,7 @@
     },
     {
         "fields": {
-            "hamark": 5,
+            "hamark": 0,
             "lagmark": 2,
             "starfsstod": 9,
             "tegund": 2,
@@ -1093,7 +1093,7 @@
             "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1104,7 +1104,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1115,7 +1115,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1126,7 +1126,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1137,7 +1137,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1148,7 +1148,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1159,7 +1159,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1170,7 +1170,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1181,7 +1181,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 12
         },
         "model": "vaktir.vakt",
@@ -1192,7 +1192,7 @@
             "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -1203,7 +1203,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -1214,7 +1214,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -1225,7 +1225,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -1236,7 +1236,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -1247,7 +1247,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -1258,7 +1258,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -1269,7 +1269,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -1280,7 +1280,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 13
         },
         "model": "vaktir.vakt",
@@ -2281,7 +2281,7 @@
             "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2292,7 +2292,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2303,7 +2303,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2314,7 +2314,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2325,7 +2325,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2336,7 +2336,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2347,7 +2347,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2358,7 +2358,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2369,7 +2369,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 24
         },
         "model": "vaktir.vakt",
@@ -2479,7 +2479,7 @@
             "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -2490,7 +2490,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -2501,7 +2501,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -2512,7 +2512,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -2523,7 +2523,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -2534,7 +2534,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -2545,7 +2545,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -2556,7 +2556,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -2567,7 +2567,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 26
         },
         "model": "vaktir.vakt",
@@ -3469,7 +3469,7 @@
             "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3480,7 +3480,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3491,7 +3491,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3502,7 +3502,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3513,7 +3513,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3524,7 +3524,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3535,7 +3535,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3546,7 +3546,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3557,7 +3557,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 36
         },
         "model": "vaktir.vakt",
@@ -3766,7 +3766,7 @@
             "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -3777,7 +3777,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -3788,7 +3788,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -3799,7 +3799,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -3810,7 +3810,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -3821,7 +3821,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -3832,7 +3832,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -3843,7 +3843,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -3854,7 +3854,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 39
         },
         "model": "vaktir.vakt",
@@ -4657,7 +4657,7 @@
             "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -4668,7 +4668,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -4679,7 +4679,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -4690,7 +4690,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -4701,7 +4701,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -4712,7 +4712,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -4723,7 +4723,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -4734,7 +4734,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -4745,7 +4745,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 48
         },
         "model": "vaktir.vakt",
@@ -5053,7 +5053,7 @@
             "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5064,7 +5064,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5075,7 +5075,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5086,7 +5086,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5097,7 +5097,7 @@
             "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5108,7 +5108,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5119,7 +5119,7 @@
             "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5130,7 +5130,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5141,7 +5141,7 @@
             "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 2,
+            "tegund": 3,
             "timabil": 52
         },
         "model": "vaktir.vakt",
@@ -5545,7 +5545,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
             "tegund": 2,
@@ -5556,7 +5556,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
             "tegund": 2,
@@ -5567,7 +5567,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
             "tegund": 2,
@@ -5578,7 +5578,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
             "tegund": 2,
@@ -5589,7 +5589,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
             "tegund": 2,
@@ -5600,7 +5600,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
             "tegund": 2,
@@ -5611,7 +5611,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
             "tegund": 2,
@@ -5622,7 +5622,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
             "tegund": 2,
@@ -5633,7 +5633,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
             "tegund": 2,
@@ -5644,7 +5644,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
             "tegund": 2,
@@ -5655,7 +5655,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
             "tegund": 2,
@@ -5666,7 +5666,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
             "tegund": 2,
@@ -5677,7 +5677,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
             "tegund": 2,
@@ -5688,7 +5688,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
             "tegund": 2,
@@ -5699,7 +5699,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
             "tegund": 2,
@@ -5710,7 +5710,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
             "tegund": 2,
@@ -5721,7 +5721,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
             "tegund": 2,
@@ -5732,7 +5732,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
             "tegund": 2,
@@ -5743,7 +5743,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
             "tegund": 2,
@@ -5754,7 +5754,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
             "tegund": 2,
@@ -5765,7 +5765,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
             "tegund": 2,
@@ -5776,7 +5776,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
             "tegund": 2,
@@ -5787,7 +5787,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
             "tegund": 2,
@@ -5798,7 +5798,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
             "tegund": 2,
@@ -5809,7 +5809,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
             "tegund": 2,
@@ -5820,7 +5820,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
             "tegund": 2,
@@ -5831,7 +5831,7 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
             "tegund": 2,
@@ -5842,10 +5842,10 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 30,
             "lagmark": 2,
             "starfsstod": 1,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
@@ -5853,10 +5853,10 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 2,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
@@ -5864,10 +5864,10 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 3,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
@@ -5875,10 +5875,10 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 8,
             "lagmark": 2,
             "starfsstod": 4,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
@@ -5886,10 +5886,10 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 8,
             "lagmark": 2,
             "starfsstod": 5,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
@@ -5897,10 +5897,10 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 6,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
@@ -5908,10 +5908,10 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 12,
             "lagmark": 2,
             "starfsstod": 7,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
@@ -5919,10 +5919,10 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 5,
             "lagmark": 2,
             "starfsstod": 8,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
@@ -5930,13 +5930,508 @@
     },
     {
         "fields": {
-            "hamark": 0,
+            "hamark": 5,
             "lagmark": 2,
             "starfsstod": 9,
-            "tegund": 3,
+            "tegund": 2,
             "timabil": 60
         },
         "model": "vaktir.vakt",
         "pk": 540
+    },
+    {
+        "fields": {
+            "hamark": 30,
+            "lagmark": 2,
+            "starfsstod": 1,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 541
+    },
+    {
+        "fields": {
+            "hamark": 12,
+            "lagmark": 2,
+            "starfsstod": 2,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 542
+    },
+    {
+        "fields": {
+            "hamark": 12,
+            "lagmark": 2,
+            "starfsstod": 3,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 543
+    },
+    {
+        "fields": {
+            "hamark": 8,
+            "lagmark": 2,
+            "starfsstod": 4,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 544
+    },
+    {
+        "fields": {
+            "hamark": 8,
+            "lagmark": 2,
+            "starfsstod": 5,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 545
+    },
+    {
+        "fields": {
+            "hamark": 12,
+            "lagmark": 2,
+            "starfsstod": 6,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 546
+    },
+    {
+        "fields": {
+            "hamark": 12,
+            "lagmark": 2,
+            "starfsstod": 7,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 547
+    },
+    {
+        "fields": {
+            "hamark": 5,
+            "lagmark": 2,
+            "starfsstod": 8,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 548
+    },
+    {
+        "fields": {
+            "hamark": 5,
+            "lagmark": 2,
+            "starfsstod": 9,
+            "tegund": 2,
+            "timabil": 61
+        },
+        "model": "vaktir.vakt",
+        "pk": 549
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 1,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 550
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 2,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 551
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 3,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 552
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 4,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 553
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 5,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 554
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 6,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 555
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 7,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 556
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 8,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 557
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 9,
+            "tegund": 2,
+            "timabil": 62
+        },
+        "model": "vaktir.vakt",
+        "pk": 558
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 1,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 559
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 2,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 560
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 3,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 561
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 4,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 562
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 5,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 563
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 6,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 564
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 7,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 565
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 8,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 566
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 9,
+            "tegund": 2,
+            "timabil": 63
+        },
+        "model": "vaktir.vakt",
+        "pk": 567
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 1,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 568
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 2,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 569
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 3,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 570
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 4,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 571
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 5,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 572
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 6,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 573
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 7,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 574
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 8,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 575
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 9,
+            "tegund": 2,
+            "timabil": 64
+        },
+        "model": "vaktir.vakt",
+        "pk": 576
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 1,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 577
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 2,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 578
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 3,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 579
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 4,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 580
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 5,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 581
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 6,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 582
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 7,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 583
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 8,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 584
+    },
+    {
+        "fields": {
+            "hamark": 0,
+            "lagmark": 2,
+            "starfsstod": 9,
+            "tegund": 3,
+            "timabil": 65
+        },
+        "model": "vaktir.vakt",
+        "pk": 585
     }
 ]

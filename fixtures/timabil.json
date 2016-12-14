@@ -1,11 +1,19 @@
 [
     {
         "fields": {
+            "hefst": "2016-12-27T10:00:00",
+            "lykur": "2016-12-27T11:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 1
+    },
+    {
+        "fields": {
             "hefst": "2016-12-27T11:00:00",
             "lykur": "2016-12-27T12:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 1
+        "pk": 2
     },
     {
         "fields": {
@@ -13,7 +21,7 @@
             "lykur": "2016-12-27T13:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 2
+        "pk": 3
     },
     {
         "fields": {
@@ -21,7 +29,7 @@
             "lykur": "2016-12-27T14:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 3
+        "pk": 4
     },
     {
         "fields": {
@@ -29,7 +37,7 @@
             "lykur": "2016-12-27T15:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 4
+        "pk": 5
     },
     {
         "fields": {
@@ -37,7 +45,7 @@
             "lykur": "2016-12-27T16:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 5
+        "pk": 6
     },
     {
         "fields": {
@@ -45,7 +53,7 @@
             "lykur": "2016-12-27T17:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 6
+        "pk": 7
     },
     {
         "fields": {
@@ -53,7 +61,7 @@
             "lykur": "2016-12-27T18:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 7
+        "pk": 8
     },
     {
         "fields": {
@@ -61,7 +69,7 @@
             "lykur": "2016-12-27T19:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 8
+        "pk": 9
     },
     {
         "fields": {
@@ -69,7 +77,7 @@
             "lykur": "2016-12-27T20:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 9
+        "pk": 10
     },
     {
         "fields": {
@@ -77,7 +85,7 @@
             "lykur": "2016-12-27T21:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 10
+        "pk": 11
     },
     {
         "fields": {
@@ -85,7 +93,7 @@
             "lykur": "2016-12-27T22:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 11
+        "pk": 12
     },
     {
         "fields": {
@@ -93,7 +101,15 @@
             "lykur": "2016-12-27T23:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 12
+        "pk": 13
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-28T10:00:00",
+            "lykur": "2016-12-28T11:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 14
     },
     {
         "fields": {
@@ -101,7 +117,7 @@
             "lykur": "2016-12-28T12:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 13
+        "pk": 15
     },
     {
         "fields": {
@@ -109,7 +125,7 @@
             "lykur": "2016-12-28T13:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 14
+        "pk": 16
     },
     {
         "fields": {
@@ -117,7 +133,7 @@
             "lykur": "2016-12-28T14:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 15
+        "pk": 17
     },
     {
         "fields": {
@@ -125,7 +141,7 @@
             "lykur": "2016-12-28T15:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 16
+        "pk": 18
     },
     {
         "fields": {
@@ -133,7 +149,7 @@
             "lykur": "2016-12-28T16:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 17
+        "pk": 19
     },
     {
         "fields": {
@@ -141,7 +157,7 @@
             "lykur": "2016-12-28T17:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 18
+        "pk": 20
     },
     {
         "fields": {
@@ -149,7 +165,7 @@
             "lykur": "2016-12-28T18:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 19
+        "pk": 21
     },
     {
         "fields": {
@@ -157,7 +173,7 @@
             "lykur": "2016-12-28T19:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 20
+        "pk": 22
     },
     {
         "fields": {
@@ -165,7 +181,7 @@
             "lykur": "2016-12-28T20:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 21
+        "pk": 23
     },
     {
         "fields": {
@@ -173,7 +189,7 @@
             "lykur": "2016-12-28T21:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 22
+        "pk": 24
     },
     {
         "fields": {
@@ -181,7 +197,7 @@
             "lykur": "2016-12-28T22:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 23
+        "pk": 25
     },
     {
         "fields": {
@@ -189,7 +205,15 @@
             "lykur": "2016-12-28T23:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 24
+        "pk": 26
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-29T10:00:00",
+            "lykur": "2016-12-29T11:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 27
     },
     {
         "fields": {
@@ -197,7 +221,7 @@
             "lykur": "2016-12-29T12:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 25
+        "pk": 28
     },
     {
         "fields": {
@@ -205,7 +229,7 @@
             "lykur": "2016-12-29T13:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 26
+        "pk": 29
     },
     {
         "fields": {
@@ -213,7 +237,7 @@
             "lykur": "2016-12-29T14:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 27
+        "pk": 30
     },
     {
         "fields": {
@@ -221,7 +245,7 @@
             "lykur": "2016-12-29T15:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 28
+        "pk": 31
     },
     {
         "fields": {
@@ -229,7 +253,7 @@
             "lykur": "2016-12-29T16:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 29
+        "pk": 32
     },
     {
         "fields": {
@@ -237,7 +261,7 @@
             "lykur": "2016-12-29T17:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 30
+        "pk": 33
     },
     {
         "fields": {
@@ -245,7 +269,7 @@
             "lykur": "2016-12-29T18:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 31
+        "pk": 34
     },
     {
         "fields": {
@@ -253,7 +277,7 @@
             "lykur": "2016-12-29T19:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 32
+        "pk": 35
     },
     {
         "fields": {
@@ -261,7 +285,7 @@
             "lykur": "2016-12-29T20:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 33
+        "pk": 36
     },
     {
         "fields": {
@@ -269,7 +293,7 @@
             "lykur": "2016-12-29T21:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 34
+        "pk": 37
     },
     {
         "fields": {
@@ -277,7 +301,7 @@
             "lykur": "2016-12-29T22:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 35
+        "pk": 38
     },
     {
         "fields": {
@@ -285,7 +309,15 @@
             "lykur": "2016-12-29T23:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 36
+        "pk": 39
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-30T10:00:00",
+            "lykur": "2016-12-30T11:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 40
     },
     {
         "fields": {
@@ -293,7 +325,7 @@
             "lykur": "2016-12-30T12:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 37
+        "pk": 41
     },
     {
         "fields": {
@@ -301,7 +333,7 @@
             "lykur": "2016-12-30T13:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 38
+        "pk": 42
     },
     {
         "fields": {
@@ -309,7 +341,7 @@
             "lykur": "2016-12-30T14:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 39
+        "pk": 43
     },
     {
         "fields": {
@@ -317,7 +349,7 @@
             "lykur": "2016-12-30T15:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 40
+        "pk": 44
     },
     {
         "fields": {
@@ -325,7 +357,7 @@
             "lykur": "2016-12-30T16:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 41
+        "pk": 45
     },
     {
         "fields": {
@@ -333,7 +365,7 @@
             "lykur": "2016-12-30T17:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 42
+        "pk": 46
     },
     {
         "fields": {
@@ -341,7 +373,7 @@
             "lykur": "2016-12-30T18:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 43
+        "pk": 47
     },
     {
         "fields": {
@@ -349,7 +381,7 @@
             "lykur": "2016-12-30T19:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 44
+        "pk": 48
     },
     {
         "fields": {
@@ -357,7 +389,7 @@
             "lykur": "2016-12-30T20:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 45
+        "pk": 49
     },
     {
         "fields": {
@@ -365,7 +397,7 @@
             "lykur": "2016-12-30T21:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 46
+        "pk": 50
     },
     {
         "fields": {
@@ -373,7 +405,7 @@
             "lykur": "2016-12-30T22:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 47
+        "pk": 51
     },
     {
         "fields": {
@@ -381,7 +413,15 @@
             "lykur": "2016-12-30T23:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 48
+        "pk": 52
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-31T10:00:00",
+            "lykur": "2016-12-31T11:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 53
     },
     {
         "fields": {
@@ -389,7 +429,7 @@
             "lykur": "2016-12-31T12:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 49
+        "pk": 54
     },
     {
         "fields": {
@@ -397,7 +437,7 @@
             "lykur": "2016-12-31T13:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 50
+        "pk": 55
     },
     {
         "fields": {
@@ -405,7 +445,7 @@
             "lykur": "2016-12-31T14:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 51
+        "pk": 56
     },
     {
         "fields": {
@@ -413,7 +453,7 @@
             "lykur": "2016-12-31T15:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 52
+        "pk": 57
     },
     {
         "fields": {
@@ -421,7 +461,7 @@
             "lykur": "2016-12-31T16:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 53
+        "pk": 58
     },
     {
         "fields": {
@@ -429,7 +469,7 @@
             "lykur": "2016-12-31T17:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 54
+        "pk": 59
     },
     {
         "fields": {
@@ -437,7 +477,7 @@
             "lykur": "2016-12-31T18:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 55
+        "pk": 60
     },
     {
         "fields": {
@@ -445,7 +485,7 @@
             "lykur": "2016-12-31T19:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 56
+        "pk": 61
     },
     {
         "fields": {
@@ -453,7 +493,7 @@
             "lykur": "2016-12-31T20:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 57
+        "pk": 62
     },
     {
         "fields": {
@@ -461,7 +501,7 @@
             "lykur": "2016-12-31T21:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 58
+        "pk": 63
     },
     {
         "fields": {
@@ -469,7 +509,7 @@
             "lykur": "2016-12-31T22:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 59
+        "pk": 64
     },
     {
         "fields": {
@@ -477,6 +517,6 @@
             "lykur": "2016-12-31T23:00:00"
         },
         "model": "vaktir.timabil",
-        "pk": 60
+        "pk": 65
     }
 ]

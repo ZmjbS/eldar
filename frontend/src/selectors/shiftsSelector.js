@@ -24,8 +24,8 @@ const getSimpleTimeslots = createSelector([timeslots], ( timeslots ) => {
 	return map(timeslots, ( timeslot ) => {
 		return {
 			id: timeslot.id,
-			hefst: timeslot._timabil.hefst,
-			lykur: timeslot._timabil.lykur,
+			hefst: timeslot.hefst,
+			lykur: timeslot.lykur,
 			starfsstod: timeslot.starfsstod
 		}
 	})
@@ -77,7 +77,7 @@ export const getShiftsTimeslotIds = createSelector(
 
 const timeslotsForDate = createSelector([timeslots, date], ( timeslots, date ) => {
 	return filter(timeslots, ( timeslot ) => {
-		return moment(timeslot._timabil.hefst).isSame(date, 'day')
+		return moment(timeslot.hefst).isSame(date, 'day')
 	});
 });
 
