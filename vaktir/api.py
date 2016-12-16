@@ -71,12 +71,10 @@ class VaktViewSet(viewsets.ModelViewSet):
 
 
 	queryset = Vakt.objects.raw("""
-		SELECT *, count(vs.id) as skraning  FROM vaktir_vakt v
-JOIN vaktir_vaktaskraning as vs on vs.vakt_id = v.id
-where vs.skraning_id in (SELECT DISTINCT ON (felagi_id)
+SELECT *, count(vs.id) as skradir  FROM vaktir_vakt v
+LEFT OUTER JOIN vaktir_vaktaskraning as vs on vs.vakt_id = v.id AND vs.skraning_id in (SELECT DISTINCT ON (felagi_id)
        id
 FROM   vaktir_skraning
-
 ORDER  BY felagi_id, timastimpill DESC)
 GROUP BY v.id, vs.id
 	""")
