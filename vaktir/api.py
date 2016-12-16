@@ -78,6 +78,7 @@ FROM   vaktir_skraning vs
 ORDER  BY felagi_id, timastimpill DESC)
 join vaktir_timabil as t on t.id = v.timabil_id
 GROUP BY v.id, vs.id, t.hefst, t.lykur, t.id
+ORDER BY t.hefst
 
 	""")
 	serializer_class = VaktSerializer
