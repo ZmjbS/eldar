@@ -4,7 +4,7 @@ from rest_framework import routers, serializers, viewsets,filters,status
 from vaktir.models import Timabil,Starfsstod,Tegund,Vakt,Felagi,Skraning,Vaktaskraning
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
-from django.db.models import Prefetch, Sum, Case, When, IntegerField, prefetch_related_objects
+from django.db.models import Prefetch, Sum, Case, When, IntegerField
 from django.db import connection
 
 logger = logging.getLogger(__name__)
