@@ -71,13 +71,14 @@ class VaktViewSet(viewsets.ModelViewSet):
 
 
 	queryset = Vakt.objects.raw("""
-		SELECT v.*, count(s.id) as skradir , t.hefst as timabil_hefst, t.lykur as timabil_lykur, t.id as timabil_id FROM vaktir_vakt as v
-		left outer join (
-			SELECT * FROM vaktir_vaktaskraning where vaktir_vaktaskraning.skraning_id in (SELECT id from ((SELECT DISTINCT ON (id), felagi_id, timastimpill
-			 FROM vaktir_skraning  group by felagi_id order by timastimpill desc))
-		) as s on s.vakt_id = v.id
-		join vaktir_timabil as t on t.id = v.timabil_id
-		GROUP BY v.id
+		SELECT *, count(vs.id) as skraning  FROM vaktir_vakt v
+JOIN vaktir_vaktaskraning as vs on vs.vakt_id = v.id
+where vs.skraning_id in (SELECT DISTINCT ON (felagi_id)
+       id
+FROM   vaktir_skraning
+
+ORDER  BY felagi_id, timastimpill DESC)
+GROUP BY v.id, vs.id
 	""")
 	serializer_class = VaktSerializer
 
