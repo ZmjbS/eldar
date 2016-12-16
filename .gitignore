@@ -21,3 +21,5 @@ coverage
 npm-debug.log
 frontend/.idea/workspace.xml
 db_backup.sqlite3
+
+eldar/staticfiles
