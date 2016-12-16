@@ -25,3 +25,4 @@ django-filter==1.0.1
 djangorestframework==3.5.3
 gunicorn==19.4.5
 dj-database-url==0.4.1
+psycopg2=2.6.2
