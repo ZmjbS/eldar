@@ -115,7 +115,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-	os.path.join(BASE_DIR,'vaktir/static'),
+	os.path.join(BASE_DIR,'eldar/static'),
 )
 
 REST_FRAMEWORK = {
