@@ -1,7 +1,7 @@
 import axios from 'axios';
 console.log('BASE URL', window.apiUrl);
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: 'https://eldar.herokuapp.com/api',
   timeout: 4000
 });
 
