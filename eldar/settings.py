@@ -130,28 +130,33 @@ CORS_ORIGIN_ALLOW_ALL = True
 # 	'localhost:3000'
 # )
 
-LOGGING = {
-	'version': 1,
-	'filters': {
-		'require_debug_true': {
-			'()': 'django.utils.log.RequireDebugTrue',
-		}
-	},
-	'handlers': {
-		'console': {
-			'level': 'DEBUG',
-			'filters': ['require_debug_true'],
-			'class': 'logging.StreamHandler',
-		}
-	},
-	'loggers': {
-		# 'django': {
-		# 	'handlers': ['console'],
-		# 	'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-		# },
-		'django.db.backends': {
-			'level': 'DEBUG',
-			'handlers': ['console'],
-		}
-	},
-}
+# LOGGING = {
+# 	'version': 1,
+# 	'filters': {
+# 		'require_debug_true': {
+# 			'()': 'django.utils.log.RequireDebugTrue',
+# 		}
+# 	},
+# 	'handlers': {
+# 		'console': {
+# 			'level': 'DEBUG',
+# 			'filters': ['require_debug_true'],
+# 			'class': 'logging.StreamHandler',
+# 		}
+# 	},
+# 	'loggers': {
+# 		# 'django': {
+# 		# 	'handlers': ['console'],
+# 		# 	'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+# 		# },
+# 		'django.db.backends': {
+# 			'level': 'DEBUG',
+# 			'handlers': ['console'],
+# 		}
+# 	},
+# }
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
