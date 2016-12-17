@@ -1,7 +1,10 @@
 # coding=utf-8
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.encoding import python_2_unicode_compatible
 
+
+@python_2_unicode_compatible
 class Timabil(models.Model):
 	# Hver vakt hefur sitt tímabil. Til að einfalda uppsetningu vakta eru
 	# skilgreind nokkur tímabil og svo vöktunum úthlutað þeim. Þannig er líka
@@ -45,6 +48,7 @@ class Timabil(models.Model):
 
 		return litur
 
+@python_2_unicode_compatible
 class Starfsstod(models.Model):
 	# Nafn sölustaðar eða verkefnis. Dæmi: M6, Grjótháls, bílstjórar,
 	# stjórnstöð...
@@ -68,6 +72,7 @@ class Starfsstod(models.Model):
 	def __str__(self):
 		return self.nafn
 
+@python_2_unicode_compatible
 class Tegund(models.Model):
 	# Tegund vaktar. Dæmi: sala, næturvakt, undirbúningur, stuðningur.
 	#
@@ -79,6 +84,7 @@ class Tegund(models.Model):
 	def __str__(self):
 		return self.nafn
 
+@python_2_unicode_compatible
 class Vakt(models.Model):
 
 	# Vaktin hefur ákveðið tímabil, dagsetningu og er úthlutað ákveðinn
@@ -116,6 +122,7 @@ class Vakt(models.Model):
 	def __str__(self):
 		return '%s (%s %s) [%s-%s] %s' % (self.starfsstod, self.timabil.hefst.strftime('%D'), self.timabil, str(self.lagmark), str(self.hamark), self.tegund)
 
+@python_2_unicode_compatible
 class Felagi(models.Model):
 	# Viö höldum utan um félagana sem skrá sig.
 	#
@@ -140,6 +147,7 @@ class Felagi(models.Model):
 	def __str__(self):
 		return self.nafn
 
+@python_2_unicode_compatible
 class Skraning(models.Model):
 	'''
 	Þegar félagi skráir sig býr hann til skráningu sem núll eða fleiri
@@ -176,6 +184,7 @@ class Skraning(models.Model):
 	def __str__(self):
 		return self.timastimpill.strftime('%D')
 
+@python_2_unicode_compatible
 class Vaktaskraning(models.Model):
 	# Hér eru félagar skráðir á vaktir. Hver félagi getur verið með fleiri
 	# en eina vakt og er þá með þann fjölda skráninga.
