@@ -4,8 +4,27 @@ from django.shortcuts import render
 from vaktir.models import Vakt, Starfsstod, Timabil, Vaktaskraning, Tegund, Felagi, Skraning
 from django.db import connection
 import logging, logging.config
+from itertools import *	
+from django.db.models import F, Sum, Prefetch
+
 
 logger = logging.getLogger('django')
+
+def query_to_dicts(query_string, *query_args):
+	"""Run a simple query and produce a generator
+	that returns the results as a bunch of dictionaries
+	with keys for the column values selected.
+	"""
+	cursor = connection.cursor()
+	cursor.execute(query_string, query_args)
+	col_names = [desc[0] for desc in cursor.description]
+	while True:
+		row = cursor.fetchone()
+		if row is None:
+			break
+		row_dict = dict(izip(col_names, row))
+		yield row_dict
+	return
 
 def dagalisti():
 	''' Búum til lista yfir dagana sem vaktirnar ná yfir og skilum í röðuðum lista.
@@ -13,7 +32,7 @@ def dagalisti():
 
 	with connection.cursor() as cursor:
 		cursor.execute("select date(hefst) as day from vaktir_timabil GROUP BY date(hefst) ORDER BY date(hefst)")
-		row = cursor.fetchall()	
+		row = cursor.fetchall()
 
 	return row
 	# dagalisti = []
@@ -34,15 +53,29 @@ def starfsstodvayfirlit():
 	#TODO: Klára lýsinguna
 
 	timabilin = Timabil.objects.all().order_by('hefst')
-	
+
 
 	# Förum í gegnum starfsstöðvarnar og búum til lista sem samsvarar tímabilunum í timabil
-	starfsstodvalisti = Starfsstod.objects.all().prefetch_related('vaktir')
-
+	# starfsstodvalisti = Starfsstod.objects.all().prefetch_related('vaktir__skraning').annotate(
+	# 	lagmark=Sum('vaktir__lagmark'),
+	# )
 
 	with connection.cursor() as cursor:
-		cursor.execute("select date(hefst) as dagur, count(id) as fjoldi_timabila from vaktir_timabil GROUP BY date(hefst) ORDER BY date(hefst)")
-		dagatimabil = cursor.fetchall()	
+		cursor.execute("""SELECT DISTINCT ON (felagi_id)
+				id
+			FROM vaktir_skraning vs
+			ORDER  BY felagi_id, timastimpill DESC""")
+		ids = cursor.fetchall()
+
+	starfsstodvalisti = Starfsstod.objects.all().annotate(
+		lagmark=Sum('vaktir__lagmark'),
+	).prefetch_related(
+		Prefetch('vaktir', queryset=Vakt.objects.all().prefetch_related(
+			Prefetch('vaktaskraning', queryset=Vaktaskraning.objects.filter(skraning_id__in=ids).select_related('felagi'), to_attr='vaktaskraningar'),
+		)),
+	)
+
+	dagatimabil = query_to_dicts("select date(hefst) as dagur, count(id) as fjoldi_timabila from vaktir_timabil GROUP BY date(hefst) ORDER BY date(hefst)")
 
 	gogn_til_snidmats = {
 		'starfsstodvalisti': starfsstodvalisti,

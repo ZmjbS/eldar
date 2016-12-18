@@ -22,18 +22,18 @@ class Timabil(models.Model):
 	def dags(self):
 		return self.hefst.date()
 
-	def vaktaskraningar(self):
-		vaktaskraningar = []
-		for vakt in Vakt.objects.filter(timabil=self):
-			for vs in Vaktaskraning.objects.filter(vakt=vakt):
-				vaktaskraningar.append(vs)
-		return len(vaktaskraningar)
+	# def vaktaskraningar(self):
+	# 	vaktaskraningar = []
+	# 	for vakt in Vakt.objects.filter(timabil=self):
+	# 		for vs in Vaktaskraning.objects.filter(vakt=vakt):
+	# 			vaktaskraningar.append(vs)
+	# 	return len(vaktaskraningar)
 
-	def lagmark(self):
-		lagmark = 0
-		for vakt in Vakt.objects.filter(timabil=self):
-			lagmark += vakt.lagmark
-		return lagmark
+	# def lagmark(self):
+	# 	lagmark = 0
+	# 	for vakt in Vakt.objects.filter(timabil=self):
+	# 		lagmark += vakt.lagmark
+	# 	return lagmark
 
 	def litur(self):
 		lagmark = self.lagmark()
@@ -60,14 +60,14 @@ class Starfsstod(models.Model):
 	class Meta:
 		verbose_name_plural = 'starfsstöðvar'
 
-	def skraningar(self):
-		return Vakt.objects.filter(starfsstod=self).count()
+	# def skraningar(self):
+	# 	return Vakt.objects.filter(starfsstod=self).count()
 
-	def lagmark(self):
-		lagmark = 0
-		for vakt in Vakt.objects.filter(starfsstod=self):
-			lagmark += vakt.lagmark
-		return lagmark
+	# def lagmark(self):
+	# 	lagmark = 0
+	# 	for vakt in Vakt.objects.filter(starfsstod=self):
+	# 		lagmark += vakt.lagmark
+	# 	return lagmark
 
 	def __str__(self):
 		return self.nafn
@@ -100,18 +100,18 @@ class Vakt(models.Model):
 	# Hver vakt hefur einnig ákveðna tegund.
 	tegund = models.ForeignKey(Tegund)
 
-	def vaktaskraningar(self):
-		'''
-		Þar sem vaktaskráningar fyrir ákveðna vakt eru ekki endilega í
-		nýjustu skráningunni þurfum við að búa til sér lista fyrir
-		þetta.
-		'''
-		vs_listi = []
-		for vs in Vaktaskraning.objects.filter(vakt=self):
-			# Bætum vaktaskráningunni við ef hún er í nýjustu skráningu félagans.
-			if vs.skraning == Skraning.objects.filter(felagi=vs.skraning.felagi).latest('timastimpill'):
-				vs_listi.append(vs)
-		return vs_listi
+	# def vaktaskraningar(self):
+	# 	'''
+	# 	Þar sem vaktaskráningar fyrir ákveðna vakt eru ekki endilega í
+	# 	nýjustu skráningunni þurfum við að búa til sér lista fyrir
+	# 	þetta.
+	# 	'''
+	# 	vs_listi = []
+	# 	for vs in Vaktaskraning.objects.filter(vakt=self):
+	# 		# Bætum vaktaskráningunni við ef hún er í nýjustu skráningu félagans.
+	# 		if vs.skraning == Skraning.objects.filter(felagi=vs.skraning.felagi).latest('timastimpill'):
+	# 			vs_listi.append(vs)
+	# 	return vs_listi
 
 	# def skradir(self):
 	# 	return len(self.vaktaskraningar())
@@ -161,7 +161,7 @@ class Skraning(models.Model):
 	timastimpill = models.DateTimeField(auto_now_add=True, db_index=True)
 
 	# Ef skráningin er gerð úr umsjónarkerfinu, loggum við hver gerir hana:
-	notandi = models.ForeignKey(User, related_name='skraningar', null=True,blank=True)
+	notandi = models.ForeignKey(User, related_name='skraningar2', null=True,blank=True)
 
 	# Við hvern logg má bæta athugasemd:
 	athugasemd = models.TextField(null=True,blank=True)
@@ -192,7 +192,7 @@ class Vaktaskraning(models.Model):
 	felagi = models.ForeignKey(Felagi, related_name='felagi')
 	# Vaktaskráningar fá ekki related_name vegna þess að sumar vaktanna
 	# tilheyra eldri skráningum sem eru ekki lengur gildar.
-	vakt = models.ForeignKey(Vakt)
+	vakt = models.ForeignKey(Vakt, related_name='vaktaskraning')
 	skraning = models.ForeignKey(Skraning, related_name='vaktaskraning')
 
 	# TODO: Enn sem komið er er skráning ígildi staðfestingar á vakt. Það

@@ -91,16 +91,16 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 	<tbody>
 		{% for sd in starfsstodvalisti %}
 		<tr>
-			<th class="starfsstod">{{ sd.starfsstod }} <br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
+			<th class="starfsstod">{{ sd.nafn }} <br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
 			{% for vakt in sd.vaktir.all %}
 				<td class="{% if vakt %}vakt{% else %}ekkivakt{% endif %}
-						   vakttegund-{{ vakt.tegund.id }}"
+						   vakttegund-{{ vakt.tegund_id }}"
 				>
 					{% if vakt %}
 						<span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
 						<div class="skraningar">
 							{% for skraning in vakt.vaktaskraningar %}
-								<span class="skraning-icon felagi-{{ vakt.skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
+								<span class="skraning-icon felagi-{{ vakt.skraning.felagi_id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
 							{% endfor %}
 						</div>
 					{% endif %}
