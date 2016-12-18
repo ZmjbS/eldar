@@ -2,15 +2,25 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from vaktir.models import Vakt, Starfsstod, Timabil, Vaktaskraning, Tegund, Felagi, Skraning
+from django.db import connection
+import logging, logging.config
+
+logger = logging.getLogger('django')
 
 def dagalisti():
 	''' Búum til lista yfir dagana sem vaktirnar ná yfir og skilum í röðuðum lista.
 	'''
-	dagalisti = []
-	for vakt in Vakt.objects.all():
-		if vakt.timabil.dags() not in dagalisti:
-			dagalisti.append(vakt.timabil.dags())
-	dagalisti.sort()
+
+	with connection.cursor() as cursor:
+		cursor.execute("select date(hefst) as day from vaktir_timabil GROUP BY date(hefst) ORDER BY date(hefst)")
+		row = cursor.fetchall()	
+
+	return row
+	# dagalisti = []
+	# for vakt in Vakt.objects.all():
+	# 	if vakt.timabil.dags() not in dagalisti:
+	# 		dagalisti.append(vakt.timabil.dags())
+	# dagalisti.sort()
 
 	return dagalisti
 
@@ -24,31 +34,15 @@ def starfsstodvayfirlit():
 	#TODO: Klára lýsinguna
 
 	timabilin = Timabil.objects.all().order_by('hefst')
-
-	starfsstodvalisti = []
+	
 
 	# Förum í gegnum starfsstöðvarnar og búum til lista sem samsvarar tímabilunum í timabil
-	for starfsstod in Starfsstod.objects.all():
-		vaktir = []
-		for timabilid in timabilin:
-			# Bætum vaktinni við listann ef hún er til:
-			try:
-				vaktir.append(Vakt.objects.get(timabil=timabilid, starfsstod=starfsstod))
-			# Annars fer bara autt stak í listann:
-			except:
-				vaktir.append('')
-		starfsstodvalisti.append({ 'starfsstod': starfsstod, 'vaktir': vaktir }) 
+	starfsstodvalisti = Starfsstod.objects.all().prefetch_related('vaktir')
 
-	# Finnum út hversu mörg tímabil eru á hverjum degi:
-	dagatimabil = []
-	for dagur in dagalisti():
-		fjoldi = Timabil.objects.filter(
-			hefst__day=dagur.day,
-			hefst__month=dagur.month,
-			hefst__year=dagur.year
-			).count()
-		print(fjoldi)
-		dagatimabil.append({ 'dagur': dagur, 'fjoldi_timabila': fjoldi, })
+
+	with connection.cursor() as cursor:
+		cursor.execute("select date(hefst) as dagur, count(id) as fjoldi_timabila from vaktir_timabil GROUP BY date(hefst) ORDER BY date(hefst)")
+		dagatimabil = cursor.fetchall()	
 
 	gogn_til_snidmats = {
 		'starfsstodvalisti': starfsstodvalisti,

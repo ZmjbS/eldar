@@ -92,7 +92,7 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		{% for sd in starfsstodvalisti %}
 		<tr>
 			<th class="starfsstod">{{ sd.starfsstod }} <br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
-			{% for vakt in sd.vaktir %}
+			{% for vakt in sd.vaktir.all %}
 				<td class="{% if vakt %}vakt{% else %}ekkivakt{% endif %}
 						   vakttegund-{{ vakt.tegund.id }}"
 				>

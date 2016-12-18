@@ -58,7 +58,7 @@ class Header extends React.Component {
 				<div className={ styles.user}>
 					Smellið á þær vaktir sem þið viljið taka. Allar breytingar vistast sjálfkrafa. Miðað er við að hver taki að sér 10-15 klst. Hægt er að breyta vöktum með því að smella á þær
 				</div>
-				<div className={styles.registrations }>{ this.getText(this.props.shifts.length)}</div>
+				<div className={styles.registrations }>{ this.getText(this.props.shifts ? this.props.shifts.length: 0)}</div>
 			</div>
 		);
 	}
