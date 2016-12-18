@@ -4,7 +4,13 @@ from django.shortcuts import render
 from vaktir.models import Vakt, Starfsstod, Timabil, Vaktaskraning, Tegund, Felagi, Skraning
 from django.db import connection
 import logging, logging.config
-from itertools import *	
+try:
+	from future_builtins import zip
+except ImportError: # not 2.6+ or is 3.x
+	try:
+		from itertools import izip as zip # < 2.5 or 3.x
+	except ImportError:
+		pass
 from django.db.models import F, Sum, Prefetch
 
 
