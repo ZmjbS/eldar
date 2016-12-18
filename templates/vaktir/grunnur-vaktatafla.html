@@ -100,7 +100,7 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 						<span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
 						<div class="skraningar">
 							{% for skraning in vakt.vaktaskraningar %}
-								<span class="skraning-icon felagi-{{ skraning.felagi.id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
+								<span class="skraning-icon felagi-{{ skraning.felagi_id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
 							{% endfor %}
 						</div>
 					{% endif %}

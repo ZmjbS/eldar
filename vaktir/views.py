@@ -76,9 +76,8 @@ def starfsstodvayfirlit():
 	starfsstodvalisti = Starfsstod.objects.all().annotate(
 		lagmark=Sum('vaktir__lagmark'),
 	).prefetch_related(
-		Prefetch('vaktir', queryset=Vakt.objects.all().prefetch_related(
-			Prefetch('vaktaskraning', queryset=Vaktaskraning.objects.filter(skraning_id__in=ids).select_related('felagi'), to_attr='vaktaskraningar'),
-		)),
+		Prefetch('vaktir', queryset=Vakt.objects.all()),
+		Prefetch('vaktir__vaktaskraning', queryset=Vaktaskraning.objects.filter(skraning_id__in=ids).select_related('felagi'), to_attr='vaktaskraningar'),
 	)
 
 	dagatimabil = query_to_dicts("select date(hefst) as dagur, count(id) as fjoldi_timabila from vaktir_timabil GROUP BY date(hefst) ORDER BY date(hefst)")
