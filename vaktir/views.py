@@ -5,10 +5,10 @@ from vaktir.models import Vakt, Starfsstod, Timabil, Vaktaskraning, Tegund, Fela
 from django.db import connection
 import logging, logging.config
 try:
-	from future_builtins import zip
+	from future_builtins import izip
 except ImportError: # not 2.6+ or is 3.x
 	try:
-		from itertools import izip as zip # < 2.5 or 3.x
+		from itertools import izip # < 2.5 or 3.x
 	except ImportError:
 		pass
 from django.db.models import F, Sum, Prefetch
