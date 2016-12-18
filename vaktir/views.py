@@ -5,10 +5,10 @@ from vaktir.models import Vakt, Starfsstod, Timabil, Vaktaskraning, Tegund, Fela
 from django.db import connection
 import logging, logging.config
 try:
-	from future_builtins import izip
+	from future_builtins import zip
 except ImportError: # not 2.6+ or is 3.x
 	try:
-		from itertools import izip # < 2.5 or 3.x
+		from itertools import izip as zip # < 2.5 or 3.x
 	except ImportError:
 		pass
 from django.db.models import F, Sum, Prefetch
@@ -28,7 +28,7 @@ def query_to_dicts(query_string, *query_args):
 		row = cursor.fetchone()
 		if row is None:
 			break
-		row_dict = dict(izip(col_names, row))
+		row_dict = dict(zip(col_names, row))
 		yield row_dict
 	return
 
