@@ -28,7 +28,7 @@ class Options extends React.Component {
 	render () {
 		return (
 			<div className={ styles.main }>
-				<div className={ styles.turnOffBackground} onClick={ this.toggleTurnOfBackground}>Slökkva á vaktaþörf</div>
+				{/*<div className={ styles.turnOffBackground} onClick={ this.toggleTurnOfBackground}>Slökkva/kveikja á yfirliti skráninga</div>*/}
 			</div>
 		);
 	}

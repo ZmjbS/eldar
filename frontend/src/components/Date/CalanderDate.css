@@ -87,4 +87,15 @@
 .day{
 	display: inline-block;
 	flex: 1 0 auto;
+	text-align: center;
+}
+
+
+.assigned{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	font-size: 8px;
+	color: #4c5157;
+	pointer-events: none;
 }

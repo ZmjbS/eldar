@@ -64,12 +64,7 @@ export const getShiftsTimeslotIds = createSelector(
 	[getSimpleTimeslotsGroupedByStore, getUserShiftsGroupedByStore],
 	( timeslots, shiftsByDays ) => {
 
-		//return [];
-		console.time('foo2');
-
 		const ids = flatten(map(shiftsByDays, ( shifts, key ) => (getShiftsTimeslotIdsForShifts(timeslots[key], shifts))));
-
-		console.timeEnd('foo2');
 
 		return ids;
 	}
@@ -102,7 +97,7 @@ const getSelectedShiftsForTimeslots = ( timeslots, shifts, locations ) => {
 
 		if ( !some(vaktirHefst, ( vakt ) => (isSameSecond(vakt, startTimeslot.hefst))) ) continue;
 
-		while ( !!timeslots[t + 1] && some(vaktirHefst, ( vakt ) => (isSameSecond(vakt, timeslots[t + 1].hefst))) ) {
+		while ( !!timeslots[t + 1] && some(vaktirHefst, ( vakt ) => (isSameSecond(vakt, timeslots[t + 1].hefst))) && isSameDay(timeslots[t+1].hefst, startTimeslot.hefst)) {
 			t++;
 		}
 
@@ -125,13 +120,7 @@ const getSelectedShiftsForTimeslots = ( timeslots, shifts, locations ) => {
 }
 
 export const getSelectedShifts = createSelector([getSimpleTimeslotsGroupedByStore, getUserShiftsGroupedByStore, locations], ( timeslots, shiftsByDays, locations ) => {
-	console.time('start');
-
-	const foo = flatten(map(shiftsByDays, (shifts, key) => (getSelectedShiftsForTimeslots(timeslots[key], shifts, locations))));
-
-	console.timeEnd('start');
-
-	return foo;
+	return flatten(map(shiftsByDays, (shifts, key) => (getSelectedShiftsForTimeslots(timeslots[key], shifts, locations))));
 })
 
 export const getSelectedShiftsForDate = createSelector([date, getSelectedShifts], ( date, shifts ) => {

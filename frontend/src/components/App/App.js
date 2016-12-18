@@ -101,7 +101,6 @@ class App extends Component {
 	}
 
 	render () {
-		console.log('props', this.props);
 		if ( !this.props.timeslots || this.props.timeslots.length === 0 ) {
 			return (<Box />);
 		}
