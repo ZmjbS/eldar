@@ -22,6 +22,8 @@ class StarfsstodSerializer(serializers.ModelSerializer ):
 class StarfsstodViewSet(viewsets.ModelViewSet):
 	queryset = Starfsstod.objects.all()
 	serializer_class = StarfsstodSerializer
+	filter_backends =  (filters.DjangoFilterBackend,)
+	filter_fields = ('id',)
 
 
 # ------ Timabil ---------

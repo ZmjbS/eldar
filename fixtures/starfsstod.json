@@ -79,5 +79,32 @@
 			"hamark": 5,
 			"solustadur": "False"
 		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 10,
+		"fields": {
+			"nafn": "Iðnaðarmenn",
+			"hamark": 10,
+			"solustadur": "False"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 11,
+		"fields": {
+			"nafn": "Smurbrauð",
+			"hamark": 5,
+			"solustadur": "False"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 12,
+		"fields": {
+			"nafn": "Bílstjórar",
+			"hamark": 10,
+			"solustadur": "False"
+		}
 	}
 ]

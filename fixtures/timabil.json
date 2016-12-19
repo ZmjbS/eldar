@@ -518,5 +518,136 @@
         },
         "model": "vaktir.timabil",
         "pk": 65
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-31T22:00:00",
+            "lykur": "2016-12-31T23:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 65
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-28T07:00:00",
+            "lykur": "2016-12-28T08:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 66
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-28T08:00:00",
+            "lykur": "2016-12-28T09:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 67
+    }
+    ,
+    {
+        "fields": {
+            "hefst": "2016-12-28T09:00:00",
+            "lykur": "2016-12-28T10:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 68
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-29T07:00:00",
+            "lykur": "2016-12-29T08:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 69
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-29T08:00:00",
+            "lykur": "2016-12-29T09:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 70
+    }
+    ,
+    {
+        "fields": {
+            "hefst": "2016-12-29T09:00:00",
+            "lykur": "2016-12-29T10:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 71
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-30T07:00:00",
+            "lykur": "2016-12-30T08:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 72
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-30T08:00:00",
+            "lykur": "2016-12-30T09:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 73
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-30T09:00:00",
+            "lykur": "2016-12-30T10:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 74
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-31T07:00:00",
+            "lykur": "2016-12-31T08:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 75
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-31T08:00:00",
+            "lykur": "2016-12-31T09:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 76
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-31T09:00:00",
+            "lykur": "2016-12-31T10:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 77
+    }
+    ,
+    {
+        "fields": {
+            "hefst": "2016-12-27T07:00:00",
+            "lykur": "2016-12-27T08:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 78
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-27T08:00:00",
+            "lykur": "2016-12-27T09:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 79
+    },
+    {
+        "fields": {
+            "hefst": "2016-12-27T09:00:00",
+            "lykur": "2016-12-27T10:00:00"
+        },
+        "model": "vaktir.timabil",
+        "pk": 80
     }
 ]

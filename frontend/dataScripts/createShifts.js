@@ -39,7 +39,12 @@ const calculateHamark = ( solustadur, tegund, timabil ) => {
 	const isNaeturvakt = tegund.name === 'næturvakt';
 	const isSolustadur = !!solustadur.solustadur;
 
-	if ( moment(timabil.hefst).isBefore(new Date(2016, 11, 27, 12)) ) {
+	console.log('sol', solustadur, timabil);
+
+	if(solustadur.id === 11 && (moment(timabil.hefst).isBefore(new Date(2016, 11,28)) || moment(timabil.hefst).hours() >= 10)){
+		console.log('foo');
+		return 0
+	} else if ( moment(timabil.hefst).isBefore(new Date(2016, 11, 27, 12)) ) {
 		return 0;
 	} else if ( moment(timabil.hefst).isAfter(new Date(2016, 11, 31, 18)) ) {
 		return 0
@@ -113,6 +118,8 @@ const insertVaktir = async () => {
 	const timabil = await getTimabil();
 
 	for ( let i = 0; i < timabil.length; i++ ) {
+		console.log('t', timabil[i]);
+
 		await insertVakt(timabil[i], solustadir, tegundir)
 	}
 	console.log('FINISHED VAKTIR');
@@ -121,7 +128,7 @@ const insertVaktir = async () => {
 const start = async () => {
 	console.log('STARTING...');
 
-	await insertTimabil();
+	//await insertTimabil();
 	await insertVaktir();
 
 }

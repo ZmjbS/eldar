@@ -150,14 +150,14 @@ LOGGING = {
 		}
 	},
 	'loggers': {
-		'django': {
-			'handlers': ['console'],
-			'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-		},
-		'django.db.backends': {
-			'level': 'DEBUG',
-			'handlers': ['console'],
-		}
+		# 'django': {
+		# 	'handlers': ['console'],
+		# 	'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+		# },
+		# 'django.db.backends': {
+		# 	'level': 'DEBUG',
+		# 	'handlers': ['console'],
+		# }
 	},
 }
 
