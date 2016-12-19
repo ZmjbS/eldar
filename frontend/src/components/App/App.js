@@ -46,7 +46,6 @@ class App extends Component {
 				.then(this.loadtimeslots);
 			//this.props.router.push('/');
 		} else if ( !this.props.timeslots || this.props.timeslots.length === 0 ) {
-			console.log('JO');
 			this.loadtimeslots();
 		}
 

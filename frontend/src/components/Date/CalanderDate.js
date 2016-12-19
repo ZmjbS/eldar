@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import moment from 'moment';
 import map from 'lodash/map';
 import minBy from 'lodash/minBy';
+import groupBy from 'lodash/groupBy';
 import chroma from 'chroma-js';
 import InlineSVG from 'svg-inline-react';
 import {connect} from 'react-redux'
@@ -137,8 +138,6 @@ class CalanderDate extends React.Component {
 	render = () => {
 		const { timeslots, shifts } = this.props;
 
-
-
 		return (
 			<div className={ [styles.main, this.props.className].join(' ') }>
 				{ this.renderHead() }
@@ -153,17 +152,20 @@ class CalanderDate extends React.Component {
 							return (<Shift key={ 'shift' + shift.from }
 							               shift={ shift }
 							               onClick={ this.props.onShiftClick}
-
 							               className={ styles.shift }
 							               style={ style } />
 							)
 						})}
 					</div>
 				</div>
-				{ map(timeslots, ( slot ) => {
+				{
+
+
+					map(timeslots, ( slot ) => {
+
 					const style = this.getSlotColorStyle(slot);
 					const hideHover = slot.max === 0 || slot.assigned >= slot.max ? styles.hideHover : null;
-					return (<div key={ 'slot' + slot.from } className={ styles.timeslotWrapper } onClick={ this.addShift(slot.from) }>
+					return (<div key={ 'slot' + slot.id } className={ styles.timeslotWrapper } onClick={ this.addShift(slot.from) }>
 						<div className={ [styles.timeslot, hideHover].join(' ') } style={ style }>
 							<div className={ styles.assigned }>{ slot.assigned > 0 ? slot.assigned : null}</div>
 						</div>

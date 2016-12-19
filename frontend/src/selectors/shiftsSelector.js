@@ -1,6 +1,6 @@
 import {createSelector} from 'reselect'
 import moment from 'moment';
-import {orderBy, groupBy, map, some, filter, find, flatten} from 'lodash';
+import {orderBy, groupBy, map, some, filter, find, flatten, uniq} from 'lodash';
 import {isSameDay, isEqual, isSameSecond, startOfDay, getHours, isBefore, isAfter} from 'date-fns';
 
 const timeslots = ( state ) => state.timeslots.list;
@@ -64,7 +64,7 @@ export const getShiftsTimeslotIds = createSelector(
 	[getSimpleTimeslotsGroupedByStore, getUserShiftsGroupedByStore],
 	( timeslots, shiftsByDays ) => {
 
-		const ids = flatten(map(shiftsByDays, ( shifts, key ) => (getShiftsTimeslotIdsForShifts(timeslots[key], shifts))));
+		const ids = uniq(flatten(map(shiftsByDays, ( shifts, key ) => (getShiftsTimeslotIdsForShifts(timeslots[key], shifts)))));
 
 		return ids;
 	}
