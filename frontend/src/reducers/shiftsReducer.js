@@ -80,15 +80,12 @@ export default typeToReducer({
 		const toDate = setHours(date, changeTo);
 
 		list = list.map(( shift ) => {
-			console.log('shift', shift);
 			if ( isWithinRange(setSeconds(shift.get('hefst'), 1), fromDate, toDate) ) {
 				shift = shift.set('starfsstod',  { id: location });
 			}
 
 			return shift;
 		});
-
-		console.log('foo', list.toJS());
 
 		s = s.set('vaktir', list);
 		return cloneDeep(s.toJS());
@@ -128,5 +125,8 @@ export default typeToReducer({
 				loaded: true
 			}))
 		}
+	},
+	'RESET': (state, action) => {
+		return defaultState;
 	}
 }, defaultState);

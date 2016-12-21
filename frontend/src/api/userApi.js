@@ -3,7 +3,7 @@ import baseApi from './baseApi';
 export const fetchUserByEmail = ( email ) => {
 	return baseApi.get('/felagi/', {
 		params: {
-			netfang: email
+			netfang: email.toLowerCase()
 		}
 	})
 };

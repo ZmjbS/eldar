@@ -23,11 +23,9 @@ export const hasShift = ( shifts, from ) => {
 }
 
 export const getNextFullShift = ( timeslots, shifts, from, max ) => {
-	console.log('t', timeslots, shifts, from, max);
 	for ( let i = from; i <= max; i++ ) {
 
 		const isUnavailable = isTimeslotFull(timeslots, i) || hasShift(shifts, i);
-		console.log('jo', isUnavailable, isTimeslotFull(timeslots, i + 1), hasShift(shifts, i + 1));
 
 		if ( isUnavailable ) {
 			return i;
@@ -49,7 +47,6 @@ export const getPrevFullShift = ( timeslots, shifts, from, min ) => {
 }
 
 export const getShiftMinMax = ( timeslots, shifts, shift ) => {
-	console.log('TIMESLOTS', timeslots);
 
 	const timeslotsForDate = getTimeslotsForDate(timeslots, shift.date);
 	const shiftsForDate = getTimeslotsForDate(shifts, shift.date);

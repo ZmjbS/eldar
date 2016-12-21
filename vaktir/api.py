@@ -79,7 +79,7 @@ LEFT OUTER JOIN vaktir_vaktaskraning as vs on vs.vakt_id = v.id AND vs.skraning_
 FROM   vaktir_skraning vs
 ORDER  BY felagi_id, timastimpill DESC)
 join vaktir_timabil as t on t.id = v.timabil_id
-GROUP BY v.id, vs.id, t.hefst, t.lykur, t.id
+GROUP BY v.id, t.hefst, t.lykur, t.id
 ORDER BY v.id
 
 	""")

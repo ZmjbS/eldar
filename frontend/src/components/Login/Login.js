@@ -4,6 +4,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux'
 import Box from '../Box/Box';
 import {getUserByEmail} from '../../actions/userActions';
+import {reset} from '../../actions/shiftsActions';
 import styles from './Login.css';
 /**
  * @class Login
@@ -16,13 +17,17 @@ const mapStateToProps = ( state, props ) => {
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		onLogin: ( email ) => dispatch(getUserByEmail(email)),
+		reset: () => dispatch(reset())
 	}
 }
 
 class Login extends React.Component {
 
+	componentDidMount = () => {
+		this.props.reset();
+	}
+
 	onContinueClick = () => {
-		console.log('value', this.refs.email.value);
 		this.props.onLogin(this.refs.email.value).then(() => {
 			this.props.router.push('/user/create');
 		})

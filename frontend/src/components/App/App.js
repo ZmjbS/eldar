@@ -40,7 +40,6 @@ const mapDispatchToProps = ( dispatch ) => {
 class App extends Component {
 
 	componentWillMount = () => {
-		console.log('foo', !this.props.timeslots || this.props.timeslots.length === 0);
 		if ( !this.props.currentUser ) {
 			this.props.loadUser(this.props.email)
 				.then(this.loadtimeslots);
@@ -85,7 +84,6 @@ class App extends Component {
 	};
 
 	nextDay = () => {
-		console.log('NEXT');
 		if ( this.state.day < 4 )
 			this.setState({
 				day: this.state.day + 1

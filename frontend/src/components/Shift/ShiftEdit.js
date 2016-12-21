@@ -106,8 +106,6 @@ class ShiftEdit extends React.Component {
 	}
 
 	render () {
-
-		console.log('props', this.props);
 		return (
 			<div>
 				<div className={ styles.overlay } onClick={ this.handleClickOutside }></div>

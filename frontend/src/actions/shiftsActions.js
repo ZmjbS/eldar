@@ -33,3 +33,6 @@ export const loadShifts = ( userId ) => ({
 });
 
 
+export const reset = () => ({
+	type: 'RESET',
+});

@@ -22,7 +22,7 @@ const mapStateToProps = ( state, props ) => {
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		onSaveUser: ( user ) => dispatch(saveUser(user)),
-		loadLocations: ( ) => dispatch(fetchLocations()),
+		loadLocations: ( ) => dispatch(fetchLocations())
 	}
 }
 

@@ -61,7 +61,6 @@ class CalanderDate extends React.Component {
 
 			if ( isTimeslotFull(this.props.timeslots, from) ) {
 				// TODO: add message to tell that the shift is full
-				console.log('FULL');
 				return;
 			}
 
