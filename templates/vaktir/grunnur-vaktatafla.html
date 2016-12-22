@@ -68,6 +68,9 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		var id = $(e.target).attr('data-felagi-id')
 		$(".felagiSelector").val(id);
 		felagiChange();
+		e.preventDefault();
+   		e.stopPropagation();
+    	return false;
 	})
 
 	$('.vakt').on('click', function() {
@@ -82,8 +85,8 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		console.log('f', $(this).parent('.overlay'))
 		$(this).parent('.overlay').addClass('hide');
 		e.preventDefault();
-    e.stopPropagation();
-    return false;
+   		e.stopPropagation();
+    	return false;
 	})
 	
 
