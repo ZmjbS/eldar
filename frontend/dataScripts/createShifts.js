@@ -2,6 +2,7 @@ const axios = require('axios');
 const moment = require('moment');
 const clone = require('lodash/clone');
 const find = require('lodash/find');
+const filter = require('lodash/filter');
 
 var startDateTime = new Date(2016, 11, 27);
 var endDateTime = new Date(2017, 0, 1);
@@ -22,7 +23,9 @@ const getTegund = ( tegundir, start ) => {
 
 const getSolustadir = async () => {
 	const data = await (axios.get('http://127.0.0.1:8000/api/starfsstod/'))
-	return data.data;
+	return filter(data.data, (starfsstod) => {
+		return starfsstod.id <= 9;
+	});
 }
 
 const getTegundir = async () => {
@@ -32,17 +35,18 @@ const getTegundir = async () => {
 
 const getTimabil = async () => {
 	const data = await (axios.get('http://127.0.0.1:8000/api/timabil/'))
-	return data.data;
+	return filter(data.data, (timabil) => {
+		const hefst = moment(timabil.hefst).hours();
+
+		return hefst >= 7 && hefst < 10;
+	});
 }
 
 const calculateHamark = ( solustadur, tegund, timabil ) => {
 	const isNaeturvakt = tegund.name === 'næturvakt';
 	const isSolustadur = !!solustadur.solustadur;
-
-	console.log('sol', solustadur, timabil);
-
+	return 0;
 	if(solustadur.id === 11 && (moment(timabil.hefst).isBefore(new Date(2016, 11,28)) || moment(timabil.hefst).hours() >= 10)){
-		console.log('foo');
 		return 0
 	} else if ( moment(timabil.hefst).isBefore(new Date(2016, 11, 27, 12)) ) {
 		return 0;
@@ -116,6 +120,8 @@ const insertVaktir = async () => {
 	const solustadir = await getSolustadir();
 
 	const timabil = await getTimabil();
+
+	console.log('solustadir', solustadir);
 
 	for ( let i = 0; i < timabil.length; i++ ) {
 		console.log('t', timabil[i]);

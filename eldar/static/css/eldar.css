@@ -1,8 +1,11 @@
 /* Úr vaktir/grunnur-vaktatafla.html */
+body{
+	font-family: Arial, Helvetica, sans-serif;
+}
 tbody tr td { vertical-align: top; }
 th.dagur {  text-align: left; border: thin solid green; border-left-width: 1em; }
-th.timabil { background-color: darkblue; color: lightblue; padding: .2em; font-size: small; }
-th.heild_timabils { background-color: lightblue; color: darkblue; padding: .2em; font-size: small; }
+th.timabil { background-color: darkblue; color: lightblue; font-size: 12px; }
+th.heild_timabils { background-color: lightblue; color: darkblue; padding: .2em; font-size: 12px; }
 td { height: 3.6em; width: 3.6em; }
 .vakt.vakttegund-1 { background-color: #eed; }
 .vakt.vakttegund-1.active { background-color: #ddc; }
@@ -25,3 +28,104 @@ td { height: 3.6em; width: 3.6em; }
 .valin { border: 2px solid green; width: calc(3.6em - 4px); height: calc(3.6em - 4px); }
 .valin { background: #dfd !important; }
 .timabil-valid { background: #ddd !important; }
+
+
+.vakt, .timabil, .ekkivakt{
+	min-width: 50px;
+	padding: 2px;
+}
+
+.info{
+	font-size: 12px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.fjoldi{
+	font-weight: bold;
+}
+
+table{
+	margin-top: 100px;
+}
+
+table tbody, table thead
+{
+    display: block;
+}
+
+table tbody 
+{
+   overflow: auto;
+   position: absolute;
+    top: 170px;
+    bottom: 0;
+	left: 0;
+}
+
+table thead{
+	display: block;
+	position: fixed;
+	left: 0;
+}
+
+.starfsstod{
+min-width: 150px;
+}
+
+.filter {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+.selected{
+	background-color: blue;
+}
+
+.hovered{
+	background-color: yellow;
+}
+
+header{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 100px;
+	background-color: white;
+	z-index: 9999;
+}
+
+
+.overlay{
+	display: block;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 600px;
+	height: 400px;
+	overflow: auto;
+	background-color: white;
+	padding: 20px;
+	text-align: center;
+	z-index: 999;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+}
+
+
+.hide{
+	display: none;
+}
+
+.close-vakt{
+	background-color: #4080ff;
+	margin: 40px auto;
+	width: 200px;
+	padding: 20px;
+	color: white;
+	cursor: pointer
+}

@@ -60,6 +60,8 @@ def starfsstodvayfirlit():
 
 	timabilin = Timabil.objects.all().order_by('hefst')
 
+	felagar = Felagi.objects.all().order_by('nafn')
+
 
 	# Förum í gegnum starfsstöðvarnar og búum til lista sem samsvarar tímabilunum í timabil
 	# starfsstodvalisti = Starfsstod.objects.all().prefetch_related('vaktir__skraning').annotate(
@@ -73,10 +75,10 @@ def starfsstodvayfirlit():
 			ORDER  BY felagi_id, timastimpill DESC""")
 		ids = cursor.fetchall()
 
-	starfsstodvalisti = Starfsstod.objects.all().annotate(
+	starfsstodvalisti = Starfsstod.objects.all().order_by('-solustadur', 'id').annotate(
 		lagmark=Sum('vaktir__lagmark'),
 	).prefetch_related(
-		Prefetch('vaktir', queryset=Vakt.objects.all()),
+		Prefetch('vaktir', queryset=Vakt.objects.all().select_related('timabil').order_by('timabil__hefst')),
 		Prefetch('vaktir__vaktaskraning', queryset=Vaktaskraning.objects.filter(skraning_id__in=ids).select_related('felagi'), to_attr='vaktaskraningar'),
 	)
 
@@ -87,6 +89,7 @@ def starfsstodvayfirlit():
 		'timabilin': timabilin,
 		'dagar': dagalisti(),
 		'dagatimabil': dagatimabil,
+		'felagar': felagar
 	}
 
 	return gogn_til_snidmats

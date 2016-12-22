@@ -20,11 +20,11 @@ function init() {
 $('.skraning-icon, #felagalisti .felagi').hover(
 	function() {
 		var clsName = this.className.match(/felagi-\w*/)[0];
-		$('.'+clsName).css('background-color', 'yellow');
+		$('.'+clsName).addClass('hovered')
 		
 	}, function() {
 		var clsName = this.className.match(/felagi-\w*/)[0];
-		$('.'+clsName).css('background-color', 'inherit');
+		$('.'+clsName).removeClass('hovered')
 	}
 )
 
@@ -37,8 +37,7 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 	  drop: function( event, ui ) {
 	  	console.log(event);
 	  	console.log(ui);
-		$( this )
-		  .addClass( "active" )
+		$( this ).addClass( "active" )
 		  //.find( ".fjoldi" ).text(function(self){ return self+1 });
 		//$(this).find('.lagmark').text(event.type);
 		//$(event.target).find('.skraningar').html(ui.draggable.parent().html())
@@ -49,6 +48,44 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		$('.'+clsName).css('background-color', 'inherit');
 	  }
 	});
+
+	var felagiChange = function () {
+		var element = $('.felagiSelector').find('option:selected'); 
+		var val = element.val();
+		console.log('e', val)
+		$('.skraning-icon').removeClass('selected');
+		$('.felagi-' + val).addClass('selected');
+		$('.felagi-info').html('<div>Netfang:' + element.attr('data-netfang') + ' <br /> Sími: ' + element.attr('data-simi') +'</div>');
+	}
+
+	$(".felagiSelector").change(felagiChange);
+
+	$(window).scroll(function(){
+		$('.thead').css('left',-$(window).scrollLeft());
+	});
+
+	$('.skraning-icon').on('click', function(e) {
+		var id = $(e.target).attr('data-felagi-id')
+		$(".felagiSelector").val(id);
+		felagiChange();
+	})
+
+	$('.vakt').on('click', function() {
+		var el =$(this).find('.overlay');
+		var isOpen = !el.hasClass('hide');
+
+		if(!isOpen)
+			el.removeClass('hide');
+	})
+
+	$('.close-vakt').on('click', function(e) {
+		console.log('f', $(this).parent('.overlay'))
+		$(this).parent('.overlay').addClass('hide');
+		e.preventDefault();
+    e.stopPropagation();
+    return false;
+	})
+	
 
 // Notar Crypto JS
 // var hash = CryptoJS.MD5("Message");
@@ -68,9 +105,27 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 </script>
 {% endblock %}
 
+{% block filter %}
+<div class="filter">
+	<label>Félagi:</label>
+	<select class="felagiSelector">
+		<option>---</option>
+		{% for felagi in felagar %}
+		<option value="{{felagi.id}}" data-netfang="{{felagi.netfang}}" data-simi="{{felagi.simi}}">{{felagi.nafn}}</option>
+		{% endfor %}
+	</select>
+	<div class="felagi-info">
+
+	</div>
+</div>
+{% endblock %}
+
 {% block body %}
+
+
+
 <table>
-	<thead>
+	<thead class="thead">
 	<tr>
 		<th class="starfsstod" rowspan="3">Starfsstöð</th>
 		{% for dt in dagatimabil %}
@@ -84,7 +139,7 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 	</tr>
 	<tr>
 		{% for timabilid in timabilin %}
-			<th class="heild_timabils">{{ timabilid.skraningar }} / {{ timabilid.lagmark }}</th>
+			<th class="timabil heild_timabils">{{ timabilid.skraningar }} / {{ timabilid.lagmark }}</th>
 		{% endfor %}
 	</tr>
 	</thead>
@@ -92,15 +147,30 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		{% for sd in starfsstodvalisti %}
 		<tr>
 			<th class="starfsstod">{{ sd.nafn }} <br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
+			
 			{% for vakt in sd.vaktir.all %}
-				<td class="{% if vakt %}vakt{% else %}ekkivakt{% endif %}
+				<td class="{% if vakt and vakt.hamark > 0 %}vakt{% else %}ekkivakt{% endif %}
 						   vakttegund-{{ vakt.tegund_id }}"
 				>
 					{% if vakt %}
-						<span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}</span><br />
+						
+						<div class="overlay hide">
+							<h1>{{ sd.nafn }}</h1>
+							<h2>{{vakt.timabil.hefst | date:"d. M"}} frá {{vakt.timabil.hefst | date:"H"}} til {{ vakt.timabil.lykur | date:"H" }}</h2>
+							<div class="info"><span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}-{{ vakt.hamark }}</span></div>
+							{% for skraning in vakt.vaktaskraningar %}
+								<div>
+									{{skraning.felagi.nafn}} - {{ skraning.felagi.netfang }} - {{ skraning.felagi.simi}}
+								</div>
+							{% endfor %}
+							<div class="close-vakt">Loka</div>
+						</div>
+						{% if vakt and vakt.hamark > 0 %}
+							<div class="info"><span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}-{{ vakt.hamark }}</span></div>
+						{% endif %}
 						<div class="skraningar">
 							{% for skraning in vakt.vaktaskraningar %}
-								<span class="skraning-icon felagi-{{ skraning.felagi_id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
+								<span data-felagi-id="{{skraning.felagi_id}}" class="skraning-icon felagi-{{ skraning.felagi_id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
 							{% endfor %}
 						</div>
 					{% endif %}
@@ -112,9 +182,4 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		{% block aukaradir %}{% endblock %}
 	</tbody>
 </table>
-<ul>
-	{% for skraning in skraningar %}
-		<li>{{ skraning.timastimpill}} - {{ skraning.athugasemd }}</li>
-	{% endfor %}
-</ul>
 {% endblock %}

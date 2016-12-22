@@ -127,9 +127,9 @@ class Felagi(models.Model):
 	# Viö höldum utan um félagana sem skrá sig.
 	#
 	#kennitala = models.IntegerField()
-	nafn = models.CharField(max_length=32)
+	nafn = models.CharField(max_length=128)
 	simi = models.IntegerField()
-	netfang = models.CharField(max_length=32)
+	netfang = models.CharField(max_length=128)
 	adalStarfsstod = models.ForeignKey(Starfsstod)
 
 	def vaktaskraningar(self):
