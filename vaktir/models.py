@@ -89,7 +89,7 @@ class Vakt(models.Model):
 
 	# Vaktin hefur ákveðið tímabil, dagsetningu og er úthlutað ákveðinn
 	# sölustað erða verkefni (Staða).
-	timabil = models.ForeignKey(Timabil)
+	timabil = models.ForeignKey(Timabil, related_name='vaktir2')
 	starfsstod = models.ForeignKey(Starfsstod, related_name='vaktir')
 
 	# Hver vakt hefur ákveðið lágmark sem við þurfum að manna og ákveðið hámark

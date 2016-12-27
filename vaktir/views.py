@@ -4,6 +4,7 @@ from django.shortcuts import render
 from vaktir.models import Vakt, Starfsstod, Timabil, Vaktaskraning, Tegund, Felagi, Skraning
 from django.db import connection
 import logging, logging.config
+
 try:
 	from future_builtins import zip
 except ImportError: # not 2.6+ or is 3.x
@@ -11,7 +12,7 @@ except ImportError: # not 2.6+ or is 3.x
 		from itertools import izip as zip # < 2.5 or 3.x
 	except ImportError:
 		pass
-from django.db.models import F, Sum, Prefetch
+from django.db.models import F, Sum, Count, Prefetch
 
 
 logger = logging.getLogger('django')
@@ -58,7 +59,28 @@ def starfsstodvayfirlit():
 	'''
 	#TODO: Klára lýsinguna
 
-	timabilin = Timabil.objects.all().order_by('hefst')
+	with connection.cursor() as cursor:
+		cursor.execute("""SELECT DISTINCT ON (felagi_id)
+				id
+			FROM vaktir_skraning vs
+			ORDER  BY felagi_id, timastimpill DESC""")
+		ids = cursor.fetchall()
+
+
+	timabilin = Timabil.objects.raw('''
+	select t.*, count(s.id) as skraningar, c.lagmark from vaktir_timabil t
+left outer join vaktir_vakt v on v.timabil_id = t.id and v.hamark > 0
+left outer join vaktir_vaktaskraning s on s.vakt_id = v.id and s.skraning_id in (
+    SELECT DISTINCT ON (felagi_id)
+				id
+			FROM vaktir_skraning vs
+			ORDER  BY felagi_id, timastimpill DESC
+)
+left outer join (SELECT va.timabil_id as id, sum(va.lagmark) as lagmark FROM vaktir_vakt va group by va.timabil_id) c on c.id = t.id
+group by t.id, c.lagmark
+order by t.hefst
+
+''')
 
 	felagar = Felagi.objects.all().order_by('nafn')
 
@@ -67,14 +89,7 @@ def starfsstodvayfirlit():
 	# starfsstodvalisti = Starfsstod.objects.all().prefetch_related('vaktir__skraning').annotate(
 	# 	lagmark=Sum('vaktir__lagmark'),
 	# )
-
-	with connection.cursor() as cursor:
-		cursor.execute("""SELECT DISTINCT ON (felagi_id)
-				id
-			FROM vaktir_skraning vs
-			ORDER  BY felagi_id, timastimpill DESC""")
-		ids = cursor.fetchall()
-
+	
 	starfsstodvalisti = Starfsstod.objects.all().order_by('-solustadur', 'id').annotate(
 		lagmark=Sum('vaktir__lagmark'),
 	).prefetch_related(
