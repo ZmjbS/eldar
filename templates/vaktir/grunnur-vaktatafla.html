@@ -1,5 +1,7 @@
 {% extends "grunnur.html" %}
 {% load staticfiles %}
+{% load get_abbreviation %}
+{% load percentage %}
 
 {% block h1-texti %}Vaktaskráningarkerfi HSSR{% endblock %}
 
@@ -12,42 +14,72 @@
 <!--<script src="{% static "js/smoothie-master/standalone/require.js" %}"></script>-->
 <!--<script src="{% static "js/identicon-github/index.js" %}"></script>-->
 <script type="text/javascript">
+var colors = {};
+var stringToColorConverter = function(str){
+
+	var hash = 0;
+	for (var i = 0; i < str.length; i++) {
+		hash = str.charCodeAt(i) + ((hash << 5) - hash);
+	}
+	var colour = '#';
+	for (var i = 0; i < 3; i++) {
+		var value = (hash >> (i * 8)) & 0xFF;
+		colour += ('00' + value.toString(16)).substr(-2);
+	}
+
+
+	return colour;
+}
+
+var stringToColour = function(str) {
+	var value = colors[str];
+
+	if(value){
+		return value;
+	}
+
+	return colors[str] = stringToColorConverter(str);	
+}
+
 
 $( init );
 
 function init() {
 // Þegar við setjum bendil yfir skráningu þá eiga allar eins skráningar að lýsa upp.
-$('.skraning-icon, #felagalisti .felagi').hover(
-	function() {
-		var clsName = this.className.match(/felagi-\w*/)[0];
-		$('.'+clsName).addClass('hovered')
-		
-	}, function() {
-		var clsName = this.className.match(/felagi-\w*/)[0];
-		$('.'+clsName).removeClass('hovered')
-	}
-)
+	$('.skraning-icon, #felagalisti .felagi').hover(
+		function() {
+			var clsName = this.className.match(/felagi-\w*/)[0];
+			$('.'+clsName).addClass('hovered')
+			
+		}, function() {
+			var clsName = this.className.match(/felagi-\w*/)[0];
+			$('.'+clsName).removeClass('hovered')
+		}
+	)
 
-  $('.skraning-icon').draggable( { revert: true, revertDuration: 0 } );
-  $('.vakt').droppable({
-  	accept: '.skraning-icon',
-	activeClass: 'active',
-	hoverClass: 'hover',
-	  //drop: function( event, ui ) {
-	  drop: function( event, ui ) {
-	  	console.log(event);
-	  	console.log(ui);
-		$( this ).addClass( "active" )
-		  //.find( ".fjoldi" ).text(function(self){ return self+1 });
-		//$(this).find('.lagmark').text(event.type);
-		//$(event.target).find('.skraningar').html(ui.draggable.parent().html())
-		ui.draggable.appendTo($(event.target).find('.skraningar'));
-		console.log(ui.draggable)
-		console.log(ui.draggable.context.className)
-		var clsName = ui.draggable.context.className.match(/felagi-\w*/)[0];
-		$('.'+clsName).css('background-color', 'inherit');
-	  }
-	});
+	// $('.skraning-icon').draggable( { revert: true, revertDuration: 0 } );
+	// $('.vakt').droppable({
+	// 	accept: '.skraning-icon',
+	// 	classes: {
+	// 		'ui-droppable-active': 'active'
+	// 	},
+	// 	cursorAt: { top: -100 },
+	// 	hoverClass: 'hover',
+	// 	//drop: function( event, ui ) {
+	// 	drop: function( event, ui ) {
+	// 		console.log(event);
+	// 		console.log(ui);
+	// 		$( this ).addClass( "active" )
+	// 		//.find( ".fjoldi" ).text(function(self){ return self+1 });
+	// 		//$(this).find('.lagmark').text(event.type);
+	// 		//$(event.target).find('.skraningar').html(ui.draggable.parent().html())
+	// 		ui.draggable.appendTo($(event.target).find('.skraningar'));
+	// 		console.log(ui.draggable)
+	// 		console.log(ui.draggable.context.className)
+	// 		var clsName = ui.draggable.context.className.match(/felagi-\w*/)[0];
+	// 		$('.'+clsName).css('background-color', 'inherit');
+	// 	}
+	// });
 
 	var felagiChange = function () {
 		var element = $('.felagiSelector').find('option:selected'); 
@@ -55,7 +87,12 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		console.log('e', val)
 		$('.skraning-icon').removeClass('selected');
 		$('.felagi-' + val).addClass('selected');
-		$('.felagi-info').html('<div>Netfang:' + element.attr('data-netfang') + ' <br /> Sími: ' + element.attr('data-simi') +'</div>');
+		$('.felagi-info').html(
+			'<div>Netfang:' + element.attr('data-netfang') + ' <br /> ' + 
+			'Sími: ' + element.attr('data-simi') +'<br />' + 
+			'<a href="http://eldar-skraning.herokuapp.com/user/' + element.attr('data-netfang') + '" target="_blank">Breyta skráningu</a>' + 
+			'</div>'
+		);
 	}
 
 	$(".felagiSelector").change(felagiChange);
@@ -70,7 +107,7 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		felagiChange();
 		e.preventDefault();
    		e.stopPropagation();
-    	return false;
+		return false;
 	})
 
 	$('.vakt').on('click', function() {
@@ -86,7 +123,36 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 		$(this).parent('.overlay').addClass('hide');
 		e.preventDefault();
    		e.stopPropagation();
-    	return false;
+		return false;
+	})
+
+	$('.skraning-icon').css('background-color', function(){
+		return stringToColour($(this).attr('data-felagi-nafn') + $(this).attr('data-felagi-id'));
+	});
+
+	$('.starfsstod-checkbox').on('change', function(e){
+		var el = $(this);
+		var starfsstod = el.attr('data-starfsstod');
+		var row = $("tr[data-starfsstod='" + starfsstod + "']")
+
+		localStorage.setItem('starfsstod' + starfsstod, this.checked);
+
+		if(this.checked)
+			row.show();
+		else
+			row.hide();
+	})
+
+	$('.starfsstod-checkbox').each(function(index, el){
+		
+		var $el = $(el);
+		console.log('el', el, $el)
+
+		var starfsstod = $el.attr('data-starfsstod');
+		var hidden = localStorage.getItem('starfsstod' + starfsstod) === 'false';
+		console.log('hidden', hidden, starfsstod)
+
+		$el.prop('checked', !hidden);
 	})
 	
 
@@ -109,16 +175,24 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 {% endblock %}
 
 {% block filter %}
-<div class="filter">
-	<label>Félagi:</label>
-	<select class="felagiSelector">
-		<option>---</option>
-		{% for felagi in felagar %}
-		<option value="{{felagi.id}}" data-netfang="{{felagi.netfang}}" data-simi="{{felagi.simi}}">{{felagi.nafn}}</option>
-		{% endfor %}
-	</select>
-	<div class="felagi-info">
 
+<div class="filter">
+	<div class="starfsstod-filter">
+		<label class="starfsstod-title">Starfsstöðvar</label>
+		{% for sd in starfsstodvalisti %}
+			<label><input type="checkbox" class="starfsstod-checkbox" data-starfsstod="{{ sd.id }}" checked/>{{ sd.nafn }}</label>
+		{% endfor %}
+	</div>
+	<div  class="felagi-filter">
+		<label class="starfsstod-title">Félagi:</label>
+		<select class="felagiSelector">
+			<option>---</option>
+			{% for felagi in felagar %}
+			<option value="{{felagi.id}}" data-netfang="{{felagi.netfang}}" data-simi="{{felagi.simi}}">{{felagi.nafn}}</option>
+			{% endfor %}
+		</select>
+		<div class="felagi-info">
+		</div>
 	</div>
 </div>
 {% endblock %}
@@ -148,7 +222,7 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 	</thead>
 	<tbody>
 		{% for sd in starfsstodvalisti %}
-		<tr>
+		<tr data-starfsstod="{{ sd.id }}">
 			<th class="starfsstod">{{ sd.nafn }} <br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
 			
 			{% for vakt in sd.vaktir.all %}
@@ -169,11 +243,13 @@ $('.skraning-icon, #felagalisti .felagi').hover(
 							<div class="close-vakt">Loka</div>
 						</div>
 						{% if vakt and vakt.hamark > 0 %}
-							<div class="info"><span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}-{{ vakt.hamark }}</span></div>
+							<div class="info"><span class="fjoldi">{{ vakt.vaktaskraningar|length|percentage:vakt.lagmark }}%</span></div>
 						{% endif %}
 						<div class="skraningar">
 							{% for skraning in vakt.vaktaskraningar %}
-								<span data-felagi-id="{{skraning.felagi_id}}" class="skraning-icon felagi-{{ skraning.felagi_id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">&ocir;</span>
+								<span data-felagi-id="{{skraning.felagi_id}}" data-felagi-nafn="{{skraning.felagi.nafn}}" class="skraning-icon felagi-{{ skraning.felagi_id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">
+									{{ skraning.felagi.nafn|get_abbreviation }}
+								</span>
 							{% endfor %}
 						</div>
 					{% endif %}

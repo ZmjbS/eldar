@@ -85,7 +85,7 @@ DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
 		'NAME': 'flugeldar',
-		'USER': 'postgres',
+		'USER': 'u1',
 		'PASSWORD': 'password',
 		'HOST': 'localhost',
 		'PORT': '',
@@ -168,5 +168,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(conn_max_age=500, default='postgres://ymyqwyzwtznaxh:0297a0e2a45e68df36a012b6b0cf016f7a9cad39c2b5efda1ff722448db2a5da@ec2-54-235-173-161.compute-1.amazonaws.com:5432/d9g1fvhb1cd94h')
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500, default='postgres://ymyqwyzwtznaxh:0297a0e2a45e68df36a012b6b0cf016f7a9cad39c2b5efda1ff722448db2a5da@ec2-54-235-173-161.compute-1.amazonaws.com:5432/d9g1fvhb1cd94h')
+# DATABASES['default'].update(db_from_env)
