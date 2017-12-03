@@ -1,189 +1,183 @@
-{% extends "grunnur.html" %}
-{% load staticfiles %}
-{% load get_abbreviation %}
-{% load percentage %}
-
-{% block h1-texti %}Vaktaskráningarkerfi HSSR{% endblock %}
-
-{% block stilar %}
-{% endblock %}
-
-{% block atburdarit %}
+{% extends "grunnur.html" %} {% load staticfiles %} {% load get_abbreviation %} {% load percentage %} {% block h1-texti %}Vaktaskráningarkerfi
+HSSR{% endblock %} {% block stilar %} {% endblock %} {% block atburdarit %}
 <!-- Þetta var hugmynd til að nota svona identicon í stað hringjanna... -->
 <!-- <script src="{% static "js/require.js" %}"></script> -->
 <!--<script src="{% static "js/smoothie-master/standalone/require.js" %}"></script>-->
 <!--<script src="{% static "js/identicon-github/index.js" %}"></script>-->
 <script type="text/javascript">
-var colors = {};
-var stringToColorConverter = function(str){
+	var colors = {};
+	var stringToColorConverter = function (str) {
 
-	var hash = 0;
-	for (var i = 0; i < str.length; i++) {
-		hash = str.charCodeAt(i) + ((hash << 5) - hash);
-	}
-	var colour = '#';
-	for (var i = 0; i < 3; i++) {
-		var value = (hash >> (i * 8)) & 0xFF;
-		colour += ('00' + value.toString(16)).substr(-2);
-	}
-
-
-	return colour;
-}
-
-var stringToColour = function(str) {
-	var value = colors[str];
-
-	if(value){
-		return value;
-	}
-
-	return colors[str] = stringToColorConverter(str);	
-}
-
-
-$( init );
-
-function init() {
-// Þegar við setjum bendil yfir skráningu þá eiga allar eins skráningar að lýsa upp.
-	$('.skraning-icon, #felagalisti .felagi').hover(
-		function() {
-			var clsName = this.className.match(/felagi-\w*/)[0];
-			$('.'+clsName).addClass('hovered')
-			
-		}, function() {
-			var clsName = this.className.match(/felagi-\w*/)[0];
-			$('.'+clsName).removeClass('hovered')
+		var hash = 0;
+		for (var i = 0; i < str.length; i++) {
+			hash = str.charCodeAt(i) + ((hash << 5) - hash);
 		}
-	)
+		var colour = '#';
+		for (var i = 0; i < 3; i++) {
+			var value = (hash >> (i * 8)) & 0xFF;
+			colour += ('00' + value.toString(16)).substr(-2);
+		}
 
-	// $('.skraning-icon').draggable( { revert: true, revertDuration: 0 } );
-	// $('.vakt').droppable({
-	// 	accept: '.skraning-icon',
-	// 	classes: {
-	// 		'ui-droppable-active': 'active'
-	// 	},
-	// 	cursorAt: { top: -100 },
-	// 	hoverClass: 'hover',
-	// 	//drop: function( event, ui ) {
-	// 	drop: function( event, ui ) {
-	// 		console.log(event);
-	// 		console.log(ui);
-	// 		$( this ).addClass( "active" )
-	// 		//.find( ".fjoldi" ).text(function(self){ return self+1 });
-	// 		//$(this).find('.lagmark').text(event.type);
-	// 		//$(event.target).find('.skraningar').html(ui.draggable.parent().html())
-	// 		ui.draggable.appendTo($(event.target).find('.skraningar'));
-	// 		console.log(ui.draggable)
-	// 		console.log(ui.draggable.context.className)
-	// 		var clsName = ui.draggable.context.className.match(/felagi-\w*/)[0];
-	// 		$('.'+clsName).css('background-color', 'inherit');
-	// 	}
-	// });
 
-	var felagiChange = function () {
-		var element = $('.felagiSelector').find('option:selected'); 
-		var val = element.val();
-		console.log('e', val)
-		$('.skraning-icon').removeClass('selected');
-		$('.felagi-' + val).addClass('selected');
-		$('.felagi-info').html(
-			'<div>Netfang:' + element.attr('data-netfang') + ' <br /> ' + 
-			'Sími: ' + element.attr('data-simi') +'<br />' + 
-			'<a href="http://eldar-skraning.herokuapp.com/user/' + element.attr('data-netfang') + '" target="_blank">Breyta skráningu</a>' + 
-			'</div>'
-		);
+		return colour;
 	}
 
-	$(".felagiSelector").change(felagiChange);
+	var stringToColour = function (str) {
+		var value = colors[str];
 
-	$(window).scroll(function(){
-		$('.thead').css('left',-$(window).scrollLeft());
-	});
+		if (value) {
+			return value;
+		}
 
-	$('.skraning-icon').on('click', function(e) {
-		var id = $(e.target).attr('data-felagi-id')
-		$(".felagiSelector").val(id);
-		felagiChange();
-		e.preventDefault();
-   		e.stopPropagation();
-		return false;
-	})
-
-	$('.vakt').on('click', function() {
-		var el =$(this).find('.overlay');
-		var isOpen = !el.hasClass('hide');
-
-		if(!isOpen)
-			el.removeClass('hide');
-	})
-
-	$('.close-vakt').on('click', function(e) {
-		console.log('f', $(this).parent('.overlay'))
-		$(this).parent('.overlay').addClass('hide');
-		e.preventDefault();
-   		e.stopPropagation();
-		return false;
-	})
-
-	$('.skraning-icon').css('background-color', function(){
-		return stringToColour($(this).attr('data-felagi-nafn') + $(this).attr('data-felagi-id'));
-	});
-
-	$('.starfsstod-checkbox').on('change', function(e){
-		var el = $(this);
-		var starfsstod = el.attr('data-starfsstod');
-		var row = $("tr[data-starfsstod='" + starfsstod + "']")
-
-		localStorage.setItem('starfsstod' + starfsstod, this.checked);
-
-		if(this.checked)
-			row.show();
-		else
-			row.hide();
-	})
-
-	$('.starfsstod-checkbox').each(function(index, el){
-		
-		var $el = $(el);
-		console.log('el', el, $el)
-
-		var starfsstod = $el.attr('data-starfsstod');
-		var hidden = localStorage.getItem('starfsstod' + starfsstod) === 'false';
-		console.log('hidden', hidden, starfsstod)
-
-		$el.prop('checked', !hidden);
-	})
-	
-
-// Notar Crypto JS
-// var hash = CryptoJS.MD5("Message");
-// console.log(hash.toString());
-
-// var identicon = require('identicon-github');
-//var identicon = require('{% static "js/identicon-github/index.js" %}');
-//var identicon = require('../../static/js/identicon-github');
-//var fmt = require('util').format;
-
-//console.log(fmt("<img alt='kibo' src='%s' />", identicon('kibo', { pixelSize: 16 }).toDataURL()));
+		return colors[str] = stringToColorConverter(str);
+	}
 
 
-}
+	$(init);
+
+	function init() {
+		// Þegar við setjum bendil yfir skráningu þá eiga allar eins skráningar að lýsa upp.
+		$('.skraning-icon, #felagalisti .felagi').hover(
+			function () {
+				var clsName = this.className.match(/felagi-\w*/)[0];
+				$('.' + clsName).addClass('hovered')
+
+			}, function () {
+				var clsName = this.className.match(/felagi-\w*/)[0];
+				$('.' + clsName).removeClass('hovered')
+			}
+		)
+
+		// $('.skraning-icon').draggable( { revert: true, revertDuration: 0 } );
+		// $('.vakt').droppable({
+		// 	accept: '.skraning-icon',
+		// 	classes: {
+		// 		'ui-droppable-active': 'active'
+		// 	},
+		// 	cursorAt: { top: -100 },
+		// 	hoverClass: 'hover',
+		// 	//drop: function( event, ui ) {
+		// 	drop: function( event, ui ) {
+		// 		console.log(event);
+		// 		console.log(ui);
+		// 		$( this ).addClass( "active" )
+		// 		//.find( ".fjoldi" ).text(function(self){ return self+1 });
+		// 		//$(this).find('.lagmark').text(event.type);
+		// 		//$(event.target).find('.skraningar').html(ui.draggable.parent().html())
+		// 		ui.draggable.appendTo($(event.target).find('.skraningar'));
+		// 		console.log(ui.draggable)
+		// 		console.log(ui.draggable.context.className)
+		// 		var clsName = ui.draggable.context.className.match(/felagi-\w*/)[0];
+		// 		$('.'+clsName).css('background-color', 'inherit');
+		// 	}
+		// });
+
+		var felagiChange = function () {
+			var element = $('.felagiSelector').find('option:selected');
+			var val = element.val();
+			console.log('e', val)
+			$('.skraning-icon').removeClass('selected');
+			$('.felagi-' + val).addClass('selected');
+			$('.felagi-info').html(
+				'<div>Netfang:' + element.attr('data-netfang') + ' <br /> ' +
+				'Sími: ' + element.attr('data-simi') + '<br />' +
+				'<a href="http://eldar-skraning.herokuapp.com/user/' + element.attr('data-netfang') + '" target="_blank">Breyta skráningu</a>' +
+				'</div>'
+			);
+		}
+
+		$(".felagiSelector").change(felagiChange);
+
+		$(window).scroll(function () {
+			$('.thead').css('left', -$(window).scrollLeft());
+		});
+
+		$('.skraning-icon').on('click', function (e) {
+			var id = $(e.target).attr('data-felagi-id')
+			$(".felagiSelector").val(id);
+			felagiChange();
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		})
+
+		$('.vakt').on('click', function () {
+			var el = $(this).find('.overlay');
+			var isOpen = !el.hasClass('hide');
+
+			if (!isOpen)
+				el.removeClass('hide');
+		})
+
+		$('.close-vakt').on('click', function (e) {
+			console.log('f', $(this).parent('.overlay'))
+			$(this).parent('.overlay').addClass('hide');
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		})
+
+		$('.skraning-icon').css('background-color', function () {
+			return stringToColour($(this).attr('data-felagi-nafn') + $(this).attr('data-felagi-id'));
+		});
+
+		$('.starfsstod-checkbox').on('change', function (e) {
+			var el = $(this);
+			var starfsstod = el.attr('data-starfsstod');
+			var row = $("tr[data-starfsstod='" + starfsstod + "']")
+
+			localStorage.setItem('starfsstod' + starfsstod, this.checked);
+
+			console.log('onChange', row, starfsstod, this.checked)
+
+			if (this.checked)
+				row.show();
+			else
+				row.hide();
+		})
+
+		setTimeout(function () {
+			$('.starfsstod-checkbox').each(function (index, el) {
+
+				var $el = $(el);
+				console.log('el', el, $el)
+
+				var starfsstod = $el.attr('data-starfsstod');
+				var hidden = localStorage.getItem('starfsstod' + starfsstod) === 'false';
+				console.log('hidden', hidden, starfsstod)
+
+				$el.prop('checked', !hidden);
+			})
+		}, 1000)
 
 
-</script>
-{% endblock %}
 
-{% block filter %}
+		// Notar Crypto JS
+		// var hash = CryptoJS.MD5("Message");
+		// console.log(hash.toString());
+
+		// var identicon = require('identicon-github');
+		//var identicon = require('{% static "js/identicon-github/index.js" %}');
+		//var identicon = require('../../static/js/identicon-github');
+		//var fmt = require('util').format;
+
+		//console.log(fmt("<img alt='kibo' src='%s' />", identicon('kibo', { pixelSize: 16 }).toDataURL()));
+
+
+	}
+
+
+</script> {% endblock %} {% block filter %}
 
 <div class="filter">
 	<div class="starfsstod-filter">
 		<label class="starfsstod-title">Starfsstöðvar</label>
 		{% for sd in starfsstodvalisti %}
-			<label><input type="checkbox" class="starfsstod-checkbox" data-starfsstod="{{ sd.id }}" checked/>{{ sd.nafn }}</label>
+		<label>
+			<input type="checkbox" class="starfsstod-checkbox" data-starfsstod="{{ sd.id }}" checked/>{{ sd.nafn }}</label>
 		{% endfor %}
 	</div>
-	<div  class="felagi-filter">
+	<div class="felagi-filter">
 		<label class="starfsstod-title">Félagi:</label>
 		<select class="felagiSelector">
 			<option>---</option>
@@ -195,74 +189,74 @@ function init() {
 		</div>
 	</div>
 </div>
-{% endblock %}
-
-{% block body %}
+{% endblock %} {% block body %}
 
 
 
 <table>
 	<thead class="thead">
-	<tr>
-		<th class="starfsstod" rowspan="3">Starfsstöð</th>
-		{% for dt in dagatimabil %}
-		<th class="dagur" colspan="{{ dt.fjoldi_timabila }}">{{ dt.dagur | date:"M/d" }}</th>
-		{% endfor %}
-	</tr>
-	<tr>
-		{% for timabilid in timabilin %}
+		<tr>
+			<th class="starfsstod" rowspan="3">Starfsstöð</th>
+			{% for dt in dagatimabil %}
+			<th class="dagur" colspan="{{ dt.fjoldi_timabila }}">{{ dt.dagur | date:"M/d" }}</th>
+			{% endfor %}
+		</tr>
+		<tr>
+			{% for timabilid in timabilin %}
 			<th class="timabil">{{ timabilid.hefst | date:"H" }}-{{ timabilid.lykur| date:"H" }}</th>
-		{% endfor %}
-	</tr>
-	<tr>
-		{% for timabilid in timabilin %}
+			{% endfor %}
+		</tr>
+		<tr>
+			{% for timabilid in timabilin %}
 			<th class="timabil heild_timabils">{{ timabilid.skraningar }} / {{ timabilid.lagmark }}</th>
-		{% endfor %}
-	</tr>
+			{% endfor %}
+		</tr>
 	</thead>
 	<tbody>
 		{% for sd in starfsstodvalisti %}
 		<tr data-starfsstod="{{ sd.id }}">
-			<th class="starfsstod">{{ sd.nafn }} <br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
-			
+			<th class="starfsstod">{{ sd.nafn }}
+				<br /> {{ sd.skraningar }} / {{ sd.lagmark }}</th>
+
 			{% for vakt in sd.vaktir.all %}
-				<td class="{% if vakt and vakt.hamark > 0 %}vakt{% else %}ekkivakt{% endif %}
-						   vakttegund-{{ vakt.tegund_id }}"
-				>
-					{% if vakt %}
-						
-						<div class="overlay hide">
-							<h1>{{ sd.nafn }}</h1>
-							<h2>{{vakt.timabil.hefst | date:"d. M"}} frá {{vakt.timabil.hefst | date:"H"}} til {{ vakt.timabil.lykur | date:"H" }}</h2>
-							<div class="info"><span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> / <span class="lagmark">{{ vakt.lagmark }}-{{ vakt.hamark }}</span></div>
-							{% for skraning in vakt.vaktaskraningar %}
-								<div>
-									{{skraning.felagi.nafn}} - {{ skraning.felagi.netfang }} - {{ skraning.felagi.simi}}
-								</div>
-							{% endfor %}
-							<div class="close-vakt">Loka</div>
-						</div>
-						{% if vakt and vakt.hamark > 0 %}
-							<div class="info"><span class="fjoldi">
-								{% if vakt.lagmark > 0 %}
-									{{ vakt.vaktaskraningar|length|percentage:vakt.lagmark }}%
-								{% endif %}
-							</span></div>
-						{% endif %}
-						<div class="skraningar">
-							{% for skraning in vakt.vaktaskraningar %}
-								<span data-felagi-id="{{skraning.felagi_id}}" data-felagi-nafn="{{skraning.felagi.nafn}}" class="skraning-icon felagi-{{ skraning.felagi_id }}" title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">
-									{{ skraning.felagi.nafn|get_abbreviation }}
-								</span>
-							{% endfor %}
-						</div>
-					{% endif %}
-				</td>
+			<td class="{% if vakt and vakt.hamark > 0 %}vakt{% else %}ekkivakt{% endif %}
+						   vakttegund-{{ vakt.tegund_id }}">
+				{% if vakt %}
+
+				<div class="overlay hide">
+					<h1>{{ sd.nafn }}</h1>
+					<h2>{{vakt.timabil.hefst | date:"d. M"}} frá {{vakt.timabil.hefst | date:"H"}} til {{ vakt.timabil.lykur | date:"H" }}</h2>
+					<div class="info">
+						<span class="fjoldi">{{ vakt.vaktaskraningar|length }}</span> /
+						<span class="lagmark">{{ vakt.lagmark }}-{{ vakt.hamark }}</span>
+					</div>
+					{% for skraning in vakt.vaktaskraningar %}
+					<div>
+						{{skraning.felagi.nafn}} - {{ skraning.felagi.netfang }} - {{ skraning.felagi.simi}}
+					</div>
+					{% endfor %}
+					<div class="close-vakt">Loka</div>
+				</div>
+				{% if vakt and vakt.hamark > 0 %}
+				<div class="info">
+					<span class="fjoldi">
+						{% if vakt.lagmark > 0 %} {{ vakt.vaktaskraningar|length|percentage:vakt.lagmark }}% {% endif %}
+					</span>
+				</div>
+				{% endif %}
+				<div class="skraningar">
+					{% for skraning in vakt.vaktaskraningar %}
+					<span data-felagi-id="{{skraning.felagi_id}}" data-felagi-nafn="{{skraning.felagi.nafn}}" class="skraning-icon felagi-{{ skraning.felagi_id }}"
+					 title="{{ skraning.felagi }} {{ skraning.breytistimpill }}">
+						{{ skraning.felagi.nafn|get_abbreviation }}
+					</span>
+					{% endfor %}
+				</div>
+				{% endif %}
+			</td>
 			{% endfor %}
 		</tr>
-		{% endfor %}
-		{# Hér er bútur til að bæta við aukaröðum (t.d. í smíðasniðmátinu). #}
-		{% block aukaradir %}{% endblock %}
+		{% endfor %} {# Hér er bútur til að bæta við aukaröðum (t.d. í smíðasniðmátinu). #} {% block aukaradir %}{% endblock %}
 	</tbody>
 </table>
 {% endblock %}
