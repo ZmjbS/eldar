@@ -146,7 +146,14 @@ HSSR{% endblock %} {% block stilar %} {% endblock %} {% block atburdarit %}
 				var hidden = localStorage.getItem('starfsstod' + starfsstod) === 'false';
 				console.log('hidden', hidden, starfsstod)
 
+				var row = $("tr[data-starfsstod='" + starfsstod + "']")
+
 				$el.prop('checked', !hidden);
+
+				if (!hidden)
+					row.show();
+				else
+					row.hide();
 			})
 		}, 1000)
 
