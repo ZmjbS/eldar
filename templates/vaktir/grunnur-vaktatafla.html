@@ -136,29 +136,6 @@ HSSR{% endblock %} {% block stilar %} {% endblock %} {% block atburdarit %}
 				row.hide();
 		})
 
-		setTimeout(function () {
-			$('.starfsstod-checkbox').each(function (index, el) {
-
-				var $el = $(el);
-				console.log('el', el, $el)
-
-				var starfsstod = $el.attr('data-starfsstod');
-				var hidden = localStorage.getItem('starfsstod' + starfsstod) === 'false';
-				console.log('hidden', hidden, starfsstod)
-
-				var row = $("tr[data-starfsstod='" + starfsstod + "']")
-
-				$el.prop('checked', !hidden);
-
-				if (!hidden)
-					row.show();
-				else
-					row.hide();
-			})
-		}, 1000)
-
-
-
 		// Notar Crypto JS
 		// var hash = CryptoJS.MD5("Message");
 		// console.log(hash.toString());
@@ -267,3 +244,24 @@ HSSR{% endblock %} {% block stilar %} {% endblock %} {% block atburdarit %}
 	</tbody>
 </table>
 {% endblock %}
+
+<script>
+	$('.starfsstod-checkbox').each(function (index, el) {
+
+		var $el = $(el);
+		console.log('el', el, $el)
+
+		var starfsstod = $el.attr('data-starfsstod');
+		var hidden = localStorage.getItem('starfsstod' + starfsstod) === 'false';
+		console.log('hidden', hidden, starfsstod)
+
+		var row = $("tr[data-starfsstod='" + starfsstod + "']")
+
+		$el.prop('checked', !hidden);
+
+		if (!hidden)
+			row.show();
+		else
+			row.hide();
+	})
+</script>
