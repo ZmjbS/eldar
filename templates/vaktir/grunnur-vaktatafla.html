@@ -243,7 +243,11 @@ function init() {
 							<div class="close-vakt">Loka</div>
 						</div>
 						{% if vakt and vakt.hamark > 0 %}
-							<div class="info"><span class="fjoldi">{{ vakt.vaktaskraningar|length|percentage:vakt.lagmark }}%</span></div>
+							<div class="info"><span class="fjoldi">
+								{% if vakt.lagmark > 0 %}
+									{{ vakt.vaktaskraningar|length|percentage:vakt.lagmark }}%
+								{% endif %}
+							</span></div>
 						{% endif %}
 						<div class="skraningar">
 							{% for skraning in vakt.vaktaskraningar %}
