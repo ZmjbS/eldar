@@ -136,6 +136,8 @@ HSSR{% endblock %} {% block stilar %} {% endblock %} {% block atburdarit %}
 				row.hide();
 		})
 
+		
+
 		// Notar Crypto JS
 		// var hash = CryptoJS.MD5("Message");
 		// console.log(hash.toString());
@@ -243,7 +245,6 @@ HSSR{% endblock %} {% block stilar %} {% endblock %} {% block atburdarit %}
 		{% endfor %} {# Hér er bútur til að bæta við aukaröðum (t.d. í smíðasniðmátinu). #} {% block aukaradir %}{% endblock %}
 	</tbody>
 </table>
-{% endblock %}
 
 <script>
 	$('.starfsstod-checkbox').each(function (index, el) {
@@ -264,4 +265,4 @@ HSSR{% endblock %} {% block stilar %} {% endblock %} {% block atburdarit %}
 		else
 			row.hide();
 	})
-</script>
+</script> {% endblock %}
