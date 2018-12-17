@@ -48,7 +48,7 @@
 		"model": "vaktir.starfsstod",
 		"pk": 6,
 		"fields": {
-			"nafn": "Bílabúð Benna",
+			"nafn": "Skjöldungar",
 			"hamark": 12,
 			"solustadur": "True"
 		}
@@ -57,15 +57,6 @@
 		"model": "vaktir.starfsstod",
 		"pk": 7,
 		"fields": {
-			"nafn": "Skjöldungar",
-			"hamark": 12,
-			"solustadur": "True"
-		}
-	},
-	{
-		"model": "vaktir.starfsstod",
-		"pk": 8,
-		"fields": {
 			"nafn": "Stjórnstöð",
 			"hamark": 5,
 			"solustadur": "False"
@@ -73,7 +64,7 @@
 	},
 	{
 		"model": "vaktir.starfsstod",
-		"pk": 9,
+		"pk": 8,
 		"fields": {
 			"nafn": "Lager",
 			"hamark": 5,
@@ -82,7 +73,7 @@
 	},
 	{
 		"model": "vaktir.starfsstod",
-		"pk": 10,
+		"pk": 9,
 		"fields": {
 			"nafn": "Iðnaðarmenn",
 			"hamark": 10,
@@ -91,7 +82,7 @@
 	},
 	{
 		"model": "vaktir.starfsstod",
-		"pk": 11,
+		"pk": 10,
 		"fields": {
 			"nafn": "Smurbrauð",
 			"hamark": 5,
@@ -100,10 +91,19 @@
 	},
 	{
 		"model": "vaktir.starfsstod",
-		"pk": 12,
+		"pk": 11,
 		"fields": {
 			"nafn": "Bílstjórar",
 			"hamark": 10,
+			"solustadur": "False"
+		}
+	},
+	{
+		"model": "vaktir.starfsstod",
+		"pk": 12,
+		"fields": {
+			"nafn": "Næturvakt",
+			"hamark": 4,
 			"solustadur": "False"
 		}
 	}
