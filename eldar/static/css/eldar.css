@@ -5,7 +5,7 @@ body{
 tbody tr td { vertical-align: top; }
 th.dagur {  text-align: left; border: thin solid green; border-left-width: 1em; }
 th.timabil { background-color: darkblue; color: lightblue; font-size: 12px; }
-th.heild_timabils { background-color: lightblue; color: darkblue; padding: .2em; font-size: 12px; }
+th.heild_timabils { background-color: lightblue; color: darkblue; font-size: 12px; }
 td { height: 3.6em; width: 3.6em; }
 .vakt.vakttegund-1 { background-color: #eed; }
 .vakt.vakttegund-1.active { background-color: #ddc; }
